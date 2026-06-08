@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#e6d6c1"/>
+      <path d="M0 20h40M20 0v40" stroke="#c59a6a" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#p)"/>
+  <g fill="#b0743a" opacity="0.08">
+    <rect x="0" y="0" width="1600" height="900" />
+  </g>
+</svg>
