@@ -54,15 +54,15 @@ export default function Testimonial() {
   const resume = () => start()
 
   return (
-    <section ref={ref} className="relative bg-[#080d1a] overflow-hidden py-28 md:py-32" id="testimonials">
+    <section ref={ref} className="relative overflow-hidden py-28 md:py-32" style={{ background: '#07050c' }} id="testimonials">
 
-      {/* Subtle parallax bg pattern */}
+      {/* Jewel-dark parallax brocade pattern */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{ scale: bgScale }}
       >
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.038]"
           style={{
             backgroundImage:
               'repeating-linear-gradient(45deg,#C9973C 0,#C9973C 1px,transparent 1px,transparent 16px),' +
@@ -71,8 +71,19 @@ export default function Testimonial() {
         />
       </motion.div>
 
+      {/* Warm sienna bloom — bottom-left depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 15% 90%, rgba(139,58,42,0.09) 0%, transparent 50%)' }}
+      />
+      {/* Cool indigo bloom — top-right */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 85% 10%, rgba(40,30,80,0.18) 0%, transparent 50%)' }}
+      />
+
       {/* Large decorative quote mark */}
-      <div className="absolute top-12 left-10 md:left-20 font-display text-[180px] font-normal text-gold/6 leading-none select-none pointer-events-none">
+      <div className="absolute top-12 left-10 md:left-20 font-display text-[180px] font-normal text-gold/8 leading-none select-none pointer-events-none">
         "
       </div>
 

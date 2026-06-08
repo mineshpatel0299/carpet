@@ -48,20 +48,20 @@ function MaterialRow({
 
   /* Ghost text slides from right and fades */
   const ghostX = useTransform(scrollYProgress, [0, 1], ['8%', '0%'])
-  const ghostOpacity = useTransform(scrollYProgress, [0, 0.4, 0.85, 1], [0, 0.06, 0.06, 0])
+  const ghostOpacity = useTransform(scrollYProgress, [0, 0.4, 0.85, 1], [0, 0.09, 0.09, 0])
 
   /* Content clips in from left */
   const contentX = useTransform(scrollYProgress, [0, 0.5], ['-3%', '0%'])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
 
   return (
-    <div ref={ref} className="relative group border-t border-parchment/8 overflow-hidden">
+    <div ref={ref} className="relative group border-t border-midnight/10 overflow-hidden">
       {/* Ghost word behind */}
       <motion.div
         className="absolute inset-0 flex items-center pointer-events-none"
         style={{ x: ghostX, opacity: ghostOpacity }}
       >
-        <span className="font-display font-normal text-[160px] md:text-[200px] leading-none text-parchment whitespace-nowrap select-none pl-4">
+        <span className="font-display font-normal text-[80px] sm:text-[120px] md:text-[160px] xl:text-[200px] leading-none text-midnight whitespace-nowrap select-none pl-4">
           {mat.ghost}
         </span>
       </motion.div>
@@ -75,7 +75,7 @@ function MaterialRow({
           <span className="font-body text-[10px] tracking-[0.35em] text-gold/35 tabular-nums">
             {mat.num}
           </span>
-          <h3 className="font-display font-normal text-[28px] md:text-[38px] text-parchment leading-none group-hover:text-gold transition-colors duration-500">
+          <h3 className="font-display font-normal text-[22px] sm:text-[28px] md:text-[38px] text-midnight leading-none group-hover:text-gold transition-colors duration-500">
             {mat.name}
           </h3>
         </div>
@@ -83,7 +83,7 @@ function MaterialRow({
           <p className="font-body text-[8px] tracking-[0.42em] uppercase text-gold/55 mb-3">
             {mat.origin}
           </p>
-          <p className="font-body font-light text-[14px] leading-[1.9] text-stone-light/55">
+          <p className="font-body font-light text-[14px] leading-[1.9] text-stone/70">
             {mat.desc}
           </p>
         </div>
@@ -94,15 +94,15 @@ function MaterialRow({
 
 export default function MaterialsSection() {
   return (
-    <section className="bg-midnight px-8 md:px-20 py-24" id="materials">
+    <section className="bg-ivory px-6 sm:px-8 md:px-20 py-16 md:py-24" id="materials">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between pb-12 border-b border-parchment/8 mb-0 gap-4">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between pb-12 border-b border-midnight/10 mb-0 gap-4">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-normal text-[38px] md:text-[56px] leading-[1.05] text-parchment"
+          className="font-display font-normal text-[38px] md:text-[56px] leading-[1.05] text-midnight"
         >
           Materials of{' '}
           <span className="italic text-gold">distinction.</span>
@@ -112,7 +112,7 @@ export default function MaterialsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="font-body font-light text-[13px] text-stone-light/40 max-w-[220px] leading-[1.8]"
+          className="font-body font-light text-[13px] text-stone/55 max-w-55 leading-[1.8]"
         >
           Every fibre chosen for longevity, beauty, and conscience.
         </motion.p>

@@ -16,10 +16,16 @@ export default function WhyUs() {
   const img2Y = useTransform(scrollYProgress, [0.1, 0.7], ['-3%', '5%'])
 
   return (
-    <section ref={ref} id="about" className="bg-midnight overflow-hidden">
+    <section ref={ref} id="about" className="bg-midnight overflow-hidden border-t border-gold/8 relative">
+
+      {/* Warm sienna radial bloom — depth behind the image side */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 78% 40%, rgba(139,58,42,0.07) 0%, transparent 55%)' }}
+      />
 
       {/* ── Top: heading + image ── */}
-      <div className="px-10 md:px-16 pt-36 pb-24 grid grid-cols-1 md:grid-cols-[46%_54%] gap-16 items-start">
+      <div className="px-6 sm:px-10 md:px-16 pt-20 md:pt-36 pb-16 md:pb-24 grid grid-cols-1 md:grid-cols-[46%_54%] gap-10 md:gap-16 items-start">
 
         {/* Left: text */}
         <motion.div

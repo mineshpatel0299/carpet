@@ -40,7 +40,7 @@ export default function ProcessSteps() {
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <section ref={ref} className="bg-ivory px-8 md:px-20 py-24 md:py-28" id="process">
+    <section ref={ref} className="bg-ivory px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28" id="process">
       <div className="mb-14">
         <motion.p
           initial={{ opacity: 0 }}
@@ -85,7 +85,7 @@ export default function ProcessSteps() {
             } ${i > 0 ? 'pl-8 xl:pl-10' : ''}`}
           >
             {/* Large ghost number */}
-            <span className="font-display text-[72px] font-normal text-navy/[0.05] leading-none select-none block -mt-2 mb-3 group-hover:text-navy/[0.09] transition-colors duration-500">
+            <span className="font-display text-[72px] font-normal text-navy/5 leading-none select-none block -mt-2 mb-3 group-hover:text-navy/9 transition-colors duration-500">
               {step.num}
             </span>
             <p className="font-body text-[8px] tracking-[0.42em] uppercase text-gold/65 mb-3">

@@ -24,7 +24,7 @@ function Column({ title, links }: { title: string; links: string[] }) {
 export default function Footer() {
   return (
     <footer className="bg-[#060b14] border-t border-parchment/5">
-      <div className="px-8 md:px-20 py-16 grid grid-cols-1 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12 md:gap-16">
+      <div className="px-6 sm:px-8 md:px-20 py-12 md:py-16 grid grid-cols-1 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-10 md:gap-16">
         <div>
           <div className="flex items-center gap-3 mb-5">
             <span className="font-display font-normal text-[15px] tracking-[0.28em] uppercase text-parchment">
@@ -46,12 +46,14 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <Column title="Collections" links={collections} />
-        <Column title="Company"     links={company} />
-        <Column title="Export"      links={exportTrade} />
+        <div className="grid grid-cols-2 md:contents gap-10 md:gap-0">
+          <Column title="Collections" links={collections} />
+          <Column title="Company"     links={company} />
+          <Column title="Export"      links={exportTrade} />
+        </div>
       </div>
 
-      <div className="border-t border-parchment/5 px-8 md:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-t border-parchment/5 px-6 sm:px-8 md:px-20 py-5 md:py-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="font-body font-light text-[11px] text-stone/25">
           © {new Date().getFullYear()} Creaticabud Exports Pvt. Ltd. All rights reserved.
         </span>

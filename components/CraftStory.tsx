@@ -95,7 +95,7 @@ export default function CraftStory() {
           <div className="absolute inset-0 z-10 bg-gradient-to-r from-midnight/50 via-transparent to-transparent pointer-events-none" />
 
           {/* ── Top meta bar ── */}
-          <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-10 md:px-16 pt-8 pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 sm:px-10 md:px-16 pt-6 md:pt-8 pointer-events-none">
             <p className="font-body text-[8px] tracking-[0.5em] uppercase text-gold/55">
               The Making
             </p>
@@ -121,7 +121,7 @@ export default function CraftStory() {
           {moments.map((m, i) => (
             <motion.div
               key={i}
-              className="absolute bottom-10 left-0 right-0 z-20 px-10 md:px-16 pb-6"
+              className="absolute bottom-6 md:bottom-10 left-0 right-0 z-20 px-5 sm:px-10 md:px-16 pb-4 md:pb-6"
               style={{ opacity: txtOpacities[i], y: txtYs[i] }}
             >
               {/* Label row */}
@@ -154,7 +154,7 @@ export default function CraftStory() {
                 </div>
 
                 {/* Stat */}
-                <div className="flex-shrink-0 border-l border-gold/25 pl-8 pb-1 md:text-right md:border-l-0 md:border-r md:border-gold/25 md:pr-8 md:pl-0">
+                <div className="shrink-0 border-l border-gold/25 pl-6 pb-1 md:text-right md:border-l-0 md:border-r md:border-gold/25 md:pr-8 md:pl-0">
                   <div
                     className="font-display font-normal text-gold leading-none mb-1.5"
                     style={{ fontSize: 'clamp(28px, 3.2vw, 50px)' }}

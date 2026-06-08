@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 
@@ -47,7 +47,9 @@ const INACTIVE_W = (100 - ACTIVE_W) / (COUNT - 1)
 
 export default function CollectionsGrid() {
   const [active, setActive] = useState(0)
+  const [mobileActive, setMobileActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -59,8 +61,76 @@ export default function CollectionsGrid() {
     setActive(idx)
   })
 
+  const handleCarouselScroll = useCallback(() => {
+    const el = carouselRef.current
+    if (!el) return
+    const cardWidth = el.clientWidth * 0.82 + 12
+    const idx = Math.round(el.scrollLeft / cardWidth)
+    setMobileActive(Math.min(COUNT - 1, Math.max(0, idx)))
+  }, [])
+
   return (
-    <section id="collections" ref={ref} style={{ height: `${(COUNT + 1) * 100}vh` }}>
+    <>
+      {/* ── Mobile: horizontal snap-scroll carousel ── */}
+      <section id="collections" className="md:hidden bg-midnight pt-14 pb-8">
+        <div className="flex items-center justify-between px-5 mb-5">
+          <p className="font-body text-[8px] tracking-[0.5em] uppercase text-gold/55">Our Collections</p>
+          <p className="font-body text-[8px] tracking-[0.3em] uppercase text-stone-light/20">
+            {String(mobileActive + 1).padStart(2, '0')} &mdash; {String(COUNT).padStart(2, '0')}
+          </p>
+        </div>
+
+        <div
+          ref={carouselRef}
+          onScroll={handleCarouselScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory overflow-y-hidden scrollbar-none gap-3 px-5 pb-1"
+        >
+          {collections.map((col, i) => (
+            <div
+              key={col.name}
+              className="snap-start shrink-0 w-[82vw] aspect-3/4 relative overflow-hidden"
+            >
+              <Image
+                src={col.image}
+                alt={col.name}
+                fill
+                quality={88}
+                sizes="85vw"
+                className="object-cover"
+              />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold" />
+              <div className="absolute inset-0 bg-linear-to-t from-midnight/92 via-midnight/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className="h-px bg-gold mb-4 w-8" />
+                <p className="font-body text-[7px] tracking-[0.45em] uppercase text-gold/75 mb-2">{col.tag}</p>
+                <h3 className="font-display font-normal text-parchment text-[24px] leading-[1.1] mb-2">{col.name}</h3>
+                <p className="font-body text-[12px] text-parchment/75 leading-[1.8] mb-4">{col.desc}</p>
+                <div className="inline-flex items-center gap-2 border border-gold/20 px-3 py-1.5">
+                  <div className="w-0.75 h-0.75 rounded-full bg-gold shrink-0" />
+                  <span className="font-body text-[7px] tracking-ultra uppercase text-gold/60">{col.stat}</span>
+                </div>
+              </div>
+              <div className="absolute bottom-5 right-5 font-display text-[80px] font-normal leading-none text-parchment/4 select-none pointer-events-none">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex gap-2 mt-5 px-5">
+          {collections.map((_, i) => (
+            <div
+              key={i}
+              className={`h-px transition-all duration-500 ${
+                i === mobileActive ? 'bg-gold w-10' : 'bg-gold/20 w-4'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Desktop: iris-strip scroll layout ── */}
+    <section ref={ref} className="hidden md:block" style={{ height: `${(COUNT + 1) * 100}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden bg-midnight">
 
         {/* Top meta bar */}
@@ -247,5 +317,6 @@ export default function CollectionsGrid() {
         </motion.div>
       </div>
     </section>
+    </>
   )
 }

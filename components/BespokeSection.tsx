@@ -42,7 +42,7 @@ export default function BespokeSection() {
   return (
     <section id="bespoke" className="relative">
       {/* Section header — sits above the sticky stack */}
-      <div className="bg-midnight px-8 md:px-20 pt-24 pb-16 relative overflow-hidden">
+      <div className="bg-midnight px-6 sm:px-8 md:px-20 pt-16 sm:pt-20 md:pt-24 pb-12 md:pb-16 relative overflow-hidden">
         <CardGrid color="rgba(201,151,60,0.04)" />
         <div className="relative z-10">
           <motion.p
@@ -76,7 +76,7 @@ export default function BespokeSection() {
               <p className="font-body font-light text-[14px] leading-[1.95] text-stone-light/55 mb-8">
                 Every carpet we weave is inherently unique — but our bespoke service takes this further. Bring us a vision and we will translate it into a one-of-one piece.
               </p>
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
                 <a
                   href="#contact"
                   className="font-body text-[10px] tracking-[0.28em] uppercase text-midnight bg-gold px-8 py-3.5 hover:bg-gold-bright transition-colors duration-300"
@@ -121,7 +121,7 @@ export default function BespokeSection() {
             {/* Gold horizontal rule */}
             <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gold/40 to-transparent" />
 
-            <div className="relative z-10 px-8 md:px-20 max-w-5xl mx-auto w-full">
+            <div className="relative z-10 px-6 sm:px-8 md:px-20 max-w-5xl mx-auto w-full">
               {/* Number */}
               <motion.span
                 variants={fadeUp}

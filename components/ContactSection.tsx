@@ -27,16 +27,22 @@ export default function ContactSection() {
   return (
     <section
       ref={ref}
-      className="relative bg-midnight overflow-hidden px-8 md:px-20 py-24 md:py-28 grid grid-cols-1 md:grid-cols-[42%_58%] gap-16 md:gap-20 items-start"
+      className="relative overflow-hidden px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28 grid grid-cols-1 md:grid-cols-[42%_58%] gap-12 md:gap-20 items-start"
+      style={{ background: '#0d0a09' }}
       id="contact"
     >
-      {/* Subtle bg grid */}
+      {/* Warm vertical grid lines — like fine loom threads */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        className="absolute inset-0 pointer-events-none opacity-[0.028]"
         style={{
           backgroundImage:
             'repeating-linear-gradient(90deg,#C9973C 0,#C9973C 1px,transparent 1px,transparent 80px)',
         }}
+      />
+      {/* Warm glow — top-left behind the text block */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 20% 20%, rgba(201,151,60,0.05) 0%, transparent 55%)' }}
       />
 
       {/* Left */}
@@ -87,8 +93,8 @@ export default function ContactSection() {
 
       {/* Right: form */}
       <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 border border-parchment/8 p-8 md:p-10"
+        style={{ y, opacity, background: 'rgba(255,255,255,0.02)' }}
+        className="relative z-10 border border-gold/12 p-6 sm:p-8 md:p-10"
       >
         <h3 className="font-display font-normal text-[20px] text-parchment mb-2">
           Send an Enquiry
@@ -135,7 +141,7 @@ export default function ContactSection() {
           <div>
             <button
               type="submit"
-              className="w-full bg-gold text-midnight font-body font-normal text-[10px] tracking-[0.3em] uppercase py-4 hover:bg-gold-bright transition-colors duration-300"
+              className="w-full bg-gold text-midnight font-body font-normal text-[10px] tracking-ultra uppercase py-4 hover:bg-gold-bright transition-colors duration-300"
             >
               Send Enquiry
             </button>
