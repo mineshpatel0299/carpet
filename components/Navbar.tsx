@@ -8,16 +8,17 @@ const links = [
   { label: 'Process',     href: '#process' },
 ]
 
-function DiamondLogo() {
+function DiamondLogo({ scrolled }: { scrolled: boolean }) {
+  const mainColor = scrolled ? "#0E1B2D" : "#F9F6F0"
   return (
-    <svg width="30" height="30" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-      <path d="M60 3 L117 60 L60 117 L3 60 Z" stroke="#0E1B2D" strokeWidth="2.5" fill="none" />
+    <svg width="30" height="30" viewBox="0 0 120 120" fill="none" aria-hidden="true" className="transition-colors duration-700">
+      <path d="M60 3 L117 60 L60 117 L3 60 Z" stroke={mainColor} strokeWidth="2.5" fill="none" className="transition-colors duration-700" />
       <path d="M60 22 L98 60 L60 98 L22 60 Z" stroke="#B88645" strokeWidth="2" fill="none" />
       <path d="M60 52 L68 60 L60 68 L52 60 Z" fill="#A84030" />
-      <circle cx="60" cy="3"   r="4" fill="#0E1B2D" />
-      <circle cx="117" cy="60" r="4" fill="#0E1B2D" />
-      <circle cx="60" cy="117" r="4" fill="#0E1B2D" />
-      <circle cx="3"  cy="60"  r="4" fill="#0E1B2D" />
+      <circle cx="60" cy="3"   r="4" fill={mainColor} className="transition-colors duration-700" />
+      <circle cx="117" cy="60" r="4" fill={mainColor} className="transition-colors duration-700" />
+      <circle cx="60" cy="117" r="4" fill={mainColor} className="transition-colors duration-700" />
+      <circle cx="3"  cy="60"  r="4" fill={mainColor} className="transition-colors duration-700" />
     </svg>
   )
 }
@@ -42,12 +43,12 @@ export default function Navbar() {
 
         {/* ── Logo ── */}
         <a href="#" className="flex items-center gap-3.5 group">
-          <DiamondLogo />
+          <DiamondLogo scrolled={scrolled} />
           <div className="flex flex-col leading-none">
-            <span className="font-body font-semibold text-[15px] tracking-[0.3em] uppercase text-navy">
+            <span className={`font-body font-semibold text-[15px] tracking-[0.3em] uppercase transition-colors duration-700 ${scrolled ? 'text-navy' : 'text-linen'}`}>
               Creaticabud
             </span>
-            <span className="font-body text-[8px] tracking-[0.4em] uppercase text-navy/70 mt-[3px]">
+            <span className={`font-body text-[8px] tracking-[0.4em] uppercase transition-colors duration-700 mt-[3px] ${scrolled ? 'text-navy/70' : 'text-linen/70'}`}>
               Carpets
             </span>
           </div>
@@ -96,9 +97,9 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          <span className={`block h-px w-full bg-navy transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[6px]' : ''}`} />
-          <span className={`block h-px w-full bg-navy/50 transition-all duration-300 ${open ? 'opacity-0 scale-x-0' : ''}`} />
-          <span className={`block h-px w-full bg-navy transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[6px]' : ''}`} />
+          <span className={`block h-px w-full transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[6px] bg-navy' : scrolled ? 'bg-navy' : 'bg-linen'}`} />
+          <span className={`block h-px w-full transition-all duration-300 ${open ? 'opacity-0 scale-x-0 bg-navy/50' : scrolled ? 'bg-navy/50' : 'bg-linen/50'}`} />
+          <span className={`block h-px w-full transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[6px] bg-navy' : scrolled ? 'bg-navy' : 'bg-linen'}`} />
         </button>
       </div>
 
