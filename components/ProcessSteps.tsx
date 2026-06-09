@@ -71,14 +71,14 @@ function ProductCard({
 
         {/* Tag — top left */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="font-body font-semibold text-[7px] tracking-[0.42em] uppercase text-linen bg-navy/80 backdrop-blur-[2px] px-3 py-1.5 rounded-sm">
+          <span className="font-body font-semibold text-[7px] tracking-[0.42em] uppercase text-navy bg-parchment/90 backdrop-blur-[2px] px-3 py-1.5 rounded-sm">
             {p.tag}
           </span>
         </div>
 
         {/* Hover overlay */}
         <motion.div
-          className="absolute inset-0 bg-navy/85 z-10"
+          className="absolute inset-0 bg-linen/85 z-10"
           animate={{ opacity: hov ? 1 : 0 }}
           transition={{ duration: 0.38 }}
         />
@@ -98,7 +98,7 @@ function ProductCard({
               {p.sizes.map((s) => (
                 <span
                   key={s}
-                  className="font-body text-[10px] text-linen border border-linen/15 px-2.5 py-1 hover:border-gold transition-colors duration-200 cursor-pointer rounded-sm bg-navy-mid/50"
+                  className="font-body text-[10px] text-navy border border-navy/15 px-2.5 py-1 hover:border-gold transition-colors duration-200 cursor-pointer rounded-sm bg-parchment/50"
                 >
                   {s}
                 </span>
@@ -115,7 +115,7 @@ function ProductCard({
               {p.swatches.map((c) => (
                 <div
                   key={c}
-                  className="w-5 h-5 rounded-full border border-linen/15 hover:scale-125 transition-transform duration-200 cursor-pointer shadow-sm"
+                  className="w-5 h-5 rounded-full border border-navy/15 hover:scale-125 transition-transform duration-200 cursor-pointer shadow-sm"
                   style={{ backgroundColor: c }}
                 />
               ))}
@@ -136,13 +136,13 @@ function ProductCard({
       </div>
 
       {/* Below-image micro-copy */}
-      <div>
-        <h3 className="font-display font-normal text-[19px] text-linen leading-[1.2] mb-1.5">
+      <div className="relative z-10">
+        <h3 className="font-display font-normal text-[19px] text-navy leading-[1.2] mb-1.5">
           {p.name.split('\n').map((line, i) => (
             <span key={i} className="block">{line}</span>
           ))}
         </h3>
-        <p className="font-body text-[11px] tracking-[0.08em] text-linen/60">{p.material}</p>
+        <p className="font-body text-[11px] tracking-[0.08em] text-navy/60">{p.material}</p>
       </div>
     </motion.div>
   )
@@ -151,11 +151,12 @@ function ProductCard({
 export default function ProcessSteps() {
   return (
     <section
-      className="bg-navy py-20 md:py-28 overflow-hidden"
+      className="bg-linen py-20 md:py-28 overflow-hidden relative"
       id="process"
     >
+      <div className="carpet-texture" />
       {/* Header */}
-      <div className="px-8 md:px-20 mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+      <div className="px-8 md:px-20 mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-5 relative z-10">
         <div>
           <motion.p
             initial={{ opacity: 0 }}
@@ -170,7 +171,7 @@ export default function ProcessSteps() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display font-normal text-[34px] md:text-[50px] leading-[1.02] text-linen"
+            className="font-display font-normal text-[34px] md:text-[50px] leading-[1.02] text-navy"
           >
             Crafted for the{' '}
             <span className="text-gold">discerning eye.</span>
@@ -182,25 +183,25 @@ export default function ProcessSteps() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           href="#collections"
-          className="hidden md:inline-flex items-center gap-3 group/all"
+          className="hidden md:inline-flex items-center gap-3 group/all relative z-10"
         >
-          <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-linen/50 group-hover/all:text-gold transition-colors duration-300">
+          <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/50 group-hover/all:text-gold transition-colors duration-300">
             View All Collections
           </span>
-          <span className="block w-5 h-px bg-linen/20 group-hover/all:w-8 group-hover/all:bg-gold transition-all duration-400" />
+          <span className="block w-5 h-px bg-navy/20 group-hover/all:w-8 group-hover/all:bg-gold transition-all duration-400" />
         </motion.a>
       </div>
 
       {/* 3-column product grid */}
-      <div className="px-8 md:px-20 grid grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-14">
+      <div className="px-8 md:px-20 grid grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-14 relative z-10">
         {featured.map((p, i) => (
           <ProductCard key={p.name} p={p} index={i} />
         ))}
       </div>
 
       {/* Bottom strip */}
-      <div className="mt-16 md:mt-20 px-8 md:px-20 border-t border-linen/10 pt-10 flex items-center justify-between gap-8">
-        <p className="font-body font-light text-[12px] text-linen/60 leading-[1.9] max-w-xs">
+      <div className="mt-16 md:mt-20 px-8 md:px-20 border-t border-navy/10 pt-10 flex items-center justify-between gap-8 relative z-10">
+        <p className="font-body font-light text-[12px] text-navy/60 leading-[1.9] max-w-xs">
           All pieces available in custom dimensions and colour palettes. Minimum order for wholesale enquiries.
         </p>
         <a

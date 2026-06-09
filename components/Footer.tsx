@@ -16,7 +16,7 @@ function Column({ title, links }: { title: string; links: string[] }) {
           <li key={l}>
             <a
               href="#"
-              className="font-body text-[13px] text-linen/70 hover:text-gold transition-colors duration-200"
+              className="font-body text-[13px] text-navy/70 hover:text-gold transition-colors duration-200"
             >
               {l}
             </a>
@@ -39,7 +39,8 @@ function DiamondMark() {
 
 export default function Footer() {
   return (
-    <footer className="bg-navy border-t border-gold/20">
+    <footer className="bg-linen border-t border-navy/10 relative">
+      <div className="carpet-texture" />
       {/* ── Main content ── */}
       <div className="px-6 sm:px-8 md:px-20 py-16 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 md:gap-16">
         {/* Brand column */}
@@ -51,7 +52,7 @@ export default function Footer() {
               className="w-20 h-20 object-contain rounded-full" 
             />
           </div>
-          <p className="font-body font-light text-[14px] leading-relaxed text-linen/70 max-w-[280px] mb-8">
+          <p className="font-body font-light text-[14px] leading-relaxed text-navy/70 max-w-[280px] mb-8">
             Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.
           </p>
           <div className="flex gap-6">
@@ -59,7 +60,7 @@ export default function Footer() {
               <a
                 key={s}
                 href="#"
-                className="font-body text-[10px] tracking-[0.15em] uppercase text-linen/50 hover:text-gold transition-colors duration-200"
+                className="font-body text-[10px] tracking-[0.15em] uppercase text-navy/50 hover:text-gold transition-colors duration-200"
               >
                 {s}
               </a>
@@ -76,17 +77,17 @@ export default function Footer() {
       </div>
 
       {/* ── Tagline strip from poster ── */}
-      <div className="border-t border-linen/10 px-6 sm:px-8 md:px-20 py-12 flex flex-col items-center justify-center text-center">
-        <p className="font-body text-[11px] md:text-[13px] tracking-[0.3em] uppercase text-linen/70 mb-3">
+      <div className="border-t border-navy/10 px-6 sm:px-8 md:px-20 py-12 flex flex-col items-center justify-center text-center relative z-10">
+        <p className="font-body text-[11px] md:text-[13px] tracking-[0.3em] uppercase text-navy/70 mb-3">
           Rooted in Tradition.
         </p>
-        <p className="font-display text-[26px] md:text-[36px] tracking-widest text-linen mb-6 uppercase">
+        <p className="font-display text-[26px] md:text-[36px] tracking-widest text-navy mb-6 uppercase">
           Crafted for Generations.
         </p>
         <DiamondMark />
         <a
           href="https://www.creaticabudcarpets.com"
-          className="mt-6 font-body text-xs md:text-sm tracking-[0.2em] text-gold hover:text-linen transition-colors border border-gold/40 rounded-full px-6 py-2 bg-navy-mid/50 flex items-center gap-2"
+          className="mt-6 font-body text-xs md:text-sm tracking-[0.2em] text-gold hover:text-navy transition-colors border border-navy/10 rounded-full px-6 py-2 bg-parchment/50 flex items-center gap-2"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
@@ -98,8 +99,8 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom bar ── */}
-      <div className="bg-[#071324] px-6 sm:px-8 md:px-20 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="font-body font-light text-[11px] text-linen/40">
+      <div className="bg-parchment border-t border-navy/10 px-6 sm:px-8 md:px-20 py-5 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+        <span className="font-body font-light text-[11px] text-navy/40">
           © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.
         </span>
         <div className="flex items-center gap-6">
@@ -107,7 +108,7 @@ export default function Footer() {
             <a
               key={item}
               href="#"
-              className="font-body font-light text-[11px] text-linen/40 hover:text-linen/80 transition-colors"
+              className="font-body font-light text-[11px] text-navy/40 hover:text-navy/80 transition-colors"
             >
               {item}
             </a>

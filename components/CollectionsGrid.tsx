@@ -67,7 +67,7 @@ const collections = [
 export default function CollectionsGrid() {
   return (
     <section id="collections" className="py-24 px-4 md:px-8 lg:px-12 bg-ivory relative border-t border-navy/5">
-      
+      <div className="carpet-texture" />
       <div className="max-w-7xl mx-auto mb-20 text-center flex flex-col items-center">
          <motion.span
             initial={{ opacity: 0, y: 10 }}

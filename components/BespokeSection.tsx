@@ -6,10 +6,11 @@ export default function BespokeSection() {
   return (
     <section
       id="heritage-bespoke"
-      className="relative bg-navy text-linen py-24 sm:py-28 lg:py-36 overflow-hidden border-t border-linen/5"
+      className="relative bg-gradient-to-br from-ivory to-stone-light text-navy py-24 sm:py-28 lg:py-36 overflow-hidden border-t border-gold/20"
     >
+      <div className="carpet-texture opacity-30" />
       {/* Subtle background graphic line decoration */}
-      <div className="absolute top-0 right-1/3 w-px h-full bg-linen/5 pointer-events-none hidden lg:block" />
+      <div className="absolute top-0 right-1/3 w-px h-full bg-navy/10 pointer-events-none hidden lg:block" />
 
       <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
         
@@ -36,7 +37,7 @@ export default function BespokeSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display font-normal text-[40px] sm:text-[50px] lg:text-[56px] leading-[1.05] text-linen"
+                className="font-display font-normal text-[40px] sm:text-[50px] lg:text-[56px] leading-[1.05] text-navy"
               >
                 Without <br />
                 <span className="text-gold">Compromise.</span>
@@ -47,7 +48,7 @@ export default function BespokeSection() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: 0.2 }}
-                className="font-body font-light text-[14px] sm:text-[15px] leading-[2.1] text-linen/70 mt-8 max-w-md"
+                className="font-body font-light text-[14px] sm:text-[15px] leading-[2.1] text-navy/70 mt-8 max-w-md"
               >
                 True luxury is defined by absolute choice. From the hand-carded Himalayan wool to the exact dimensions of your space, every element is curated by you and woven by our master artisans in Agra.
               </motion.p>
@@ -67,12 +68,12 @@ export default function BespokeSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.3 + (idx * 0.1) }}
-                  className="border-b border-linen/10 pb-4 flex justify-between items-end group cursor-default"
+                  className="border-b border-navy/10 pb-4 flex justify-between items-end group cursor-default"
                 >
-                  <span className="font-display text-[18px] text-linen group-hover:text-gold transition-colors duration-500">
+                  <span className="font-display text-[18px] text-navy group-hover:text-gold transition-colors duration-500">
                     {item.label}
                   </span>
-                  <span className="font-body text-[9px] tracking-[0.2em] text-linen/40 uppercase font-semibold">
+                  <span className="font-body text-[9px] tracking-[0.2em] text-navy/40 uppercase font-semibold">
                     {item.value}
                   </span>
                 </motion.div>
@@ -92,7 +93,7 @@ export default function BespokeSection() {
                 className="inline-flex items-center gap-4 group/cta"
               >
                 <span className="block w-7 h-px bg-gold transition-all duration-500 group-hover/cta:w-14" />
-                <span className="font-body font-semibold text-[9.5px] tracking-[0.35em] uppercase text-gold transition-colors duration-300 group-hover/cta:text-linen">
+                <span className="font-body font-semibold text-[9.5px] tracking-[0.35em] uppercase text-navy transition-colors duration-300 group-hover/cta:text-gold">
                   Initiate Commission
                 </span>
               </a>
@@ -112,7 +113,7 @@ export default function BespokeSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2 }}
-                className="absolute right-0 top-0 w-[84%] h-[80%] overflow-hidden rounded-[24px] border border-linen/5 shadow-lg bg-linen"
+                className="absolute right-0 top-0 w-[84%] h-[80%] overflow-hidden rounded-[24px] border border-navy/5 shadow-lg bg-linen"
               >
                 <Image
                   src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=1000&q=90"
@@ -129,11 +130,11 @@ export default function BespokeSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: 0.3 }}
-                className="absolute left-0 bottom-0 w-[46%] h-[40%] overflow-hidden rounded-[20px] border border-gold/15 shadow-xl bg-navy-mid p-2 z-10"
+                className="absolute left-0 bottom-0 w-[46%] h-[40%] overflow-hidden rounded-[20px] border border-gold/15 shadow-xl bg-linen p-2 z-10"
               >
                 <div className="relative w-full h-full overflow-hidden rounded-[14px]">
                   <Image
-                    src="https://images.unsplash.com/photo-1638368888223-4efbc65b1153?auto=format&fit=crop&w=600&q=90"
+                    src="/artisan-detail.png"
                     alt="Master artisan selecting raw silk threads for rug dye"
                     fill
                     sizes="(max-width: 1024px) 50vw, 20vw"
@@ -174,19 +175,19 @@ export default function BespokeSection() {
               <div className="grid grid-cols-3 gap-6">
                 <div>
                   <span className="font-display text-[26px] text-gold font-normal leading-none block">25+</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-linen/50 font-bold block mt-1.5">
+                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
                     Years of Craft
                   </span>
                 </div>
                 <div>
                   <span className="font-display text-[26px] text-gold font-normal leading-none block">48</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-linen/50 font-bold block mt-1.5">
+                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
                     Countries Served
                   </span>
                 </div>
                 <div>
                   <span className="font-display text-[26px] text-gold font-normal leading-none block">100%</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-linen/50 font-bold block mt-1.5">
+                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
                     Made by Hand
                   </span>
                 </div>

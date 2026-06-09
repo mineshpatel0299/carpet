@@ -86,6 +86,32 @@ body {
   mix-blend-mode: multiply; /* Better for light backgrounds */
 }
 
+/* ─── Carpet Texture Background ─── */
+.carpet-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5; /* Increased opacity and removed blend-mode to ensure visibility */
+  background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ─── Dark Carpet Texture Background ─── */
+.dark-carpet-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4; /* Increased opacity and removed blend-mode to ensure visibility */
+  background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 /* ─── Tabular Numbers ─── */
 .tabular-nums { font-variant-numeric: tabular-nums; }
 

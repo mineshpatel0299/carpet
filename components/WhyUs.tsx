@@ -34,7 +34,8 @@ export default function WhyUs() {
   const img2Y = useTransform(scrollYProgress, [0.1, 0.7], ['-3%', '5%'])
 
   return (
-    <section ref={ref} id="about" className="bg-navy overflow-hidden relative">
+    <section ref={ref} id="about" className="bg-linen overflow-hidden relative">
+      <div className="carpet-texture" />
 
       {/* Warm sienna bloom */}
       <div
@@ -61,7 +62,7 @@ export default function WhyUs() {
 
           <motion.h2
             variants={fadeUp}
-            className="font-display font-normal text-linen leading-[1.02] mb-2"
+            className="font-display font-normal text-navy leading-[1.02] mb-2"
             style={{ fontSize: 'clamp(36px, 5vw, 68px)' }}
           >
             Premium quality.
@@ -76,7 +77,7 @@ export default function WhyUs() {
 
           <motion.p
             variants={fadeUp}
-            className="font-body text-[14px] leading-[2] text-linen/70 max-w-96 mb-14"
+            className="font-body text-[14px] leading-[2] text-navy/70 max-w-96 mb-14"
           >
             A family-owned manufacturer based in Agra, India. For over 25 years we have supplied
             handmade rugs and carpets to hotels, designers, and collectors who refuse to compromise
@@ -89,10 +90,10 @@ export default function WhyUs() {
             className="inline-flex items-center gap-3 group/link"
           >
             <span className="block w-8 h-px bg-gold group-hover/link:w-12 transition-all duration-500" />
-            <span className="font-body font-semibold text-[9px] tracking-[0.38em] uppercase text-linen/60 group-hover/link:text-gold transition-colors duration-300">
+            <span className="font-body font-semibold text-[9px] tracking-[0.38em] uppercase text-navy/60 group-hover/link:text-gold transition-colors duration-300">
               Start a conversation
             </span>
-            <span className="text-linen/40 group-hover/link:text-gold transition-colors text-xs">→</span>
+            <span className="text-navy/40 group-hover/link:text-gold transition-colors text-xs">→</span>
           </motion.a>
         </motion.div>
 
@@ -113,7 +114,7 @@ export default function WhyUs() {
               quality={90}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-linen/5" />
+            <div className="absolute inset-0 bg-navy/5" />
             <div className="grain-layer" />
             <div className="absolute top-5 right-5 w-9 h-9 border-t border-r border-gold/30 pointer-events-none" />
           </motion.div>
@@ -124,7 +125,7 @@ export default function WhyUs() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1.1, delay: 0.15 }}
-            className="absolute bottom-0 left-0 w-[42%] aspect-square overflow-hidden border-[3px] border-navy shadow-lg rounded-[20px]"
+            className="absolute bottom-0 left-0 w-[42%] aspect-square overflow-hidden border-[3px] border-linen shadow-lg rounded-[20px]"
           >
             <Image
               src="https://images.unsplash.com/photo-1744062969392-771751cebeb9?auto=format&fit=crop&w=600&q=90"
@@ -138,7 +139,7 @@ export default function WhyUs() {
       </div>
 
       {/* ── 4 brand pillars ── */}
-      <div className="border-t border-linen/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-linen/5">
+      <div className="border-t border-navy/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-navy/5 relative z-10">
         {pillars.map((p, i) => (
           <motion.div
             key={p.title}
@@ -146,15 +147,15 @@ export default function WhyUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-navy px-8 md:px-10 py-10 md:py-12 group cursor-default hover:bg-navy-mid transition-colors duration-500"
+            className="bg-linen px-8 md:px-10 py-10 md:py-12 group cursor-default hover:bg-parchment transition-colors duration-500"
           >
             <span className="font-body font-semibold text-[8px] tracking-[0.42em] uppercase text-gold/60 block mb-5 tabular-nums">
               {p.num}
             </span>
-            <h4 className="font-display font-normal text-[17px] text-linen mb-3 group-hover:text-gold transition-colors duration-400">
+            <h4 className="font-display font-normal text-[17px] text-navy mb-3 group-hover:text-gold transition-colors duration-400">
               {p.title}
             </h4>
-            <p className="font-body font-light text-[12.5px] leading-[1.88] text-linen/60">
+            <p className="font-body font-light text-[12.5px] leading-[1.88] text-navy/60">
               {p.desc}
             </p>
           </motion.div>

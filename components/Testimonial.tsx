@@ -83,7 +83,8 @@ export default function Testimonial() {
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.0])
 
   return (
-    <section ref={ref} className="relative bg-navy overflow-hidden py-28 md:py-32" id="testimonials">
+    <section ref={ref} className="relative bg-gradient-to-br from-stone-light to-ivory overflow-hidden py-28 md:py-32" id="testimonials">
+      <div className="carpet-texture opacity-30" />
 
       {/* Jewel-dark parallax brocade pattern */}
       <motion.div
@@ -107,13 +108,13 @@ export default function Testimonial() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="font-body font-semibold text-[8px] tracking-[0.5em] uppercase text-gold/80 mb-5">
+          <p className="font-body font-semibold text-[8px] tracking-[0.5em] uppercase text-navy/70 mb-5">
             Client Words
           </p>
-          <h2 className="font-display font-normal text-[32px] md:text-[46px] text-linen leading-[1.1] mb-6">
+          <h2 className="font-display font-normal text-[32px] md:text-[46px] text-navy leading-[1.1] mb-6">
             Voices of our <span className="italic text-gold">People</span>
           </h2>
-          <p className="font-body text-[13px] text-linen/60 leading-[1.9] max-w-md">
+          <p className="font-body text-[13px] text-navy/80 leading-[1.9] max-w-md">
             Supplied to 5-star properties in Dubai, London & New York. Trusted by leading architects and interior designers across 48 countries.
           </p>
         </motion.div>
