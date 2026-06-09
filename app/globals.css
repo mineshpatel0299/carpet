@@ -2,19 +2,25 @@
 
 @theme {
   /* ─── Brand Colours ─── */
-  --color-midnight:    #0A0F1E;
-  --color-navy:        #111827;
-  --color-navy-mid:    #1e2d4a;
-  --color-gold:        #C9973C;
-  --color-gold-bright: #E8B84B;
-  --color-gold-dim:    rgba(201,151,60,0.12);
-  --color-sienna:      #8B3A2A;
-  --color-parchment:   #F4EADB;
-  --color-linen:       #EDE0C8;
-  --color-ivory:       #F8F3EC;
-  --color-stone:       #8A8070;
-  --color-stone-light: #BFB8A8;
-  --color-stone-dim:   rgba(138,128,112,0.18);
+  /*
+   * Palette: "Agra Nocturne"
+   * Base shifts from cold blue-navy → warm plum-black (Rajputana night sky).
+   * Gold deepens toward saffron. Sienna becomes rich terracotta.
+   * Light sections use warm amber-sand instead of sterile ivory.
+   */
+  --color-midnight:    #0C0816;
+  --color-navy:        #170F28;
+  --color-navy-mid:    #261840;
+  --color-gold:        #C98E38;
+  --color-gold-bright: #E5AA44;
+  --color-gold-dim:    rgba(201,142,56,0.12);
+  --color-sienna:      #A84030;
+  --color-parchment:   #F5E8D2;
+  --color-linen:       #EDD9BB;
+  --color-ivory:       #F0E6D4;
+  --color-stone:       #8C7C6C;
+  --color-stone-light: #C2AF99;
+  --color-stone-dim:   rgba(140,124,108,0.18);
 
   /* ─── Typography ─── */
   --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
@@ -33,21 +39,21 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0A0F1E;
-  color: #F4EADB;
+  background-color: #0C0816;
+  color: #F5E8D2;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #C9973C;
-  color: #0A0F1E;
+  background: #C98E38;
+  color: #0C0816;
 }
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #0A0F1E; }
+::-webkit-scrollbar-track { background: #0C0816; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201,151,60,0.5);
+  background: rgba(201,142,56,0.5);
   border-radius: 2px;
 }
 

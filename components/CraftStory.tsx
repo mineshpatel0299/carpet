@@ -65,7 +65,7 @@ export default function CraftStory() {
   const progressWidth = useTransform(smoothProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section id="heritage">
+    <section id="heritage" className="bg-midnight rounded-t-[40px]" style={{ overflow: 'clip' }}>
       <div ref={containerRef} style={{ height: '310vh' }}>
         <div className="sticky top-0 h-screen overflow-hidden bg-midnight">
 

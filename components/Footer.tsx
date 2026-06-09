@@ -23,7 +23,7 @@ function Column({ title, links }: { title: string; links: string[] }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#060b14] border-t border-parchment/5">
+    <footer className="bg-[#07040F] rounded-t-[40px] overflow-hidden">
       <div className="px-6 sm:px-8 md:px-20 py-12 md:py-16 grid grid-cols-1 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-10 md:gap-16">
         <div>
           <div className="flex items-center gap-3 mb-5">

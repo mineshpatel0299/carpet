@@ -1,6 +1,5 @@
 'use client'
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const steps = [
   {
@@ -30,17 +29,8 @@ const steps = [
 ]
 
 export default function ProcessSteps() {
-  const ref = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 80%', 'start 10%'],
-  })
-
-  /* Horizontal line draws across the top of the steps */
-  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1])
-
   return (
-    <section ref={ref} className="bg-ivory px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28" id="process">
+    <section className="bg-ivory  overflow-hidden px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28" id="process">
       <div className="mb-14">
         <motion.p
           initial={{ opacity: 0 }}
@@ -62,14 +52,6 @@ export default function ProcessSteps() {
         </motion.h2>
       </div>
 
-      {/* Animated top line */}
-      <div className="h-px bg-stone-dim mb-0 overflow-hidden">
-        <motion.div
-          className="h-full bg-gold origin-left"
-          style={{ scaleX: lineScale }}
-        />
-      </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         {steps.map((step, i) => (
           <motion.div
@@ -78,11 +60,7 @@ export default function ProcessSteps() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ delay: i * 0.12, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className={`group relative pt-10 pb-12 pr-8 cursor-default border-t-2 border-transparent hover:border-gold transition-colors duration-500 ${
-              i < steps.length - 1
-                ? 'border-r border-stone-dim'
-                : ''
-            } ${i > 0 ? 'pl-8 xl:pl-10' : ''}`}
+            className={`group relative pt-10 pb-12 pr-8 cursor-default ${i > 0 ? 'pl-8 xl:pl-10' : ''}`}
           >
             {/* Large ghost number */}
             <span className="font-display text-[72px] font-normal text-navy/5 leading-none select-none block -mt-2 mb-3 group-hover:text-navy/9 transition-colors duration-500">

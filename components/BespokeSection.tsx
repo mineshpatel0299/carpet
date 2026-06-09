@@ -40,9 +40,9 @@ const CardGrid = ({ color }: { color: string }) => (
 
 export default function BespokeSection() {
   return (
-    <section id="bespoke" className="relative">
+    <section id="bespoke" className="relative bg-midnight rounded-t-[40px]" style={{ overflow: 'clip' }}>
       {/* Section header — sits above the sticky stack */}
-      <div className="bg-midnight px-6 sm:px-8 md:px-20 pt-16 sm:pt-20 md:pt-24 pb-12 md:pb-16 relative overflow-hidden">
+      <div className="bg-ivory px-6 sm:px-8 md:px-20 pt-16 sm:pt-20 md:pt-24 pb-12 md:pb-16 relative overflow-hidden">
         <CardGrid color="rgba(201,151,60,0.04)" />
         <div className="relative z-10">
           <motion.p
@@ -50,17 +50,17 @@ export default function BespokeSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="font-body text-[8px] tracking-[0.5em] uppercase text-gold/55 mb-6"
+            className="font-body text-[8px] tracking-[0.5em] uppercase text-navy mb-6"
           >
             Bespoke Commissions
           </motion.p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 border-b border-parchment/8 pb-14">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 border-b border-navy pb-14">
             <motion.h2
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="font-display font-normal text-[38px] md:text-[60px] xl:text-[72px] leading-[0.98] text-parchment"
+              className="font-display font-normal text-[38px] md:text-[60px] xl:text-[72px] leading-[0.98] text-navy"
             >
               A carpet made
               <br />
@@ -73,7 +73,7 @@ export default function BespokeSection() {
               viewport={{ once: true }}
               className="md:max-w-[320px]"
             >
-              <p className="font-body font-light text-[14px] leading-[1.95] text-stone-light/55 mb-8">
+              <p className="font-body font-light text-[14px] leading-[1.95] text-navy mb-8">
                 Every carpet we weave is inherently unique — but our bespoke service takes this further. Bring us a vision and we will translate it into a one-of-one piece.
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-4">

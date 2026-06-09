@@ -94,7 +94,7 @@ function MaterialRow({
 
 export default function MaterialsSection() {
   return (
-    <section className="bg-ivory px-6 sm:px-8 md:px-20 py-16 md:py-24" id="materials">
+    <section className="bg-ivory rounded-t-[40px] overflow-hidden px-6 sm:px-8 md:px-20 py-16 md:py-24" id="materials">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between pb-12 border-b border-midnight/10 mb-0 gap-4">
         <motion.h2
