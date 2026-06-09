@@ -16,7 +16,7 @@ const types = [
 ]
 
 const inputCls =
-  'w-full bg-transparent border-b border-midnight/12 focus:border-gold/60 pb-3 pt-1 font-body font-light text-[13px] text-midnight placeholder:text-stone/35 outline-none transition-colors duration-300'
+  'w-full bg-transparent border-b border-navy/15 focus:border-gold/60 pb-3 pt-1 font-body font-light text-[13px] text-navy placeholder:text-navy/40 outline-none transition-colors duration-300'
 
 export default function ContactSection() {
   const ref = useRef<HTMLElement>(null)
@@ -27,7 +27,7 @@ export default function ContactSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-ivory rounded-t-[40px] px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28 grid grid-cols-1 md:grid-cols-[42%_58%] gap-12 md:gap-20 items-start"
+      className="relative overflow-hidden bg-ivory px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28 grid grid-cols-1 md:grid-cols-[42%_58%] gap-12 md:gap-20 items-start"
       id="contact"
     >
       {/* Loom-thread vertical grid lines */}
@@ -58,10 +58,10 @@ export default function ContactSection() {
 
         <motion.h2
           variants={fadeUp}
-          className="font-display font-normal text-[36px] md:text-[52px] leading-[1.05] text-midnight"
+          className="font-display font-normal text-[36px] md:text-[52px] leading-[1.05] text-navy"
         >
           Let's create{' '}
-          <span className="italic text-gold">something remarkable.</span>
+          <span className="text-gold">something remarkable.</span>
         </motion.h2>
 
         <motion.p
@@ -84,7 +84,7 @@ export default function ContactSection() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-10 pt-8 border-t border-midnight/8">
+        <motion.div variants={fadeUp} className="mt-10 pt-8 border-t border-navy/10">
           <p className="font-body font-light text-[12px] leading-[2] text-navy/45">
             Creaticabud Exports Pvt. Ltd.<br />
             Carpet Nagar, Fatehabad Road<br />
@@ -98,10 +98,10 @@ export default function ContactSection() {
         style={{ y, opacity, background: 'rgba(255,255,255,0.55)' }}
         className="relative z-10 border border-stone/12 p-6 sm:p-8 md:p-10"
       >
-        <h3 className="font-display font-normal text-[20px] text-midnight mb-2">
+        <h3 className="font-display font-normal text-[20px] text-navy mb-2">
           Send an Enquiry
         </h3>
-        <div className="h-px bg-midnight/8 mb-8 mt-5" />
+        <div className="h-px bg-navy/10 mb-8 mt-5" />
 
         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
@@ -129,7 +129,7 @@ export default function ContactSection() {
               >
                 <option value="" disabled className="bg-ivory text-stone">Select type</option>
                 {types.map((t) => (
-                  <option key={t} value={t} className="bg-ivory text-midnight">{t}</option>
+                  <option key={t} value={t} className="bg-ivory text-navy">{t}</option>
                 ))}
               </select>
             </label>
@@ -147,7 +147,7 @@ export default function ContactSection() {
           <div>
             <button
               type="submit"
-              className="w-full bg-gold text-midnight font-body font-normal text-[10px] tracking-ultra uppercase py-4 hover:bg-gold-bright transition-colors duration-300"
+              className="w-full bg-gold text-navy font-body font-normal text-[10px] tracking-[0.2em] uppercase py-4 hover:bg-gold-bright transition-colors duration-300"
             >
               Send Enquiry
             </button>

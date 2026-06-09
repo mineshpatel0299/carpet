@@ -1,373 +1,171 @@
 'use client'
-import { useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValueEvent,
-} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const collections = [
   {
-    tag: 'Signature',
-    name: 'Handmade Carpets & Rugs',
-    desc: 'The foundation of our craft. Every knot placed by hand over months of devotion.',
-    stat: '12,000 knots / sq ft',
-    image: 'https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=1400&q=90',
+    name: 'Handmade Carpets',
+    desc: 'Exquisite craftsmanship in every knot, timeless beauty for every space.',
+    image: 'https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=600&q=80',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
+        <rect x="12" y="12" width="16" height="16" stroke="#0E1B2D" strokeWidth="1.5" fill="none" />
+        <path d="M16 16L24 24M24 16L16 24" stroke="#0E1B2D" strokeWidth="1.5" />
+      </svg>
+    )
   },
   {
-    tag: 'Luxury Line',
-    name: 'Silk Carpets',
-    desc: 'Bangalore silk — unmatched lustre, impossible depth of colour.',
-    stat: '100% pure silk pile',
-    image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=1400&q=90',
+    name: 'Bespoke Tufted',
+    desc: 'Custom designs. Precision crafted. Made entirely for your space.',
+    image: 'https://images.unsplash.com/photo-1608724552908-e1c141f631ac?auto=format&fit=crop&w=600&q=80',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
+        <path d="M20 10L23 17L30 20L23 23L20 30L17 23L10 20L17 17L20 10Z" stroke="#0E1B2D" strokeWidth="1.5" fill="none" />
+      </svg>
+    )
   },
   {
-    tag: 'Bespoke',
-    name: 'Custom Knotted',
-    desc: 'Precision-crafted to your brief. From dimensions to dye lots — one of one.',
-    stat: 'Any size · Any design',
-    image: 'https://images.unsplash.com/photo-1608724552908-e1c141f631ac?auto=format&fit=crop&w=1400&q=90',
+    name: 'Pure Silk Rugs',
+    desc: 'Luxurious silk, intricate details, and unmatched elegant sheen.',
+    image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=600&q=80',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
+        <path d="M20 12C22 15 25 18 28 20C25 22 22 25 20 28C18 25 15 22 12 20C15 18 18 15 20 12Z" stroke="#0E1B2D" strokeWidth="1.5" fill="none" />
+        <circle cx="20" cy="20" r="2" fill="#0E1B2D" />
+      </svg>
+    )
   },
   {
-    tag: 'Heritage Weave',
-    name: 'Handloom Products',
-    desc: 'Woven by artisans on traditional vertical looms passed down through generations.',
-    stat: '400-year-old technique',
-    image: 'https://images.unsplash.com/photo-1619444978283-cccfb92c357d?auto=format&fit=crop&w=1400&q=90',
+    name: 'Handloom Textures',
+    desc: 'Woven with care, crafted by artisans, made for modern living.',
+    image: 'https://images.unsplash.com/photo-1619444978283-cccfb92c357d?auto=format&fit=crop&w=600&q=80',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
+        <rect x="14" y="10" width="12" height="20" stroke="#0E1B2D" strokeWidth="1.5" fill="none" />
+        <path d="M14 15H26M14 20H26M14 25H26" stroke="#0E1B2D" strokeWidth="1" />
+      </svg>
+    )
   },
   {
-    tag: 'Eco Range',
-    name: 'Bamboo Collection',
-    desc: 'Sustainable, silky, and kind to the planet without compromise on quality.',
-    stat: 'Carbon-neutral process',
-    image: 'https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?auto=format&fit=crop&w=1400&q=90',
-  },
+    name: 'Bamboo Fibers',
+    desc: 'Sustainable. Stylish. Sourced from nature, made to last.',
+    image: 'https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?auto=format&fit=crop&w=600&q=80',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
+        <path d="M16 10V30M24 10V30" stroke="#0E1B2D" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M14 16H18M14 24H18M22 16H26M22 24H26" stroke="#0E1B2D" strokeWidth="1.5" />
+      </svg>
+    )
+  }
 ]
 
-const COUNT = collections.length
-
-/*
- * Tape geometry (desktop):
- *   Each card  = 34 vw wide
- *   Gap        = 8  vw
- *   Step       = 42 vw per collection
- *   Card 0 center at 50vw → left edge at 50 - 17 = 33vw (initial offset)
- *   Total travel = (COUNT-1) × 42vw = 168vw
- */
-const CARD_VW   = 34
-const GAP_VW    = 8
-const STEP_VW   = CARD_VW + GAP_VW
-const OFFSET_VW = 50 - CARD_VW / 2  // 33
-
 export default function CollectionsGrid() {
-  const [active, setActive]           = useState(0)
-  const [mobileActive, setMobileActive] = useState(0)
-  const ref        = useRef<HTMLDivElement>(null)
-  const carouselRef = useRef<HTMLDivElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  })
-
-  /* Horizontal tape translation */
-  const rawX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ['0vw', `${-(COUNT - 1) * STEP_VW}vw`]
-  )
-  const tapeX = useSpring(rawX, { stiffness: 52, damping: 22 })
-
-  /* Active collection index */
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    setActive(Math.min(COUNT - 1, Math.floor(v * COUNT)))
-  })
-
-  /* Mobile carousel scroll tracker */
-  const handleCarouselScroll = useCallback(() => {
-    const el = carouselRef.current
-    if (!el) return
-    const step = el.clientWidth * 0.82 + 12
-    setMobileActive(Math.min(COUNT - 1, Math.max(0, Math.round(el.scrollLeft / step))))
-  }, [])
-
   return (
-    <>
-
-      {/* ── Mobile: horizontal snap carousel (dark bg, parchment text) ── */}
-      <section id="collections" className="md:hidden bg-midnight rounded-t-[40px] overflow-hidden pt-14 pb-8">
-        <div className="flex items-center justify-between px-5 mb-5">
-          <p className="font-body text-[8px] tracking-[0.5em] uppercase text-gold/55">Our Collections</p>
-          <p className="font-body text-[8px] tracking-[0.3em] uppercase text-stone-light/20">
-            {String(mobileActive + 1).padStart(2, '0')} &mdash; {String(COUNT).padStart(2, '0')}
-          </p>
-        </div>
-
-        <div
-          ref={carouselRef}
-          onScroll={handleCarouselScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory overflow-y-hidden scrollbar-none gap-3 px-5 pb-1"
-        >
-          {collections.map((col, i) => (
-            <div key={col.name} className="snap-start shrink-0 w-[82vw] aspect-3/4 relative overflow-hidden">
-              <Image src={col.image} alt={col.name} fill quality={88} sizes="85vw" className="object-cover" />
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold" />
-              <div className="absolute inset-0 bg-linear-to-t from-midnight/92 via-midnight/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <div className="h-px bg-gold mb-4 w-8" />
-                <p className="font-body text-[7px] tracking-[0.45em] uppercase text-gold/75 mb-2">{col.tag}</p>
-                <h3 className="font-display font-normal text-parchment text-[24px] leading-[1.1] mb-2">{col.name}</h3>
-                <p className="font-body text-[12px] text-parchment/75 leading-[1.8] mb-4">{col.desc}</p>
-                <div className="inline-flex items-center gap-2 border border-gold/20 px-3 py-1.5">
-                  <div className="w-0.75 h-0.75 rounded-full bg-gold shrink-0" />
-                  <span className="font-body text-[7px] tracking-ultra uppercase text-gold/60">{col.stat}</span>
-                </div>
-              </div>
-              <div className="absolute bottom-5 right-5 font-display text-[80px] font-normal leading-none text-parchment/4 select-none pointer-events-none">
-                {String(i + 1).padStart(2, '0')}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex gap-2 mt-5 px-5">
-          {collections.map((_, i) => (
-            <div key={i} className={`h-px transition-all duration-500 ${i === mobileActive ? 'bg-gold w-10' : 'bg-gold/20 w-4'}`} />
-          ))}
-        </div>
-      </section>
-
-      {/* ── Desktop: Horizontal Film-Tape on ivory ── */}
-      <section ref={ref} className="hidden md:block bg-ivory rounded-t-[40px]" style={{ height: `${COUNT * 120}vh`, overflow: 'clip' }}>
-        <div className="sticky top-0 h-screen overflow-hidden">
-
-          {/* ── Ambient warm glow behind active card ── */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse at 50% 52%, rgba(201,142,56,0.06) 0%, transparent 60%)' }}
-          />
-
-          {/* ── Ghost collection number ── */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-            {collections.map((_, i) => (
-              <motion.span
-                key={i}
-                className="absolute font-display font-normal leading-none text-midnight/4"
-                style={{ fontSize: '22vw' }}
-                animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 0.93 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* ── Top meta bar ── */}
-          <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-12 xl:px-20 pt-8 pointer-events-none">
-            <div className="flex items-center gap-5">
-              <div className="w-6 h-px bg-gold/50" />
-              <p className="font-body text-[8px] tracking-[0.5em] uppercase text-stone/50">Our Collections</p>
-            </div>
-            <p className="font-body text-[8px] tracking-ultra uppercase text-stone/25">
-              {String(active + 1).padStart(2, '0')} &mdash; {String(COUNT).padStart(2, '0')}
-            </p>
-          </div>
-
-          {/* ── Horizontal image tape ── */}
-          <motion.div
-            className="absolute top-16 bottom-36 flex items-center"
-            style={{ left: `${OFFSET_VW}vw`, x: tapeX, gap: `${GAP_VW}vw` }}
+    <section id="collections" className="py-24 px-4 md:px-8 lg:px-12 bg-ivory relative border-t border-navy/5">
+      
+      <div className="max-w-7xl mx-auto mb-20 text-center flex flex-col items-center">
+         <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="font-body text-gold text-[8.5px] tracking-[0.5em] font-semibold uppercase mb-4 block"
           >
-            {collections.map((col, i) => {
-              const isActive = i === active
-              return (
-                <motion.div
-                  key={col.name}
-                  className="relative shrink-0 overflow-hidden"
-                  style={{ width: `${CARD_VW}vw` }}
-                  animate={{
-                    height: isActive ? '68vh' : '50vh',
-                    opacity: isActive ? 1 : 0.36,
-                  }}
-                  transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {/* Image with subtle Ken Burns on active */}
-                  <Image
-                    src={col.image}
-                    alt={col.name}
-                    fill
-                    quality={92}
-                    sizes="38vw"
-                    className="object-cover"
-                    style={{
-                      transition: 'transform 1.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                      transform: isActive ? 'scale(1.04)' : 'scale(1.10)',
-                    }}
-                  />
-
-                  {/* Gold top accent — draws in */}
-                  <motion.div
-                    className="absolute top-0 left-0 right-0 h-0.5 bg-gold origin-left z-10"
-                    animate={{ scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.75, delay: isActive ? 0.22 : 0, ease: [0.22, 1, 0.36, 1] }}
-                  />
-
-                  {/* Thin gold bottom line */}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-px bg-gold/40 origin-left z-10"
-                    animate={{ scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.75, delay: isActive ? 0.3 : 0 }}
-                  />
-
-                  {/* Ivory fog over inactive cards */}
-                  <motion.div
-                    className="absolute inset-0 bg-ivory z-1"
-                    animate={{ opacity: isActive ? 0 : 0.22 }}
-                    transition={{ duration: 0.55 }}
-                  />
-
-                  {/* Tag label on inactive — bottom left */}
-                  <motion.div
-                    className="absolute bottom-4 left-4 z-2"
-                    animate={{ opacity: isActive ? 0 : 0.55 }}
-                    transition={{ duration: 0.35 }}
-                  >
-                    <span
-                      className="font-body text-[7px] tracking-[0.4em] uppercase text-midnight/60"
-                      style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
-                    >
-                      {col.tag}
-                    </span>
-                  </motion.div>
-                </motion.div>
-              )
-            })}
+            The Archives
+          </motion.span>
+          <motion.h2
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.8, delay: 0.1 }}
+             className="font-display font-normal text-[38px] md:text-[48px] lg:text-[54px] text-navy leading-[1.05]"
+          >
+            Curated <span className="text-gold">Collections.</span>
+          </motion.h2>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mt-8 flex justify-center items-center opacity-70"
+          >
+            <div className="w-10 h-[1px] bg-gold/40" />
+            <div className="w-1.5 h-1.5 rotate-45 border border-gold/60 mx-3" />
+            <div className="w-10 h-[1px] bg-gold/40" />
           </motion.div>
+      </div>
 
-          {/* ── Bottom content strip ── */}
-          <div className="absolute bottom-0 left-0 right-0 z-20">
-
-            {/* Per-collection detail */}
-            <div className="relative h-36">
-              {collections.map((col, i) => (
-                <motion.div
-                  key={col.name}
-                  className="absolute inset-0 px-12 xl:px-20 flex items-center justify-between gap-10"
-                  animate={{
-                    opacity: i === active ? 1 : 0,
-                    y: i === active ? 0 : 16,
-                    pointerEvents: i === active ? 'auto' : 'none',
-                  }}
-                  transition={{
-                    opacity: { duration: 0.55, delay: i === active ? 0.28 : 0 },
-                    y: { duration: 0.65, delay: i === active ? 0.24 : 0, ease: [0.22, 1, 0.36, 1] },
-                  }}
-                >
-                  {/* Left: tag + name + desc */}
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-3 mb-3">
-                      <motion.div
-                        className="h-px bg-gold origin-left"
-                        animate={{ scaleX: i === active ? 1 : 0 }}
-                        transition={{ duration: 0.6, delay: i === active ? 0.4 : 0 }}
-                        style={{ width: 28 }}
-                      />
-                      <span className="font-body text-[8px] tracking-[0.45em] uppercase text-gold">{col.tag}</span>
-                    </div>
-                    <div className="flex items-baseline gap-8 flex-wrap">
-                      <h3
-                        className="font-display font-normal text-midnight leading-none shrink-0"
-                        style={{ fontSize: 'clamp(24px, 2.8vw, 44px)' }}
-                      >
-                        {col.name}
-                      </h3>
-                      <p className="font-body text-[12px] leading-[1.85] text-stone/55 max-w-75 hidden lg:block">
-                        {col.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right: stat + CTA */}
-                  <div className="shrink-0 flex items-center gap-8">
-                    <div className="hidden xl:flex items-center gap-3 border border-stone/15 px-4 py-2">
-                      <div className="w-0.75 h-0.75 rounded-full bg-gold" />
-                      <span className="font-body text-[7px] tracking-[0.35em] uppercase text-stone/50">{col.stat}</span>
-                    </div>
-                    <div className="flex items-center gap-2 group/link cursor-pointer">
-                      <span className="font-body text-[8px] tracking-[0.38em] uppercase text-midnight/28 group-hover/link:text-gold transition-colors duration-300">
-                        View Collection
-                      </span>
-                      <motion.span
-                        className="text-midnight/22 group-hover/link:text-gold transition-colors duration-300 text-xs"
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-                      >
-                        →
-                      </motion.span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Divider line */}
-            <div className="h-px bg-stone/10 mx-12 xl:mx-20" />
-
-            {/* Gold progress bar — full width */}
-            <div className="h-0.5 bg-stone/8">
-              <motion.div
-                className="h-full bg-gold origin-left"
-                animate={{ scaleX: (active + 1) / COUNT }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6 xl:gap-8">
+        {collections.map((col, i) => (
+          <motion.div
+            key={col.name}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="flex flex-col group cursor-pointer"
+          >
+            {/* Gallery Image Container */}
+            <div className="relative w-full aspect-[4/5] overflow-hidden rounded-[24px] mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-navy/5 bg-linen/50">
+              <Image
+                src={col.image}
+                alt={col.name}
+                fill
+                className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 20vw"
               />
+              {/* Subtle tint that fades on hover */}
+              <div className="absolute inset-0 bg-navy/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
+              
+              {/* Subtle hover overlay badge */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                <span className="bg-linen/95 backdrop-blur-sm text-navy px-5 py-2.5 rounded-full font-body text-[8.5px] uppercase tracking-[0.3em] font-semibold shadow-xl whitespace-nowrap">
+                  Explore Gallery
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* ── Right-side step navigator ── */}
-          <div className="absolute right-10 xl:right-16 top-1/2 -translate-y-1/2 z-30 flex flex-col items-end gap-5 pointer-events-none">
-            {collections.map((col, i) => (
-              <motion.div
-                key={i}
-                className="flex items-center gap-2.5"
-                animate={{ opacity: i === active ? 1 : 0.2 }}
-                transition={{ duration: 0.35 }}
-              >
-                <motion.span
-                  className="font-body text-[6px] tracking-[0.35em] uppercase text-midnight"
-                  animate={{ opacity: i === active ? 1 : 0, x: i === active ? 0 : 8 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {col.tag}
-                </motion.span>
-                <motion.div
-                  className="rounded-full bg-midnight"
-                  animate={{ width: i === active ? 7 : 3, height: i === active ? 7 : 3 }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* ── Scroll hint ── */}
-          <motion.div
-            className="absolute bottom-14 left-12 xl:left-20 z-30 flex items-center gap-2.5 pointer-events-none"
-            animate={{ opacity: active === COUNT - 1 ? 0 : 0.38 }}
-            transition={{ duration: 0.4 }}
-          >
-            <motion.div
-              className="w-5 h-px bg-stone"
-              animate={{ scaleX: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <span className="font-body text-[7px] tracking-[0.38em] uppercase text-stone/60">Scroll</span>
+            {/* Typography Content */}
+            <div className="flex flex-col items-center text-center px-2">
+              <div className="flex justify-center mb-5 opacity-80 group-hover:opacity-100 transition-all duration-500 transform group-hover:-translate-y-1 ease-out text-navy">
+                {col.icon}
+              </div>
+              <h3 className="font-body text-navy font-semibold text-[10.5px] leading-snug tracking-[0.25em] uppercase mb-3 min-h-[30px] flex items-center justify-center transition-colors duration-300 group-hover:text-gold">
+                {col.name}
+              </h3>
+              <p className="font-body text-navy/60 text-[12.5px] leading-[1.8] font-light max-w-[95%] transition-colors duration-300 group-hover:text-navy/80">
+                {col.desc}
+              </p>
+            </div>
           </motion.div>
+        ))}
+      </div>
+      
+      {/* Decorative view all button at bottom */}
+      <div className="flex justify-center mt-20">
+         <motion.a
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            href="#process"
+            className="group/btn inline-flex items-center gap-4 border border-gold/30 rounded-full px-8 py-3.5 hover:bg-gold hover:border-gold transition-all duration-500"
+          >
+            <span className="font-body text-[9.5px] tracking-[0.3em] uppercase text-navy font-semibold transition-colors duration-500 group-hover/btn:text-linen">
+              View All Archives
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-gold group-hover/btn:text-linen transition-colors duration-500">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+         </motion.a>
+      </div>
 
-        </div>
-      </section>
-
-    </>
+    </section>
   )
 }

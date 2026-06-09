@@ -65,9 +65,9 @@ export default function CraftStory() {
   const progressWidth = useTransform(smoothProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section id="heritage" className="bg-midnight rounded-t-[40px]" style={{ overflow: 'clip' }}>
+    <section id="heritage" className="bg-ivory" style={{ overflow: 'clip' }}>
       <div ref={containerRef} style={{ height: '310vh' }}>
-        <div className="sticky top-0 h-screen overflow-hidden bg-midnight">
+        <div className="sticky top-0 h-screen overflow-hidden bg-ivory">
 
           {/* ── Full-bleed crossfading images with Ken Burns ── */}
           {moments.map((m, i) => (
@@ -91,8 +91,8 @@ export default function CraftStory() {
           ))}
 
           {/* ── Atmospheric gradients ── */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/15 pointer-events-none" />
-          <div className="absolute inset-0 z-10 bg-gradient-to-r from-midnight/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-ivory via-ivory/55 to-ivory/15 pointer-events-none" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-ivory/50 via-transparent to-transparent pointer-events-none" />
 
           {/* ── Top meta bar ── */}
           <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 sm:px-10 md:px-16 pt-6 md:pt-8 pointer-events-none">
@@ -100,7 +100,7 @@ export default function CraftStory() {
               The Making
             </p>
             <div className="flex items-center gap-3">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-parchment/20">
+              <span className="font-body font-semibold text-[8px] tracking-[0.35em] uppercase text-navy/30">
                 Est. 1998 · Agra, India
               </span>
             </div>
@@ -110,7 +110,7 @@ export default function CraftStory() {
           {moments.map((m, i) => (
             <motion.div
               key={i}
-              className="absolute top-12 right-10 md:right-16 z-20 font-display font-normal leading-none select-none pointer-events-none text-parchment/[0.05]"
+              className="absolute top-12 right-10 md:right-16 z-20 font-display font-normal leading-none select-none pointer-events-none text-navy/[0.05]"
               style={{ opacity: imgOpacities[i], fontSize: 'clamp(100px, 18vw, 260px)' }}
             >
               {m.chapter}
@@ -141,14 +141,14 @@ export default function CraftStory() {
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
                 <div className="flex-1">
                   <h2
-                    className="font-display font-normal text-parchment leading-[1.04] mb-6"
+                    className="font-display font-normal text-navy leading-[1.04] mb-6"
                     style={{ fontSize: 'clamp(30px, 4.8vw, 74px)' }}
                   >
                     {m.title.split('\n').map((line, j) => (
                       <span key={j} className="block">{line}</span>
                     ))}
                   </h2>
-                  <p className="font-body text-[13px] leading-[1.95] text-parchment/75 max-w-[420px]">
+                  <p className="font-body text-[13px] leading-[1.95] text-navy/70 max-w-[420px]">
                     {m.body}
                   </p>
                 </div>
@@ -161,7 +161,7 @@ export default function CraftStory() {
                   >
                     {m.stat.figure}
                   </div>
-                  <div className="font-body text-[8px] tracking-[0.32em] uppercase text-parchment/35">
+                  <div className="font-body font-semibold text-[8px] tracking-[0.32em] uppercase text-navy/50">
                     {m.stat.label}
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function CraftStory() {
           </div>
 
           {/* ── Bottom progress strip ── */}
-          <div className="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-parchment/8 pointer-events-none">
+          <div className="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-navy/10 pointer-events-none">
             <motion.div className="h-full bg-gold origin-left" style={{ width: progressWidth }} />
           </div>
 

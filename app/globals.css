@@ -3,21 +3,20 @@
 @theme {
   /* ─── Brand Colours ─── */
   /*
-   * Palette: "Agra Nocturne"
-   * Base shifts from cold blue-navy → warm plum-black (Rajputana night sky).
-   * Gold deepens toward saffron. Sienna becomes rich terracotta.
-   * Light sections use warm amber-sand instead of sterile ivory.
+   * Palette: "Luxury Ivory & Navy"
+   * Deep navy blues contrasting with elegant ivory and cream.
+   * Warm gold/copper accents for a premium touch.
    */
-  --color-midnight:    #0C0816;
-  --color-navy:        #170F28;
-  --color-navy-mid:    #261840;
-  --color-gold:        #C98E38;
-  --color-gold-bright: #E5AA44;
-  --color-gold-dim:    rgba(201,142,56,0.12);
+  --color-midnight:    #071324;
+  --color-navy:        #0E1B2D;
+  --color-navy-mid:    #162841;
+  --color-gold:        #B88645;
+  --color-gold-bright: #D9A05B;
+  --color-gold-dim:    rgba(184,134,69,0.12);
   --color-sienna:      #A84030;
-  --color-parchment:   #F5E8D2;
-  --color-linen:       #EDD9BB;
-  --color-ivory:       #F0E6D4;
+  --color-parchment:   #F9F6F0;
+  --color-linen:       #FDFBF7;
+  --color-ivory:       #F3EFE6;
   --color-stone:       #8C7C6C;
   --color-stone-light: #C2AF99;
   --color-stone-dim:   rgba(140,124,108,0.18);
@@ -39,21 +38,21 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0C0816;
-  color: #F5E8D2;
+  background-color: var(--color-linen);
+  color: var(--color-navy);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #C98E38;
-  color: #0C0816;
+  background: var(--color-gold);
+  color: var(--color-linen);
 }
 
 /* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #0C0816; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-linen); }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201,142,56,0.5);
+  background: rgba(184,134,69,0.5);
   border-radius: 2px;
 }
 
@@ -75,16 +74,16 @@ body {
   will-change: transform;
 }
 
-/* ─── Grain noise ─── */
+/* ─── Grain noise (Optional subtle texture for ivory) ─── */
 .grain-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 3;
-  opacity: 0.032;
+  opacity: 0.015; /* Reduced opacity for light theme */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-  mix-blend-mode: screen;
+  mix-blend-mode: multiply; /* Better for light backgrounds */
 }
 
 /* ─── Tabular Numbers ─── */
@@ -106,4 +105,36 @@ body {
 .marquee-fade {
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* ─── Hide scrollbar (snap carousels) ─── */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Underline hover link utility ─── */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after { width: 100%; }
+
+/* ─── Fade-in on scroll ─── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

@@ -1,279 +1,103 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-} from 'framer-motion'
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1683743116580-f7d6d978ec62?auto=format&fit=crop&w=1920&q=90'
-
-const stats = [
-  { number: 25, suffix: '+', label: 'Years of Craft' },
-  { number: 48, suffix: '', label: 'Countries' },
-  { number: 12000, suffix: '+', label: 'Carpets Woven' },
-  { number: 100, suffix: '%', label: 'Handmade' },
-]
-
-function WordReveal({
-  text,
-  delay = 0,
-  className,
-}: {
-  text: string
-  delay?: number
-  className?: string
-}) {
-  const words = text.split(' ')
+function LogoMark() {
   return (
-    <>
-      {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden">
-          <motion.span
-            className={`inline-block ${className ?? ''}`}
-            initial={{ y: '115%' }}
-            animate={{ y: 0 }}
-            transition={{
-              delay: delay + i * 0.09,
-              duration: 0.85,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
-            {word}
-          </motion.span>
-          {i < words.length - 1 && (
-            <span className="inline-block">&nbsp;</span>
-          )}
-        </span>
-      ))}
-    </>
-  )
-}
-
-function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
-
-  useEffect(() => {
-    if (!inView) return
-    let frame: number
-    const start = performance.now()
-    const duration = 2400
-    const step = (now: number) => {
-      const t = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - t, 3)
-      setCount(Math.floor(eased * target))
-      if (t < 1) frame = requestAnimationFrame(step)
-    }
-    frame = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(frame)
-  }, [inView, target])
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {count.toLocaleString()}{suffix}
-    </span>
-  )
-}
-
-const r2 = (n: number) => Math.round(n * 100) / 100
-
-/* ── Large background medallion — traditional carpet centrepiece ── */
-function MedallionGhost() {
-  const spokes = Array.from({ length: 16 })
-  const starPoints = Array.from({ length: 8 })
-  return (
-    <div className="absolute inset-0 flex items-center justify-end pr-[8%] pointer-events-none">
-      <svg
-        viewBox="0 0 400 400"
-        className="w-[min(88vh,56vw)] h-[min(88vh,56vw)] text-gold"
-        fill="none"
-        opacity="0.038"
-      >
-        {/* Concentric rings */}
-        <circle cx="200" cy="200" r="196" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="200" cy="200" r="174" stroke="currentColor" strokeWidth="0.4" />
-        <circle cx="200" cy="200" r="150" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="200" cy="200" r="116" stroke="currentColor" strokeWidth="0.4" />
-        <circle cx="200" cy="200" r="80"  stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="200" cy="200" r="44"  stroke="currentColor" strokeWidth="0.4" />
-        <circle cx="200" cy="200" r="18"  stroke="currentColor" strokeWidth="0.8" />
-        {/* 16 radiating spokes from inner to outer ring */}
-        {spokes.map((_, i) => {
-          const a = ((i * 360) / 16) * (Math.PI / 180)
-          return (
-            <line
-              key={i}
-              x1={r2(200 + Math.cos(a) * 44)}
-              y1={r2(200 + Math.sin(a) * 44)}
-              x2={r2(200 + Math.cos(a) * 196)}
-              y2={r2(200 + Math.sin(a) * 196)}
-              stroke="currentColor"
-              strokeWidth="0.45"
-            />
-          )
-        })}
-        {/* 8-pointed star at r=80 → r=116 */}
-        {starPoints.map((_, i) => {
-          const a0 = ((i * 360) / 8) * (Math.PI / 180)
-          const a1 = (((i + 0.5) * 360) / 8) * (Math.PI / 180)
-          const a2 = (((i + 1) * 360) / 8) * (Math.PI / 180)
-          const p = (a: number, r: number) => `${r2(200 + Math.cos(a) * r)} ${r2(200 + Math.sin(a) * r)}`
-          return (
-            <path
-              key={i}
-              d={`M ${p(a0, 116)} L ${p(a1, 80)} L ${p(a2, 116)}`}
-              stroke="currentColor"
-              strokeWidth="0.8"
-            />
-          )
-        })}
-        {/* Outer decorative ring: repeating diamonds at r=174 */}
-        {Array.from({ length: 24 }).map((_, i) => {
-          const a = ((i * 360) / 24) * (Math.PI / 180)
-          const cx = r2(200 + Math.cos(a) * 174)
-          const cy = r2(200 + Math.sin(a) * 174)
-          return (
-            <rect
-              key={i}
-              x={r2(cx - 3)}
-              y={r2(cy - 3)}
-              width="6"
-              height="6"
-              transform={`rotate(45 ${r2(cx)} ${r2(cy)})`}
-              stroke="currentColor"
-              strokeWidth="0.5"
-            />
-          )
-        })}
+    <div className="flex justify-start mb-10">
+      <svg width="60" height="60" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 10L75 25L60 40L45 25L60 10Z" fill="#1A253A"/>
+        <path d="M110 60L95 45L80 60L95 75L110 60Z" fill="#1A253A"/>
+        <path d="M60 110L45 95L60 80L75 95L60 110Z" fill="#1A253A"/>
+        <path d="M10 60L25 75L40 60L25 45L10 60Z" fill="#1A253A"/>
+        <path d="M60 45L65 55L75 60L65 65L60 75L55 65L45 60L55 55L60 45Z" fill="#B88645"/>
+        <rect x="42" y="42" width="10" height="10" fill="#A84030"/>
+        <rect x="68" y="42" width="10" height="10" fill="#A84030"/>
+        <rect x="42" y="68" width="10" height="10" fill="#A84030"/>
+        <rect x="68" y="68" width="10" height="10" fill="#A84030"/>
+        <path d="M60 0L80 20L60 20L60 0Z" fill="#A84030"/>
+        <path d="M60 0L40 20L60 20L60 0Z" fill="#A84030"/>
+        <path d="M60 120L80 100L60 100L60 120Z" fill="#A84030"/>
+        <path d="M60 120L40 100L60 100L60 120Z" fill="#A84030"/>
+        <path d="M120 60L100 80L100 60L120 60Z" fill="#1A253A"/>
+        <path d="M120 60L100 40L100 60L120 60Z" fill="#1A253A"/>
+        <path d="M0 60L20 80L20 60L0 60Z" fill="#1A253A"/>
+        <path d="M0 60L20 40L20 60L0 60Z" fill="#1A253A"/>
       </svg>
     </div>
   )
 }
 
-
 export default function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const rawImageY = useTransform(scrollYProgress, [0, 1], ['0%', '28%'])
-  const imageY = useSpring(rawImageY, { stiffness: 40, damping: 18 })
-
-  const contentY = useTransform(scrollYProgress, [0, 0.5], ['0%', '-18%'])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0])
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen min-h-185 overflow-hidden bg-midnight"
-    >
-      {/* Parallax carpet image */}
-      <motion.div className="absolute inset-0 scale-[1.12]" style={{ y: imageY }}>
-        <Image
-          src={HERO_IMAGE}
-          alt="Indian hand-knotted carpet — intricate medallion pattern"
-          fill
-          priority
-          quality={90}
-          className="object-cover object-center"
-        />
-      </motion.div>
-
-      {/* Grain texture */}
-      <div className="grain-layer" />
-
-      {/* Layered cinematic overlays */}
-      <div className="absolute inset-0 bg-linear-to-r from-midnight/96 via-midnight/70 to-midnight/18" />
-      <div className="absolute inset-0 bg-linear-to-t from-midnight/88 via-transparent to-midnight/45" />
-      {/* Warm sienna undertone — echoes Indian carpet reds */}
-      <div className="absolute inset-0 bg-linear-to-br from-sienna/15 via-transparent to-transparent" />
-
-      {/* Large medallion ghost — right-side, behind carpet image reveal */}
-      <MedallionGhost />
-
-      {/* Left border accent */}
-      <motion.div
-        className="absolute left-6 md:left-10 top-28 bottom-25 w-px bg-gold/20"
-        initial={{ scaleY: 0, transformOrigin: 'top' }}
-        animate={{ scaleY: 1 }}
-        transition={{ delay: 0.3, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-      />
-
-      {/* Scroll indicator */}
-      <div className="absolute left-4.25 md:left-7.25 bottom-32 flex flex-col items-center gap-2 z-10">
+    <section className="relative min-h-screen bg-ivory flex flex-col lg:flex-row overflow-hidden">
+      
+      {/* ─── LEFT: Editorial Typography (Ivory Background) ─── */}
+      <div className="relative w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-center px-8 sm:px-16 lg:px-20 xl:px-28 py-24 lg:py-0 z-10">
+        
         <motion.div
-          animate={{ scaleY: [0.3, 1, 0.3] }}
-          transition={{ repeat: Infinity, duration: 2.6, ease: 'easeInOut' }}
-          className="w-px h-10 bg-gold/35 origin-top"
-        />
-      </div>
-
-      {/* Main content */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="absolute bottom-36 sm:bottom-28 md:bottom-24 left-0 right-0 px-6 sm:px-12 md:px-24"
-      >
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 1.4 }}
-          className="block font-body text-[8px] tracking-[0.55em] uppercase text-gold mb-8"
-        >
-          Est. 1998 &nbsp;·&nbsp; Agra, India
-        </motion.span>
-
-        <h1 className="font-display font-normal leading-[0.92] text-[54px] md:text-[82px] xl:text-[104px] text-parchment">
-          <WordReveal text="India's Finest" delay={0.45} />
-        </h1>
-        <h1 className="font-display font-normal italic leading-[0.92] text-[54px] md:text-[82px] xl:text-[104px] text-gold mb-12">
-          <WordReveal text="Hand-Knotted Carpets." delay={0.62} />
-        </h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.9 }}
-          className="flex flex-wrap items-center gap-x-8 gap-y-4"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-xl"
         >
-          <a
+          <LogoMark />
+
+          <h3 className="font-body text-[10px] md:text-xs tracking-[0.4em] text-navy/60 uppercase font-semibold mb-6">
+            Creaticabud Carpets
+          </h3>
+
+          <h1 className="font-display text-[3.5rem] md:text-[4.5rem] lg:text-[5rem] leading-[1.05] text-navy mb-8">
+            Woven with <br />
+            <span className="text-sienna">Heritage.</span>
+          </h1>
+
+          <p className="font-body text-navy/70 text-[14px] md:text-[15px] leading-[2.1] font-light max-w-sm mb-12">
+            A family-owned manufacturer based in Agra. We craft the world's finest hand-knotted carpets, bringing centuries of artistry into modern spaces.
+          </p>
+          
+          <motion.a
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 1 }}
             href="#collections"
-            className="font-body font-normal text-[10px] tracking-[0.28em] uppercase text-midnight bg-gold px-9 py-4 hover:bg-gold-bright transition-colors duration-300"
+            className="group/btn inline-flex items-center gap-5"
           >
-            View Collections
-          </a>
-          <a
-            href="#bespoke"
-            className="font-body text-[10px] tracking-[0.28em] uppercase text-stone-light/50 hover:text-gold transition-colors duration-300"
-          >
-            Bespoke Order →
-          </a>
+            <span className="flex items-center justify-center w-12 h-12 rounded-full border border-navy/20 group-hover/btn:border-gold transition-colors duration-500">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-navy group-hover/btn:text-gold transition-colors duration-500">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+            <span className="font-body text-[11px] tracking-[0.25em] uppercase text-navy font-semibold group-hover/btn:text-gold transition-colors duration-500">
+              Discover Collections
+            </span>
+          </motion.a>
         </motion.div>
-
-      </motion.div>
-
-      {/* Stat strip */}
-      <div className="absolute bottom-0 inset-x-0 border-t border-parchment/5 bg-midnight/70 backdrop-blur-sm">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-parchment/8">
-          {stats.map((s) => (
-            <div key={s.label} className="py-3 md:py-3.25 text-center cursor-default bg-midnight/90">
-              <div className="font-display font-normal text-[20px] md:text-[26px] text-gold leading-none">
-                <CountUp target={s.number} suffix={s.suffix} />
-              </div>
-              <div className="font-body font-light text-[7px] tracking-[0.25em] md:tracking-[0.35em] uppercase text-stone-light/38 mt-1.5">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
+
+      {/* ─── RIGHT: Full-Bleed Imagery ─── */}
+      <div className="relative w-full lg:w-[55%] xl:w-[60%] min-h-[50vh] lg:min-h-screen overflow-hidden bg-navy">
+        <motion.div
+          initial={{ scale: 1.05, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+             src="/hero_carpet.png"
+             alt="Luxury Hand-Knotted Carpet"
+             fill
+             priority
+             sizes="(max-width: 1024px) 100vw, 60vw"
+             className="object-cover object-center"
+          />
+        </motion.div>
+        
+        {/* Subtle overlay to ensure the image feels rich and luxurious */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/30 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-navy/10 pointer-events-none" />
+      </div>
+
     </section>
   )
 }
