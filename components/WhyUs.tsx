@@ -104,7 +104,7 @@ export default function WhyUs() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1.1 }}
-            className="relative w-[75%] aspect-[4/5] max-h-[55vh] overflow-hidden"
+            className="relative w-[75%] aspect-[4/5] max-h-[55vh] overflow-hidden rounded-[24px]"
           >
             <Image
               src="https://images.unsplash.com/photo-1736002624916-7b49c97e8593?auto=format&fit=crop&w=900&q=90"
@@ -124,7 +124,7 @@ export default function WhyUs() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1.1, delay: 0.15 }}
-            className="absolute bottom-0 left-0 w-[42%] aspect-square overflow-hidden border-[3px] border-navy shadow-lg"
+            className="absolute bottom-0 left-0 w-[42%] aspect-square overflow-hidden border-[3px] border-navy shadow-lg rounded-[20px]"
           >
             <Image
               src="https://images.unsplash.com/photo-1744062969392-771751cebeb9?auto=format&fit=crop&w=600&q=90"

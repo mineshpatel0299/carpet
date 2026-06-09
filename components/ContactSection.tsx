@@ -16,33 +16,38 @@ const types = [
 ]
 
 const inputCls =
-  'w-full bg-transparent border-b border-navy/15 focus:border-gold/60 pb-3 pt-1 font-body font-light text-[13px] text-navy placeholder:text-navy/40 outline-none transition-colors duration-300'
+  'w-full bg-white/50 border border-navy/10 rounded-[20px] px-6 py-4 font-body font-light text-[14px] text-navy placeholder:text-navy/30 focus:border-gold/40 focus:bg-white focus:outline-none focus:ring-[4px] focus:ring-gold/10 transition-all duration-400'
 
 export default function ContactSection() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 30%'] })
-  const y       = useTransform(scrollYProgress, [0, 1], ['30px', '0px'])
+  const y       = useTransform(scrollYProgress, [0, 1], ['60px', '0px'])
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-ivory px-6 sm:px-8 md:px-20 py-16 sm:py-20 md:py-28 grid grid-cols-1 md:grid-cols-[42%_58%] gap-12 md:gap-20 items-start"
+      className="relative overflow-hidden bg-ivory px-6 sm:px-12 md:px-20 xl:px-32 py-24 sm:py-32 md:py-40 grid grid-cols-1 lg:grid-cols-[40%_60%] gap-16 lg:gap-24 items-center w-full"
       id="contact"
     >
-      {/* Loom-thread vertical grid lines */}
+      {/* Loom-thread vertical grid lines - Edge to Edge */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.045]"
+        className="absolute inset-0 pointer-events-none opacity-[0.035] z-0"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(90deg,#C98E38 0,#C98E38 1px,transparent 1px,transparent 80px)',
+            'repeating-linear-gradient(90deg,#C98E38 0,#C98E38 1px,transparent 1px,transparent 100px)',
         }}
       />
       {/* Saffron glow — top-left */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 18% 18%, rgba(201,142,56,0.07) 0%, transparent 52%)' }}
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{ background: 'radial-gradient(ellipse at 10% 20%, rgba(201,142,56,0.08) 0%, transparent 60%)' }}
       />
+      
+      {/* Massive Decorative Watermark */}
+      <div className="absolute -left-20 top-0 font-display text-[400px] leading-none text-navy/[0.015] pointer-events-none select-none">
+        C
+      </div>
 
       {/* ── Left: intro + contact details ── */}
       <motion.div
@@ -50,42 +55,45 @@ export default function ContactSection() {
         whileInView="visible"
         initial="hidden"
         viewport={{ once: true, margin: '-80px' }}
-        className="relative z-10"
+        className="relative z-10 lg:pr-10"
       >
-        <motion.p variants={fadeUp} className="font-body text-[8px] tracking-[0.5em] uppercase text-gold mb-6">
-          Get in Touch
-        </motion.p>
+        <motion.div variants={fadeUp} className="flex items-center gap-4 mb-8">
+          <div className="w-10 h-px bg-gold/50" />
+          <p className="font-body text-[9px] tracking-[0.5em] uppercase text-gold font-semibold">
+            Get in Touch
+          </p>
+        </motion.div>
 
         <motion.h2
           variants={fadeUp}
-          className="font-display font-normal text-[36px] md:text-[52px] leading-[1.05] text-navy"
+          className="font-display font-normal text-[42px] md:text-[64px] lg:text-[72px] leading-[1.05] text-navy mb-8"
         >
-          Let's create{' '}
-          <span className="text-gold">something remarkable.</span>
+          Let's create <br />
+          <span className="text-gold">something <br className="hidden lg:block"/> remarkable.</span>
         </motion.h2>
 
         <motion.p
           variants={fadeUp}
-          className="font-body font-light text-[14px] leading-[1.95] text-navy mt-8 max-w-85"
+          className="font-body font-light text-[15px] md:text-[16px] leading-[2.1] text-navy/70 max-w-lg"
         >
-          Whether you're furnishing a villa, specifying for a hotel, or sourcing for your boutique — we'd love to hear about your requirements.
+          Whether you're furnishing a villa, specifying for a hotel, or sourcing for your boutique — our atelier is ready to bring your vision to life.
         </motion.p>
 
-        <motion.div variants={stagger} className="mt-10 flex flex-col gap-4">
+        <motion.div variants={stagger} className="mt-16 flex flex-col gap-6">
           {details.map((d) => (
-            <motion.div key={d.label} variants={fadeUp} className="flex items-center gap-5">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-gold/55 w-14">
+            <motion.div key={d.label} variants={fadeUp} className="flex items-center gap-8 group">
+              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-gold/60 w-20 shrink-0">
                 {d.label}
               </span>
-              <a href={d.href} className="font-body font-light text-[13px] text-stone/60 hover:text-gold transition-colors duration-300">
+              <a href={d.href} className="font-body font-light text-[15px] text-navy/70 group-hover:text-gold transition-colors duration-300">
                 {d.value}
               </a>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-10 pt-8 border-t border-navy/10">
-          <p className="font-body font-light text-[12px] leading-[2] text-navy/45">
+        <motion.div variants={fadeUp} className="mt-16 pt-12 border-t border-navy/10 max-w-sm">
+          <p className="font-body font-light text-[13px] leading-[2.1] text-navy/50">
             Creaticabud Exports Pvt. Ltd.<br />
             Carpet Nagar, Fatehabad Road<br />
             Agra, Uttar Pradesh — 282 001, India
@@ -95,64 +103,65 @@ export default function ContactSection() {
 
       {/* ── Right: enquiry form ── */}
       <motion.div
-        style={{ y, opacity, background: 'rgba(255,255,255,0.55)' }}
-        className="relative z-10 border border-stone/12 p-6 sm:p-8 md:p-10"
+        style={{ y, opacity }}
+        className="relative z-10 bg-white/60 backdrop-blur-2xl border border-white shadow-[0_30px_80px_-20px_rgba(14,27,45,0.08)] p-8 sm:p-12 md:p-16 lg:p-20 rounded-[40px] w-full"
       >
-        <h3 className="font-display font-normal text-[20px] text-navy mb-2">
-          Send an Enquiry
-        </h3>
-        <div className="h-px bg-navy/10 mb-8 mt-5" />
+        <div className="flex items-center justify-between mb-12">
+          <h3 className="font-display font-normal text-[26px] md:text-[32px] text-navy">
+            Send an Enquiry
+          </h3>
+          <div className="hidden sm:block w-24 h-px bg-gold/30" />
+        </div>
 
-        <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-7">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
-            <label className="flex flex-col gap-2">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-navy">Full Name</span>
+        <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <label className="flex flex-col gap-3">
+              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Full Name</span>
               <input type="text" placeholder="Your name" className={inputCls} />
             </label>
-            <label className="flex flex-col gap-2">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-navy">Email</span>
+            <label className="flex flex-col gap-3">
+              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Email</span>
               <input type="email" placeholder="you@example.com" className={inputCls} />
             </label>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
-            <label className="flex flex-col gap-2">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-navy">Country</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <label className="flex flex-col gap-3">
+              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Country</span>
               <input type="text" placeholder="Country of delivery" className={inputCls} />
             </label>
-            <label className="flex flex-col gap-2">
-              <span className="font-body text-[8px] tracking-[0.35em] uppercase text-navy">Enquiry Type</span>
+            <label className="flex flex-col gap-3">
+              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Enquiry Type</span>
               <select
                 defaultValue=""
-                className={`${inputCls} cursor-pointer appearance-none`}
-                style={{ background: 'transparent' }}
+                className={`${inputCls} cursor-pointer appearance-none text-navy/80`}
               >
-                <option value="" disabled className="bg-ivory text-stone">Select type</option>
+                <option value="" disabled>Select type</option>
                 {types.map((t) => (
-                  <option key={t} value={t} className="bg-ivory text-navy">{t}</option>
+                  <option key={t} value={t} className="text-navy">{t}</option>
                 ))}
               </select>
             </label>
           </div>
 
-          <label className="flex flex-col gap-2">
-            <span className="font-body text-[8px] tracking-[0.35em] uppercase text-navy">Message</span>
+          <label className="flex flex-col gap-3">
+            <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Message</span>
             <textarea
               rows={4}
-              placeholder="Tell us about your project, dimensions, quantities, and requirements…"
-              className={`${inputCls} resize-none`}
+              placeholder="Tell us about your project, dimensions, quantities, and timeline…"
+              className={`${inputCls} resize-none py-6`}
             />
           </label>
 
-          <div>
+          <div className="mt-6">
             <button
               type="submit"
-              className="w-full bg-gold text-navy font-body font-normal text-[10px] tracking-[0.2em] uppercase py-4 hover:bg-gold-bright transition-colors duration-300"
+              className="w-full bg-navy text-linen rounded-full font-body font-normal text-[12px] tracking-[0.3em] uppercase py-6 hover:bg-gold hover:text-navy transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-1"
             >
-              Send Enquiry
+              Submit Request
             </button>
-            <p className="font-body font-light text-[11px] text-stone/40 text-center mt-4">
-              We respond within 24 hours
+            <p className="font-body font-light text-[11px] tracking-[0.05em] text-navy/40 text-center mt-6">
+              We respond to all bespoke enquiries within 24 hours.
             </p>
           </div>
         </form>
