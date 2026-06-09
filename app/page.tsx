@@ -7,6 +7,7 @@ import ProcessSteps     from '@/components/ProcessSteps'
 import CraftStory       from '@/components/CraftStory'
 import WhyUs            from '@/components/WhyUs'
 import MaterialsSection from '@/components/MaterialsSection'
+import RugGuideSection  from '@/components/RugGuideSection'
 import Testimonial      from '@/components/Testimonial'
 import ContactSection   from '@/components/ContactSection'
 import Footer           from '@/components/Footer'
@@ -23,6 +24,7 @@ export default function Home() {
       <CraftStory />
       <WhyUs />
       <MaterialsSection />
+      <RugGuideSection />
       <Testimonial />
       <ContactSection />
       <Footer />
