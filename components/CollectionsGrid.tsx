@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const collections = [
   {
-    name: 'Handmade Carpets',
+    name: 'Handmade Carpets and Rugs',
     desc: 'Exquisite craftsmanship in every knot, timeless beauty for every space.',
     image: 'https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=600&q=80',
     icon: (
@@ -16,7 +16,7 @@ const collections = [
     )
   },
   {
-    name: 'Bespoke Tufted',
+    name: 'Customised tufted and hand knotted carpets and rugs',
     desc: 'Custom designs. Precision crafted. Made entirely for your space.',
     image: '/images/tribal_textile.jpg',
     icon: (
@@ -27,7 +27,7 @@ const collections = [
     )
   },
   {
-    name: 'Pure Silk Rugs',
+    name: 'silk carpet and rugs',
     desc: 'Luxurious silk, intricate details, and unmatched elegant sheen.',
     image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=600&q=80',
     icon: (
@@ -39,7 +39,7 @@ const collections = [
     )
   },
   {
-    name: 'Handloom Textures',
+    name: 'Handloom products',
     desc: 'Woven with care, crafted by artisans, made for modern living.',
     image: 'https://images.unsplash.com/photo-1619444978283-cccfb92c357d?auto=format&fit=crop&w=600&q=80',
     icon: (
@@ -51,7 +51,7 @@ const collections = [
     )
   },
   {
-    name: 'Bamboo Fibers',
+    name: 'Bamboo products',
     desc: 'Sustainable. Stylish. Sourced from nature, made to last.',
     image: 'https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?auto=format&fit=crop&w=600&q=80',
     icon: (

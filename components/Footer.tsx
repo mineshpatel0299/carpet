@@ -45,12 +45,11 @@ export default function Footer() {
         {/* Brand column */}
         <div>
           <div className="mb-6">
-            <span className="font-body font-semibold text-2xl tracking-[0.2em] text-linen block">
-              CREATICABUD
-            </span>
-            <span className="font-body font-light text-lg tracking-[0.4em] text-linen/80 block mt-1">
-              CARPETS
-            </span>
+            <img 
+              src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png" 
+              alt="Creaticabud Logo" 
+              className="w-20 h-20 object-contain rounded-full" 
+            />
           </div>
           <p className="font-body font-light text-[14px] leading-relaxed text-linen/70 max-w-[280px] mb-8">
             Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.

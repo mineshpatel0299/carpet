@@ -8,20 +8,7 @@ const links = [
   { label: 'Process',     href: '#process' },
 ]
 
-function DiamondLogo({ scrolled }: { scrolled: boolean }) {
-  const mainColor = scrolled ? "#0E1B2D" : "#F9F6F0"
-  return (
-    <svg width="30" height="30" viewBox="0 0 120 120" fill="none" aria-hidden="true" className="transition-colors duration-700">
-      <path d="M60 3 L117 60 L60 117 L3 60 Z" stroke={mainColor} strokeWidth="2.5" fill="none" className="transition-colors duration-700" />
-      <path d="M60 22 L98 60 L60 98 L22 60 Z" stroke="#B88645" strokeWidth="2" fill="none" />
-      <path d="M60 52 L68 60 L60 68 L52 60 Z" fill="#A84030" />
-      <circle cx="60" cy="3"   r="4" fill={mainColor} className="transition-colors duration-700" />
-      <circle cx="117" cy="60" r="4" fill={mainColor} className="transition-colors duration-700" />
-      <circle cx="60" cy="117" r="4" fill={mainColor} className="transition-colors duration-700" />
-      <circle cx="3"  cy="60"  r="4" fill={mainColor} className="transition-colors duration-700" />
-    </svg>
-  )
-}
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -39,19 +26,15 @@ export default function Navbar() {
         scrolled ? 'bg-linen/95 backdrop-blur-md border-b border-navy/10 shadow-sm' : 'bg-transparent'
       }`}
     >
-      <div className="h-[76px] flex items-center justify-between px-6 md:px-14 lg:px-20">
+      <div className="h-[90px] md:h-[100px] flex items-center justify-between px-6 md:px-14 lg:px-20">
 
         {/* ── Logo ── */}
         <a href="#" className="flex items-center gap-3.5 group">
-          <DiamondLogo scrolled={scrolled} />
-          <div className="flex flex-col leading-none">
-            <span className={`font-body font-semibold text-[15px] tracking-[0.3em] uppercase transition-colors duration-700 ${scrolled ? 'text-navy' : 'text-linen'}`}>
-              Creaticabud
-            </span>
-            <span className={`font-body text-[8px] tracking-[0.4em] uppercase transition-colors duration-700 mt-[3px] ${scrolled ? 'text-navy/70' : 'text-linen/70'}`}>
-              Carpets
-            </span>
-          </div>
+          <img 
+            src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png" 
+            alt="Creaticabud Logo" 
+            className="w-20 h-20 md:w-24 md:h-24 object-contain rounded-full transition-transform duration-500 group-hover:scale-105" 
+          />
         </a>
 
         {/* ── Centre nav ── */}
