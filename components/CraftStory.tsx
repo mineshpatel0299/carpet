@@ -17,7 +17,7 @@ const moments = [
     label: 'The Technique',
     title: 'A million knots, tied individually by hand',
     body: 'The Persian knot — tied, cut, and compacted row by row. A master weaver works with rhythmic precision. A 9×12 carpet represents six months of a single life.',
-    image: 'https://images.unsplash.com/photo-1669046638657-3fe7e9b0f9b9?auto=format&fit=crop&w=1400&q=90',
+    image: '/images/luxury_red_floral_carpet.png',
     stat: { figure: '10k', label: 'Knots tied per day' },
     reverse: true
   },

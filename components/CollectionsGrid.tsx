@@ -18,7 +18,7 @@ const collections = [
   {
     name: 'Bespoke Tufted',
     desc: 'Custom designs. Precision crafted. Made entirely for your space.',
-    image: 'https://images.unsplash.com/photo-1608724552908-e1c141f631ac?auto=format&fit=crop&w=600&q=80',
+    image: '/images/tribal_textile.jpg',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
