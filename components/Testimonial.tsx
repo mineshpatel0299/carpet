@@ -1,20 +1,21 @@
 'use client'
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { Carousel, TestimonialCard, iTestimonial } from '@/components/ui/retro-testimonial'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type TestimonialDetails = {
-  [key: string]: iTestimonial & { id: string };
+  [key: string]: {
+    id: string;
+    description: string;
+    name: string;
+    designation: string;
+    profileImage: string;
+  }
 };
 
 const testimonialData = {
-  ids: [
-    "t1",
-    "t2",
-    "t3",
-    "t4",
-    "t5",
-  ],
+  ids: ["t1", "t2", "t3", "t4", "t5"],
   details: {
     "t1": {
       id: "t1",
@@ -52,27 +53,7 @@ const testimonialData = {
       profileImage: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=85",
     },
   },
-};
-
-const backgrounds = [
-  "https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1608724552908-e1c141f631ac?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1619444978283-cccfb92c357d?auto=format&fit=crop&w=600&q=80",
-  "https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?auto=format&fit=crop&w=600&q=80",
-];
-
-const cards = testimonialData.ids.map((cardId: string, index: number) => {
-  const details = testimonialData.details as TestimonialDetails;
-  return (
-    <TestimonialCard
-      key={cardId}
-      testimonial={details[cardId]}
-      index={index}
-      backgroundImage={backgrounds[index % backgrounds.length]}
-    />
-  );
-});
+} as const;
 
 export default function Testimonial() {
   const ref = useRef<HTMLElement>(null)
@@ -80,50 +61,152 @@ export default function Testimonial() {
     target: ref,
     offset: ['start end', 'end start'],
   })
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.0])
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const testimonials = testimonialData.ids.map(id => testimonialData.details[id as keyof typeof testimonialData.details]);
+  const current = testimonials[currentIndex];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 50 : -50,
+      opacity: 0,
+      scale: 0.98,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 50 : -50,
+      opacity: 0,
+      scale: 0.98,
+    })
+  };
 
   return (
-    <section ref={ref} className="relative bg-gradient-to-br from-stone-light to-ivory overflow-hidden py-28 md:py-32" id="testimonials">
+    <section ref={ref} className="relative bg-gradient-to-br from-stone-light to-ivory overflow-hidden py-24 md:py-32" id="testimonials">
       <div className="carpet-texture opacity-30" />
 
-      {/* Jewel-dark parallax brocade pattern */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ scale: bgScale }}
-      >
-        <div
-          className="absolute inset-0 opacity-[0.038]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(45deg,#C98E38 0,#C98E38 1px,transparent 1px,transparent 16px),' +
-              'repeating-linear-gradient(-45deg,#C98E38 0,#C98E38 1px,transparent 1px,transparent 16px)',
-          }}
-        />
-      </motion.div>
+      {/* Decorative center element */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-navy/20 to-transparent" />
 
-      <div className="relative z-10 px-8 md:px-20 mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-5 max-w-[1440px] mx-auto">
+      <div className="relative z-10 max-w-[1000px] mx-auto px-6 md:px-12 flex flex-col items-center text-center">
+        
         <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="mb-16"
         >
-          <p className="font-body font-semibold text-[8px] tracking-[0.5em] uppercase text-navy/70 mb-5">
+          <p className="font-body font-semibold text-[9px] tracking-[0.5em] uppercase text-navy/50 mb-6">
             Client Words
           </p>
-          <h2 className="font-display font-normal text-[32px] md:text-[46px] text-navy leading-[1.1] mb-6">
-            Voices of our <span className="italic text-gold">People</span>
-          </h2>
-          <p className="font-body text-[13px] text-navy/80 leading-[1.9] max-w-md">
-            Supplied to 5-star properties in Dubai, London & New York. Trusted by leading architects and interior designers across 48 countries.
-          </p>
+          <div className="w-12 h-[1px] bg-gold/40 mx-auto" />
         </motion.div>
-      </div>
 
-      <div className="relative z-20 w-full pb-10">
-        <Carousel items={cards} />
-      </div>
+        {/* The Carousel */}
+        <div className="relative w-full h-[400px] sm:h-[300px] flex items-center justify-center">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.4 },
+                scale: { duration: 0.4 }
+              }}
+              className="absolute w-full flex flex-col items-center"
+            >
+              <h3 className="font-display font-normal text-[24px] sm:text-[32px] md:text-[40px] text-navy leading-[1.3] mb-12 max-w-4xl tracking-[-0.01em]">
+                "{current.description}"
+              </h3>
+              
+              <div className="flex items-center gap-6">
+                <div className="w-14 h-14 rounded-full overflow-hidden border border-gold/30 shrink-0">
+                  <Image 
+                    src={current.profileImage}
+                    alt={current.name}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="text-left">
+                  <p className="font-display text-[18px] text-navy leading-none mb-1.5">
+                    {current.name}
+                  </p>
+                  <p className="font-body text-[9px] tracking-[0.2em] uppercase text-navy/50 font-semibold">
+                    {current.designation}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
+        {/* Custom Navigation */}
+        <div className="flex items-center gap-8 mt-12">
+          <button 
+            onClick={handlePrev}
+            className="w-12 h-12 rounded-full border border-navy/10 flex items-center justify-center text-navy/50 hover:bg-navy hover:text-linen hover:border-navy transition-all duration-300"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          
+          <div className="flex gap-2">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setDirection(idx > currentIndex ? 1 : -1);
+                  setCurrentIndex(idx);
+                }}
+                className={`transition-all duration-500 rounded-full ${
+                  idx === currentIndex 
+                    ? "w-8 h-[2px] bg-gold" 
+                    : "w-2 h-[2px] bg-navy/20 hover:bg-navy/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button 
+            onClick={handleNext}
+            className="w-12 h-12 rounded-full border border-navy/10 flex items-center justify-center text-navy/50 hover:bg-navy hover:text-linen hover:border-navy transition-all duration-300"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+      </div>
     </section>
   )
 }
