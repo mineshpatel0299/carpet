@@ -7,32 +7,35 @@
    * Deep navy blues contrasting with elegant ivory and cream.
    * Warm gold/copper accents for a premium touch.
    */
-  --color-midnight:    #071324;
-  --color-navy:        #0E1B2D;
-  --color-navy-mid:    #162841;
-  --color-gold:        #B88645;
+  --color-midnight: #071324;
+  --color-navy: #0E1B2D;
+  --color-navy-mid: #162841;
+  --color-gold: #B88645;
   --color-gold-bright: #D9A05B;
-  --color-gold-dim:    rgba(184,134,69,0.12);
-  --color-sienna:      #A84030;
-  --color-parchment:   #F9F6F0;
-  --color-linen:       #FDFBF7;
-  --color-ivory:       #F3EFE6;
-  --color-stone:       #8C7C6C;
+  --color-gold-dim: rgba(184, 134, 69, 0.12);
+  --color-sienna: #A84030;
+  --color-parchment: #F9F6F0;
+  --color-linen: #FDFBF7;
+  --color-ivory: #F3EFE6;
+  --color-stone: #8C7C6C;
   --color-stone-light: #C2AF99;
-  --color-stone-dim:   rgba(140,124,108,0.18);
+  --color-stone-dim: rgba(140, 124, 108, 0.18);
 
   /* ─── Typography ─── */
   --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
-  --font-body:    var(--font-raleway), 'Raleway', system-ui, sans-serif;
+  --font-body: var(--font-raleway), 'Raleway', system-ui, sans-serif;
 
   /* ─── Letter Spacing ─── */
-  --tracking-ultra:   0.3em;
-  --tracking-wide:    0.18em;
-  --tracking-luxury:  0.12em;
+  --tracking-ultra: 0.3em;
+  --tracking-wide: 0.18em;
+  --tracking-luxury: 0.12em;
 }
 
 /* ─── Global Reset ─── */
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* offset for fixed navbar */
+}
 
 body {
   font-family: var(--font-body);
@@ -41,6 +44,9 @@ body {
   background-color: var(--color-linen);
   color: var(--color-navy);
   overflow-x: hidden;
+  /* Butter-smooth momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 ::selection {
@@ -49,26 +55,60 @@ body {
 }
 
 /* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--color-linen); }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-linen);
+}
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(184,134,69,0.5);
+  background: rgba(184, 134, 69, 0.5);
   border-radius: 2px;
+}
+
+/* ─── Scroll-hint bounce ─── */
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
 }
 
 /* ─── Marquee Animations ─── */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
+
 @keyframes marquee-reverse {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
+
 .animate-marquee {
   animation: marquee 36s linear infinite;
   will-change: transform;
 }
+
 .animate-marquee-reverse {
   animation: marquee-reverse 36s linear infinite;
   will-change: transform;
@@ -80,10 +120,12 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 3;
-  opacity: 0.015; /* Reduced opacity for light theme */
+  opacity: 0.015;
+  /* Reduced opacity for light theme */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-  mix-blend-mode: multiply; /* Better for light backgrounds */
+  mix-blend-mode: multiply;
+  /* Better for light backgrounds */
 }
 
 /* ─── Carpet Texture Background ─── */
@@ -92,11 +134,42 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5; /* Increased opacity and removed blend-mode to ensure visibility */
+}
+
+.carpet-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 60%;
+  max-width: 600px;
+  max-height: 600px;
   background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top right;
+  opacity: 0.8;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+  mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+}
+
+.carpet-texture::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  height: 60%;
+  max-width: 600px;
+  max-height: 600px;
+  background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom left;
+  opacity: 0.8;
+  -webkit-mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
+  mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
 }
 
 /* ─── Dark Carpet Texture Background ─── */
@@ -105,15 +178,48 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4; /* Increased opacity and removed blend-mode to ensure visibility */
+}
+
+.dark-carpet-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 60%;
+  max-width: 600px;
+  max-height: 600px;
   background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top right;
+  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+  mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+}
+
+.dark-carpet-texture::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  height: 60%;
+  max-width: 600px;
+  max-height: 600px;
+  background-image: url('https://res.cloudinary.com/djicxkd9u/image/upload/v1781003178/WhatsApp_Image_2026-06-09_at_16.30.34_yyoehz.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom left;
+  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
+  mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
 }
 
 /* ─── Tabular Numbers ─── */
-.tabular-nums { font-variant-numeric: tabular-nums; }
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
 
 /* ─── Horizontal scroll track ─── */
 .h-scroll-track {
@@ -124,8 +230,13 @@ body {
 }
 
 /* ─── Clip reveal utility ─── */
-.clip-hidden { clip-path: inset(0 100% 0 0); }
-.clip-visible { clip-path: inset(0 0% 0 0); }
+.clip-hidden {
+  clip-path: inset(0 100% 0 0);
+}
+
+.clip-visible {
+  clip-path: inset(0 0% 0 0);
+}
 
 /* ─── Edge fade mask for marquee ─── */
 .marquee-fade {
@@ -138,12 +249,16 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
 /* ─── Underline hover link utility ─── */
 .link-underline {
   position: relative;
 }
+
 .link-underline::after {
   content: '';
   position: absolute;
@@ -154,13 +269,24 @@ body {
   background: var(--color-gold);
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.link-underline:hover::after { width: 100%; }
+
+.link-underline:hover::after {
+  width: 100%;
+}
 
 /* ─── Fade-in on scroll ─── */
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-fade-up {
   animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

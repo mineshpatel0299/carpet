@@ -46,12 +46,12 @@ export default function CraftStory() {
   return (
     <section id="heritage" ref={containerRef} className="bg-gradient-to-br from-ivory via-parchment to-stone-light py-24 md:py-32 overflow-hidden relative">
       <div className="carpet-texture opacity-20" />
-      
+
       {/* Subtle moody vignette */}
       <div className="absolute inset-0 bg-radial-gradient from-transparent via-stone-light/10 to-stone-light/30 pointer-events-none z-0" />
 
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-16 relative z-10">
-        
+
         {/* Section Intro */}
         <div className="text-center max-w-2xl mx-auto mb-20 md:mb-40">
           <motion.div
@@ -67,7 +67,7 @@ export default function CraftStory() {
             </span>
             <div className="w-12 h-px bg-navy/20" />
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -81,21 +81,21 @@ export default function CraftStory() {
 
         {/* Editorial Sequence */}
         <div className="flex flex-col gap-32 md:gap-48 relative">
-          
+
           {/* Animated central thread (Desktop only) */}
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gold/10 -translate-x-1/2">
-             <motion.div 
-               style={{ height: lineHeight }}
-               className="w-full bg-gold/60 origin-top"
-             />
+            <motion.div
+              style={{ height: lineHeight }}
+              className="w-full bg-gold/60 origin-top"
+            />
           </div>
 
           {moments.map((moment, idx) => (
-            <div 
-              key={moment.chapter} 
+            <div
+              key={moment.chapter}
               className={`grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-0 items-center relative ${moment.reverse ? 'md:grid-flow-col-dense' : ''}`}
             >
-              
+
               {/* Image Block */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -133,15 +133,15 @@ export default function CraftStory() {
                   <span className="font-body text-[9px] tracking-[0.4em] uppercase text-navy/70 font-semibold mb-6 block">
                     {moment.label}
                   </span>
-                  
+
                   <h3 className="font-display text-[28px] lg:text-[38px] leading-[1.15] text-navy mb-6">
                     {moment.title}
                   </h3>
-                  
+
                   <p className="font-body text-[13px] sm:text-[14px] leading-[2.1] text-navy/80 mb-10">
                     {moment.body}
                   </p>
-                  
+
                   <div className="pt-8 border-t border-navy/10 inline-flex flex-col">
                     <span className="font-display text-[36px] text-gold leading-none mb-2">
                       {moment.stat.figure}

@@ -13,13 +13,13 @@ export default function BespokeSection() {
       <div className="absolute top-0 right-1/3 w-px h-full bg-navy/10 pointer-events-none hidden lg:block" />
 
       <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
-        
+
         {/* Asymmetric Two-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-24 items-center">
-          
+
           {/* LEFT COLUMN: Narrative & Minimalist Specs */}
           <div className="space-y-12 pr-0 lg:pr-10">
-            
+
             {/* Header */}
             <div>
               <motion.span
@@ -29,9 +29,9 @@ export default function BespokeSection() {
                 transition={{ duration: 0.8 }}
                 className="font-body text-[8.5px] tracking-[0.5em] uppercase text-gold block mb-4 font-semibold"
               >
-                The Atelier
+                The Creaticabud
               </motion.span>
-              
+
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function BespokeSection() {
                 Without <br />
                 <span className="text-gold">Compromise.</span>
               </motion.h2>
-              
+
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -103,10 +103,10 @@ export default function BespokeSection() {
 
           {/* RIGHT COLUMN: Asymmetric Collage & Stats */}
           <div className="space-y-10">
-            
+
             {/* Collage Container */}
             <div className="relative w-full aspect-[4/5] sm:aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5]">
-              
+
               {/* Primary Image: Luxury Rug Scene */}
               <motion.div
                 initial={{ opacity: 0, scale: 1.03 }}

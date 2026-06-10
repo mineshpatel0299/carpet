@@ -6,31 +6,31 @@ import { stagger, fadeUp } from '@/lib/animations'
 
 const pillars = [
   {
-    num:   '01',
+    num: '01',
     title: 'Premium Quality',
-    desc:  'ISO-certified production. 47-point inspection on every carpet before it leaves the loom.',
+    desc: 'ISO-certified production. 47-point inspection on every carpet before it leaves the loom.',
   },
   {
-    num:   '02',
+    num: '02',
     title: 'Ethical Production',
-    desc:  'Fair wages, safe conditions, and community investment in Agra\'s weaving families since 1998.',
+    desc: 'Fair wages, safe conditions, and community investment in Agra\'s weaving families since 1998.',
   },
   {
-    num:   '03',
+    num: '03',
     title: 'Global Reach',
-    desc:  'Supplying hotels, designers, and collectors across 48 countries. Full customs documentation.',
+    desc: 'Supplying hotels, designers, and collectors across 48 countries. Full customs documentation.',
   },
   {
-    num:   '04',
+    num: '04',
     title: 'Sustainable Living',
-    desc:  'Natural fibres. Mineral-based dyes. Carbon-offset shipping on every international order.',
+    desc: 'Natural fibres. Mineral-based dyes. Carbon-offset shipping on every international order.',
   },
 ]
 
 export default function WhyUs() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const imgY  = useTransform(scrollYProgress, [0.1, 0.7], ['5%',  '-5%'])
+  const imgY = useTransform(scrollYProgress, [0.1, 0.7], ['5%', '-5%'])
   const img2Y = useTransform(scrollYProgress, [0.1, 0.7], ['-3%', '5%'])
 
   return (

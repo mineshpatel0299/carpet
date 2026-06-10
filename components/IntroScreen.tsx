@@ -1,9 +1,10 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const LOGO = 'https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png'
+const LOGO      = 'https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png'
+const VIDEO_SRC = '/CVV.mp4'
 
-type Phase = 'idle' | 'splitting' | 'logo-reveal' | 'logo-transit' | 'fading' | 'done'
+type Phase = 'video' | 'logo-reveal' | 'logo-transit' | 'fading' | 'done'
 type Rect  = { top: number; left: number; width: number; height: number }
 
 export default function IntroScreen({
@@ -13,139 +14,225 @@ export default function IntroScreen({
   onLogoLanded?: () => void
   onComplete: () => void
 }) {
-  const [phase,    setPhase]    = useState<Phase>('idle')
+  const [phase,    setPhase]    = useState<Phase>('video')
   const [navRect,  setNavRect]  = useState<Rect | null>(null)
+  const [progress, setProgress] = useState(0) // 0-1 for the scroll hint bar
 
-  function enter() {
-    setPhase('splitting')
-    setTimeout(() => setPhase('logo-reveal'), 1150)
+  const videoRef   = useRef<HTMLVideoElement>(null)
+  const triggered  = useRef(false)
+  const scrollAcc  = useRef(0)           // accumulated raw scroll delta
+  const rafId      = useRef<number>(0)
+  const velocity   = useRef(0)           // smooth velocity for butter feel
+  const lastRaf    = useRef<number>(0)
+
+  // ── trigger the logo sequence once video is "done" ──────────────────────
+  function triggerLogoReveal() {
+    if (triggered.current) return
+    triggered.current = true
+
+    // Re-enable native scroll immediately so the site doesn't feel frozen
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
+
+    setPhase('logo-reveal')
+
     setTimeout(() => {
-      // Measure the real navbar logo pixel-perfectly before transit begins
       const el = document.querySelector('[data-nav-logo]') as HTMLElement | null
       if (el) {
         const r = el.getBoundingClientRect()
         setNavRect({ top: r.top, left: r.left, width: r.width, height: r.height })
       }
       setPhase('logo-transit')
-    }, 2500)
-    // logo arrives after 850 ms transit → trigger navbar assembly
-    setTimeout(() => onLogoLanded?.(), 3350)
-    setTimeout(() => { setPhase('fading'); onComplete() }, 3750)
-    setTimeout(() => setPhase('done'), 4400)
+    }, 1300)
+
+    setTimeout(() => onLogoLanded?.(), 2150)
+    setTimeout(() => { setPhase('fading'); onComplete() }, 2550)
+    setTimeout(() => setPhase('done'), 3200)
   }
+
+  // ── scroll-scrub logic ───────────────────────────────────────────────────
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    // Lock native scroll while intro is active
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+
+    // Target currentTime, updated smoothly via rAF
+    let targetTime = 0
+
+    const SENSITIVITY = 0.006   // pixels-of-delta → seconds scrubbed
+    const LERP        = 0.10    // interpolation factor (lower = smoother)
+
+    function tick(now: number) {
+      const video = videoRef.current
+      if (!video || triggered.current) return
+
+      const dt = lastRaf.current ? Math.min((now - lastRaf.current) / 1000, 0.1) : 0
+      lastRaf.current = now
+
+      // Apply momentum decay
+      velocity.current *= Math.pow(0.88, dt * 60)
+
+      // Absorb accumulated raw scroll into velocity
+      if (scrollAcc.current !== 0) {
+        velocity.current += scrollAcc.current * SENSITIVITY
+        scrollAcc.current = 0
+      }
+
+      // Advance target time
+      const dur = video.duration || 1
+      targetTime = Math.min(Math.max(targetTime + velocity.current, 0), dur)
+
+      // Smoothly interpolate video.currentTime toward target
+      const current = video.currentTime
+      const next    = current + (targetTime - current) * LERP
+
+      // Only write when change is meaningful (avoids seek thrashing)
+      if (Math.abs(next - current) > 0.001) {
+        video.currentTime = next
+      }
+
+      // Update progress bar
+      setProgress(targetTime / dur)
+
+      // Check completion
+      if (targetTime >= dur - 0.05) {
+        video.currentTime = dur
+        triggerLogoReveal()
+        return
+      }
+
+      rafId.current = requestAnimationFrame(tick)
+    }
+
+    // Wheel handler — accumulate raw delta
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      scrollAcc.current += e.deltaY + e.deltaX
+    }
+
+    // Touch handler
+    let touchStartY = 0
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const dy = touchStartY - e.touches[0].clientY
+      scrollAcc.current += dy * 2
+      touchStartY = e.touches[0].clientY
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
+
+    // Start the rAF loop once video metadata is ready
+    const startLoop = () => {
+      lastRaf.current = 0
+      rafId.current = requestAnimationFrame(tick)
+    }
+
+    if (video.readyState >= 1) {
+      startLoop()
+    } else {
+      video.addEventListener('loadedmetadata', startLoop, { once: true })
+    }
+
+    return () => {
+      cancelAnimationFrame(rafId.current)
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (phase === 'done') return null
 
-  const split      = phase !== 'idle'
-  const logoShown  = phase === 'logo-reveal' || phase === 'logo-transit'
-  const logoAtNav  = phase === 'logo-transit'
-
-  // Fallback coords if measurement fails (mobile defaults)
-  const nav = navRect ?? { top: 5, left: 24, width: 80, height: 80 }
+  const logoShown = phase === 'logo-reveal' || phase === 'logo-transit'
+  const logoAtNav = phase === 'logo-transit'
+  const nav       = navRect ?? { top: 5, left: 24, width: 80, height: 80 }
 
   return (
     <div
       className="fixed inset-0 z-[200] overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse at center, #F9F6F0 0%, #EDD9A3 45%, #C9973A 100%)',
-        opacity: phase === 'fading' ? 0 : 1,
-        transition: phase === 'fading' ? 'opacity 0.6s ease' : undefined,
+        background: '#0a0806',
+        opacity:    phase === 'fading' ? 0 : 1,
+        transition: phase === 'fading' ? 'opacity 0.65s ease' : undefined,
       }}
     >
-      {/* ── Top carpet half ── */}
-      <div
-        className="absolute inset-x-0 top-0 h-1/2 overflow-hidden"
-        style={{
-          transform: split ? 'translateY(-100%)' : 'translateY(0)',
-          transition: 'transform 1.15s cubic-bezier(0.76, 0, 0.24, 1)',
-        }}
-      >
-        <img
-          src="/images/luxury_red_floral_carpet.png"
-          alt=""
-          className="w-full h-full object-cover object-top select-none pointer-events-none"
-          draggable={false}
-        />
-        {/* gradient toward center divider */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, rgba(249,246,240,0.05) 40%, rgba(205,163,72,0.45) 100%)' }}
-        />
-      </div>
-
-      {/* ── Bottom carpet half ── */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-1/2 overflow-hidden"
-        style={{
-          transform: split ? 'translateY(100%)' : 'translateY(0)',
-          transition: 'transform 1.15s cubic-bezier(0.76, 0, 0.24, 1)',
-        }}
-      >
-        <img
-          src="/images/luxury_red_floral_carpet.png"
-          alt=""
-          className="w-full h-full object-cover object-bottom select-none pointer-events-none"
-          draggable={false}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, rgba(249,246,240,0.05) 40%, rgba(205,163,72,0.45) 100%)' }}
-        />
-      </div>
-
-      {/* ── Centre divider line ── */}
-      <div
-        className="absolute inset-x-0 pointer-events-none z-10"
-        style={{
-          top: 'calc(50% - 0.5px)',
-          height: '1px',
-          background: 'linear-gradient(to right, transparent 0%, rgba(184,134,69,0.8) 30%, rgba(184,134,69,0.8) 70%, transparent 100%)',
-          opacity: split ? 0 : 1,
-          transition: 'opacity 0.25s',
-        }}
+      {/* ── Video ── */}
+      <video
+        ref={videoRef}
+        src={VIDEO_SRC}
+        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+        muted
+        playsInline
+        preload="auto"
+        draggable={false}
       />
 
-      {/* ── Enter button (idle only) ── */}
+      {/* vignette */}
       <div
-        className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-0"
-        style={{
-          opacity: phase === 'idle' ? 1 : 0,
-          transition: 'opacity 0.45s ease',
-          pointerEvents: phase === 'idle' ? 'auto' : 'none',
-        }}
-      >
-        {/* square button */}
-        <button
-          onClick={enter}
-          aria-label="Enter the collection"
-          className="group relative flex items-center justify-center focus:outline-none transition-all duration-400"
-          style={{
-            width: '188px',
-            height: '52px',
-            background: '#B88645',
-          }}
-        >
-          {/* shimmer on hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-            style={{ background: 'rgba(255,255,255,0.12)' }}
-          />
-          <span
-            className="relative font-body text-[9px] tracking-[0.38em] uppercase select-none"
-            style={{ color: '#FDFBF7' }}
-          >
-            Enter The Collection
-          </span>
-        </button>
-      </div>
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%)' }}
+      />
 
-      {/* ── Logo: reveal in centre, then transit to navbar ── */}
+      {/* ── Scroll hint ── */}
+      {phase === 'video' && (
+        <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-none"
+          style={{ opacity: progress < 0.05 ? 1 : 0, transition: 'opacity 0.6s ease' }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-body, sans-serif)',
+              fontSize: '0.65rem',
+              letterSpacing: '0.28em',
+              color: 'rgba(255,255,255,0.55)',
+              textTransform: 'uppercase',
+            }}
+          >
+            Scroll to explore
+          </span>
+          {/* Animated chevron */}
+          <svg width="16" height="24" viewBox="0 0 16 24" fill="none" style={{ animation: 'scrollBounce 1.6s ease-in-out infinite' }}>
+            <path d="M1 8l7 7 7-7" stroke="rgba(255,255,255,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 14l7 7 7-7" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      )}
+
+      {/* ── Progress bar ── */}
+      {phase === 'video' && (
+        <div
+          className="absolute bottom-0 left-0 w-full pointer-events-none"
+          style={{ height: '2px', background: 'rgba(255,255,255,0.08)' }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progress * 100}%`,
+              background: 'linear-gradient(90deg, rgba(184,134,69,0.7), rgba(217,160,91,1))',
+              transition: 'width 0.05s linear',
+              boxShadow: '0 0 8px rgba(217,160,91,0.6)',
+            }}
+          />
+        </div>
+      )}
+
+      {/* ── Logo: reveal → transit to navbar ── */}
       <div
         className="pointer-events-none"
         style={{
-          position: 'fixed',
-          zIndex: 300,
-          /* position + size transition for nav transit */
+          position:   'fixed',
+          zIndex:     300,
           top:    logoAtNav ? `${nav.top}px`    : 'calc(50vh - 130px)',
           left:   logoAtNav ? `${nav.left}px`   : 'calc(50vw - 130px)',
           width:  logoAtNav ? `${nav.width}px`  : '260px',
@@ -155,13 +242,12 @@ export default function IntroScreen({
             : undefined,
         }}
       >
-        {/* inner wrapper for fade+scale entrance */}
         <div
           style={{
-            width: '100%',
-            height: '100%',
-            opacity:   logoShown ? 1 : 0,
-            transform: logoShown ? 'scale(1)' : 'scale(0.78)',
+            width:      '100%',
+            height:     '100%',
+            opacity:    logoShown ? 1 : 0,
+            transform:  logoShown ? 'scale(1)' : 'scale(0.78)',
             transition: 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.34,1.56,0.64,1)',
           }}
         >
@@ -174,6 +260,13 @@ export default function IntroScreen({
         </div>
       </div>
 
+      {/* bounce keyframe injected inline */}
+      <style>{`
+        @keyframes scrollBounce {
+          0%, 100% { transform: translateY(0); opacity: 0.6; }
+          50%       { transform: translateY(6px); opacity: 1; }
+        }
+      `}</style>
     </div>
   )
 }
