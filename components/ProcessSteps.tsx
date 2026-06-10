@@ -16,7 +16,7 @@ const featured = [
     origin: 'Agra, India',
     sizes: ['6×9 ft', '9×12 ft', 'Custom'],
     swatches: ['#6B3A24', '#1B3060', '#C9932A', '#4A3728'],
-    image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=800&q=90',
+    image: '/images/benefits/heirloom.png',
   },
   {
     tag: 'Signature Craft',
@@ -25,7 +25,7 @@ const featured = [
     origin: 'Agra, India',
     sizes: ['5×8 ft', '8×10 ft', 'Custom'],
     swatches: ['#3D2B1F', '#8C7C6C', '#D4B896', '#A84030'],
-    image: 'https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=800&q=90',
+    image: '/images/collections/handmade.png',
   },
   {
     tag: 'Modern Minimalist',
@@ -34,7 +34,7 @@ const featured = [
     origin: 'Agra, India',
     sizes: ['3×10 ft', '3×14 ft', 'Custom'],
     swatches: ['#1C1C1C', '#8C7C6C', '#F5E8D2', '#C98E38'],
-    image: '/images/tribal_textile.jpg',
+    image: '/images/benefits/architecture.png',
   },
 ]
 

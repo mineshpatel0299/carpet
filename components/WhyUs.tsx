@@ -7,23 +7,23 @@ import { stagger, fadeUp } from '@/lib/animations'
 const pillars = [
   {
     num: '01',
-    title: 'Premium Quality',
-    desc: 'ISO-certified production. 47-point inspection on every carpet before it leaves the loom.',
+    title: 'Wide Selection',
+    desc: 'From traditional to modern designs in a variety of colors, shapes, and sizes to suit any decor.',
   },
   {
     num: '02',
-    title: 'Ethical Production',
-    desc: 'Fair wages, safe conditions, and community investment in Agra\'s weaving families since 1998.',
+    title: 'Handmade Craftsmanship',
+    desc: 'Preserving the ancient art of rug-making with skilled craftsmen, ensuring each piece is entirely unique.',
   },
   {
     num: '03',
-    title: 'Global Reach',
-    desc: 'Supplying hotels, designers, and collectors across 48 countries. Full customs documentation.',
+    title: 'Quality Materials',
+    desc: 'Using only the highest quality wool, silk, and cotton for beautiful, durable, and long-lasting rugs.',
   },
   {
     num: '04',
-    title: 'Sustainable Living',
-    desc: 'Natural fibres. Mineral-based dyes. Carbon-offset shipping on every international order.',
+    title: 'Affordable Prices',
+    desc: 'Offering exceptional handmade rugs at accessible prices without compromising on premium quality.',
   },
 ]
 

@@ -6,19 +6,16 @@ export default function BespokeSection() {
   return (
     <section
       id="heritage-bespoke"
-      className="relative bg-gradient-to-br from-ivory to-stone-light text-navy py-24 sm:py-28 lg:py-36 overflow-hidden border-t border-gold/20"
+      className="relative bg-linen text-navy py-24 sm:py-32 lg:py-48 overflow-hidden"
     >
-      <div className="carpet-texture opacity-30" />
-      {/* Subtle background graphic line decoration */}
-      <div className="absolute top-0 right-1/3 w-px h-full bg-navy/10 pointer-events-none hidden lg:block" />
+      <div className="carpet-texture opacity-60" />
 
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
+      <div className="max-w-[1500px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
 
-        {/* Asymmetric Two-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-20 lg:gap-12">
 
-          {/* LEFT COLUMN: Narrative & Minimalist Specs */}
-          <div className="space-y-12 pr-0 lg:pr-10">
+          {/* LEFT COLUMN: Narrative & Aesthetic Specs */}
+          <div className="w-full lg:w-[45%] order-2 lg:order-1 space-y-12">
 
             {/* Header */}
             <div>
@@ -102,98 +99,52 @@ export default function BespokeSection() {
           </div>
 
           {/* RIGHT COLUMN: Asymmetric Collage & Stats */}
-          <div className="space-y-10">
-
-            {/* Collage Container */}
-            <div className="relative w-full aspect-[4/5] sm:aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5]">
-
-              {/* Primary Image: Luxury Rug Scene */}
-              <motion.div
-                initial={{ opacity: 0, scale: 1.03 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2 }}
-                className="absolute right-0 top-0 w-[84%] h-[80%] overflow-hidden rounded-[24px] border border-navy/5 shadow-lg bg-linen"
-              >
-                <Image
-                  src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=1000&q=90"
-                  alt="Bespoke hand-knotted carpet in a luxury interior salon"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover object-center transition-transform duration-700 hover:scale-102"
-                />
-              </motion.div>
-
-              {/* Secondary Image: Detail Shot (Spun Wool/Threads) */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, delay: 0.3 }}
-                className="absolute left-0 bottom-0 w-[46%] h-[40%] overflow-hidden rounded-[20px] border border-gold/15 shadow-xl bg-linen p-2 z-10"
-              >
-                <div className="relative w-full h-full overflow-hidden rounded-[14px]">
-                  <Image
-                    src="/artisan-detail.png"
-                    alt="Master artisan selecting raw silk threads for rug dye"
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 20vw"
-                    className="object-cover object-center"
-                  />
-                </div>
-              </motion.div>
-
-              {/* Overlay Atelier Label Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="absolute right-8 bottom-[20%] bg-linen text-navy border border-gold/25 py-3 px-4.5 rounded-[12px] shadow-xl z-20 hidden sm:block pointer-events-none"
-              >
-                <span className="font-body text-[7px] tracking-[0.45em] uppercase text-gold block font-semibold text-center mb-1">
-                  Agra Atelier
-                </span>
-                <span className="font-display text-xs font-normal text-navy block text-center">
-                  100% Hand-Knotted
-                </span>
-              </motion.div>
-
-              {/* Corner bracket decor */}
-              <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-gold/20 pointer-events-none" />
-              <div className="absolute bottom-4 left-4 w-6 h-6 border-b border-l border-gold/20 pointer-events-none z-20" />
-            </div>
-
-            {/* Gallery Stats Bar */}
+          <div className="w-full lg:w-[50%] relative order-1 lg:order-2 flex justify-end">
+            
+            {/* Primary Image: Luxury Arch */}
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.4 }}
-              className="border-t border-linen/10 pt-6"
+              transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
+              className="w-[85%] sm:w-[75%] lg:w-[85%] aspect-[2/3] relative overflow-hidden rounded-t-[1000px] rounded-b-[24px] shadow-[0_20px_60px_rgba(14,27,45,0.08)]"
             >
-              <div className="grid grid-cols-3 gap-6">
-                <div>
-                  <span className="font-display text-[26px] text-gold font-normal leading-none block">25+</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
-                    Years of Craft
-                  </span>
-                </div>
-                <div>
-                  <span className="font-display text-[26px] text-gold font-normal leading-none block">48</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
-                    Countries Served
-                  </span>
-                </div>
-                <div>
-                  <span className="font-display text-[26px] text-gold font-normal leading-none block">100%</span>
-                  <span className="font-body text-[7px] tracking-[0.3em] uppercase text-navy/50 font-bold block mt-1.5">
-                    Made by Hand
-                  </span>
-                </div>
-              </div>
+              <Image
+                src="/images/luxury_bespoke_carpet_main.png"
+                alt="Bespoke luxury carpet"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover transition-transform duration-[3s] hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-navy/5 mix-blend-multiply pointer-events-none" />
             </motion.div>
 
+            {/* Overlapping Circle Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, x: -20 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+              className="absolute left-0 sm:left-[10%] lg:-left-12 bottom-12 sm:bottom-24 w-[50%] sm:w-[40%] lg:w-[45%] aspect-square rounded-full border-[8px] border-linen shadow-2xl overflow-hidden z-20"
+            >
+              <Image
+                src="/images/luxury_bespoke_carpet_detail.png"
+                alt="Artisan detail texture"
+                fill
+                sizes="(max-width: 1024px) 50vw, 25vw"
+                className="object-cover"
+              />
+            </motion.div>
+
+            {/* Floating Gold Ring Decor */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -45 }}
+              whileInView={{ opacity: 1, rotate: 180 }}
+              viewport={{ once: true }}
+              transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+              className="absolute top-[15%] left-[5%] w-32 h-32 md:w-48 md:h-48 rounded-full border border-gold/30 z-0 pointer-events-none"
+            />
+            
           </div>
 
         </div>

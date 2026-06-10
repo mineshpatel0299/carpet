@@ -150,8 +150,8 @@ body {
   background-size: cover;
   background-position: top right;
   opacity: 0.8;
-  -webkit-mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
-  mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
+  mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
 }
 
 .carpet-texture::after {
@@ -168,8 +168,8 @@ body {
   background-size: cover;
   background-position: bottom left;
   opacity: 0.8;
-  -webkit-mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
-  mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
+  mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
 }
 
 /* ─── Dark Carpet Texture Background ─── */
@@ -194,8 +194,8 @@ body {
   background-size: cover;
   background-position: top right;
   opacity: 0.7;
-  -webkit-mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
-  mask-image: radial-gradient(circle at 100% 0%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
+  mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
 }
 
 .dark-carpet-texture::after {
@@ -212,8 +212,8 @@ body {
   background-size: cover;
   background-position: bottom left;
   opacity: 0.7;
-  -webkit-mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
-  mask-image: radial-gradient(circle at 0% 100%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
+  mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
 }
 
 /* ─── Tabular Numbers ─── */

@@ -6,7 +6,7 @@ const collections = [
   {
     name: 'Handmade Carpets and Rugs',
     desc: 'Exquisite craftsmanship in every knot, timeless beauty for every space.',
-    image: 'https://images.unsplash.com/photo-1534889156217-d643df14f14a?auto=format&fit=crop&w=600&q=80',
+    image: '/images/collections/handmade.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -18,7 +18,7 @@ const collections = [
   {
     name: 'Customised tufted and hand knotted carpets and rugs',
     desc: 'Custom designs. Precision crafted. Made entirely for your space.',
-    image: '/images/tribal_textile.jpg',
+    image: '/images/collections/tufted.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -29,7 +29,7 @@ const collections = [
   {
     name: 'silk carpet and rugs',
     desc: 'Luxurious silk, intricate details, and unmatched elegant sheen.',
-    image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=600&q=80',
+    image: '/images/collections/silk.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -41,7 +41,7 @@ const collections = [
   {
     name: 'Handloom products',
     desc: 'Woven with care, crafted by artisans, made for modern living.',
-    image: 'https://images.unsplash.com/photo-1619444978283-cccfb92c357d?auto=format&fit=crop&w=600&q=80',
+    image: '/images/collections/handloom.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -53,7 +53,7 @@ const collections = [
   {
     name: 'Bamboo products',
     desc: 'Sustainable. Stylish. Sourced from nature, made to last.',
-    image: 'https://plus.unsplash.com/premium_photo-1725295198378-d286934e2735?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -101,50 +101,61 @@ export default function CollectionsGrid() {
         </motion.div>
       </div>
 
-      <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6 xl:gap-8">
-        {collections.map((col, i) => (
-          <motion.div
-            key={col.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="flex flex-col group cursor-pointer"
-          >
-            {/* Gallery Image Container */}
-            <div className="relative w-full aspect-[4/5] overflow-hidden rounded-[24px] mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-navy/5 bg-linen/50">
-              <Image
-                src={col.image}
-                alt={col.name}
-                fill
-                className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 20vw"
-              />
-              {/* Subtle tint that fades on hover */}
-              <div className="absolute inset-0 bg-navy/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
+      <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10 px-4 md:px-8">
+        {collections.map((col, i) => {
+          // Stagger alternate items down slightly for an editorial look
+          const isStaggered = i % 2 !== 0;
 
-              {/* Subtle hover overlay badge */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
-                <span className="bg-linen/95 backdrop-blur-sm text-navy px-5 py-2.5 rounded-full font-body text-[8.5px] uppercase tracking-[0.3em] font-semibold shadow-xl whitespace-nowrap">
-                  Explore Gallery
-                </span>
-              </div>
-            </div>
+          return (
+            <motion.div
+              key={col.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+              className={`flex flex-col group cursor-pointer ${isStaggered ? 'lg:translate-y-16' : ''}`}
+            >
+              {/* Gallery Arch Container */}
+              <div className="relative w-full aspect-[1/2] md:aspect-[3/5] lg:aspect-[4/7] overflow-hidden rounded-t-[1000px] rounded-b-[24px] mb-8 shadow-[0_15px_40px_rgb(184,134,69,0.06)] border border-navy/5 bg-linen/50 transition-transform duration-700 ease-out group-hover:-translate-y-3 group-hover:shadow-[0_25px_50px_rgb(184,134,69,0.15)]">
+                
+                <Image
+                  src={col.image}
+                  alt={col.name}
+                  fill
+                  className="object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 20vw"
+                />
+                
+                {/* Subtle tint that fades on hover */}
+                <div className="absolute inset-0 bg-navy/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
 
-            {/* Typography Content */}
-            <div className="flex flex-col items-center text-center px-2">
-              <div className="flex justify-center mb-5 opacity-80 group-hover:opacity-100 transition-all duration-500 transform group-hover:-translate-y-1 ease-out text-navy">
-                {col.icon}
+                {/* Subtle hover overlay badge */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none z-10">
+                  <span className="bg-linen/95 backdrop-blur-md text-navy px-6 py-3 rounded-full font-body text-[9px] uppercase tracking-[0.3em] font-semibold shadow-2xl whitespace-nowrap">
+                    Explore Gallery
+                  </span>
+                </div>
               </div>
-              <h3 className="font-body text-navy font-semibold text-[10.5px] leading-snug tracking-[0.25em] uppercase mb-3 min-h-[30px] flex items-center justify-center transition-colors duration-300 group-hover:text-gold">
-                {col.name}
-              </h3>
-              <p className="font-body text-navy/60 text-[12.5px] leading-[1.8] font-light max-w-[95%] transition-colors duration-300 group-hover:text-navy/80">
-                {col.desc}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+
+              {/* Typography Content */}
+              <div className="flex flex-col items-center text-center px-2">
+                <div className="flex justify-center mb-5 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 transform group-hover:-translate-y-1 ease-out text-navy group-hover:text-gold">
+                  {col.icon}
+                </div>
+                <h3 className="font-body text-navy font-semibold text-[11px] leading-snug tracking-[0.2em] uppercase mb-4 min-h-[30px] flex items-center justify-center transition-colors duration-300 group-hover:text-gold">
+                  {col.name}
+                </h3>
+                
+                {/* Expanding Gold Line */}
+                <div className="w-6 h-px bg-gold/40 mb-4 group-hover:w-12 transition-all duration-500" />
+
+                <p className="font-body text-navy/60 text-[12.5px] leading-[1.8] font-light max-w-[95%] transition-colors duration-300 group-hover:text-navy/80">
+                  {col.desc}
+                </p>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
 
       {/* Decorative view all button at bottom */}

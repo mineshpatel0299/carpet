@@ -33,9 +33,9 @@ export default function HomeWrapper() {
 
       <main
         style={{
-          opacity: ready ? 1 : 0,
+          opacity: 1, // Temporarily forced to 1 to ensure changes are visible
           transition: 'opacity 0.85s ease',
-          pointerEvents: ready ? 'auto' : 'none',
+          pointerEvents: 'auto',
         }}
       >
         <HeroSection />
