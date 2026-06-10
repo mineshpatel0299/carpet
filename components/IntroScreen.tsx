@@ -38,11 +38,11 @@ export default function IntroScreen({
         setNavRect({ top: r.top, left: r.left, width: r.width, height: r.height })
       }
       setPhase('logo-transit')
-    }, 1300)
+    }, 2500)
 
-    setTimeout(() => onLogoLanded?.(), 2150)
-    setTimeout(() => { setPhase('fading'); onComplete() }, 2550)
-    setTimeout(() => setPhase('done'), 3200)
+    setTimeout(() => onLogoLanded?.(), 3350)
+    setTimeout(() => { setPhase('fading'); onComplete() }, 3800)
+    setTimeout(() => setPhase('done'), 4450)
   }
 
   // ── autoplay + onEnded ───────────────────────────────────────────────────
@@ -126,14 +126,14 @@ export default function IntroScreen({
 
       {/* ── Logo: reveal → transit to navbar ─────────────────────────────── */}
       <div
-        className="pointer-events-none"
+        className="pointer-events-none intro-logo-container"
         style={{
           position: 'fixed',
           zIndex:   300,
-          top:    logoAtNav ? `${nav.top}px`    : 'calc(50vh - 130px)',
-          left:   logoAtNav ? `${nav.left}px`   : 'calc(50vw - 130px)',
-          width:  logoAtNav ? `${nav.width}px`  : '260px',
-          height: logoAtNav ? `${nav.height}px` : '260px',
+          top:    logoAtNav ? `${nav.top}px`    : 'calc(50vh - var(--logo-size) / 2)',
+          left:   logoAtNav ? `${nav.left}px`   : 'calc(50vw - var(--logo-size) / 2)',
+          width:  logoAtNav ? `${nav.width}px`  : 'var(--logo-size)',
+          height: logoAtNav ? `${nav.height}px` : 'var(--logo-size)',
           transition: logoAtNav
             ? 'top 0.85s cubic-bezier(0.76,0,0.24,1), left 0.85s cubic-bezier(0.76,0,0.24,1), width 0.85s cubic-bezier(0.76,0,0.24,1), height 0.85s cubic-bezier(0.76,0,0.24,1)'
             : undefined,
@@ -150,7 +150,7 @@ export default function IntroScreen({
         >
           <img
             src={LOGO}
-            alt="Creaticahub"
+            alt="Creaticabud"
             className="w-full h-full object-contain rounded-full"
             draggable={false}
           />
@@ -158,6 +158,14 @@ export default function IntroScreen({
       </div>
 
       <style>{`
+        .intro-logo-container {
+          --logo-size: 280px;
+        }
+        @media (min-width: 768px) {
+          .intro-logo-container {
+            --logo-size: 380px;
+          }
+        }
         @keyframes scrollBounce {
           0%, 100% { transform: translateY(0); opacity: 0.6; }
           50%       { transform: translateY(6px); opacity: 1; }

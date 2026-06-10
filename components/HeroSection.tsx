@@ -15,16 +15,33 @@ export default function HeroSection() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="relative z-10"
         >
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-px bg-gold/50" />
-            <span className="font-body text-[9px] tracking-[0.5em] uppercase text-navy/70 font-semibold">
-              The Creaticahub
-            </span>
+          {/* ── Luxury Brand Crest & Eyebrow ── */}
+          <div className="flex items-center gap-6 mb-8">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-[3px] bg-gradient-to-tr from-gold/50 via-gold/15 to-gold/60 shadow-[0_10px_30px_rgba(197,160,89,0.2)] transition-all duration-700 hover:scale-105 hover:rotate-6">
+              <div className="w-full h-full rounded-full bg-ivory p-2 flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781000366/gg_djnpjf.png"
+                  alt="Creaticabud Logo"
+                  className="w-full h-full object-contain rounded-full"
+                  draggable={false}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <span className="font-body text-[11px] sm:text-[12px] tracking-[0.45em] uppercase text-gold font-bold leading-none">
+                Creaticabud
+              </span>
+              <span className="font-body text-[9.5px] sm:text-[10px] tracking-[0.25em] uppercase text-navy/55 font-semibold leading-none mt-0.5">
+                Heritage Hand-Knotted
+              </span>
+            </div>
           </div>
 
-          <h1 className="font-display font-normal text-[56px] sm:text-[72px] lg:text-[84px] leading-[1.05] text-navy mb-8 tracking-[-0.02em]">
+          <h1 className="font-display font-normal text-[56px] sm:text-[74px] lg:text-[84px] leading-[1.05] text-navy mb-8 tracking-[-0.02em]">
             Woven with <br />
-            <span className="italic text-gold">Heritage.</span>
+            <span className="font-semibold text-gold block transition-colors duration-500 hover:text-navy">
+              Creaticabud.
+            </span>
           </h1>
 
           <p className="font-body text-navy/70 text-[15px] sm:text-[16px] leading-[2.1] font-light mb-12 max-w-md">

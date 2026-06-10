@@ -34,7 +34,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${raleway.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${raleway.variable}`} suppressHydrationWarning>
       <body className="antialiased">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
