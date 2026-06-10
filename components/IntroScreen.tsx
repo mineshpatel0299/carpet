@@ -7,6 +7,15 @@ const VIDEO_SRC = '/CVV.mp4'
 type Phase = 'video' | 'logo-reveal' | 'logo-transit' | 'fading' | 'done'
 type Rect  = { top: number; left: number; width: number; height: number }
 
+// ── Tuning ────────────────────────────────────────────────────────────────
+// How many seconds of video one "page" of scroll covers.
+// Lower = slower (requires more scrolling to finish the video).
+const SECONDS_PER_100PX = 0.012  // ~1.2s per 100px of raw wheel delta
+// Spring damping – how quickly scroll momentum bleeds off (0→1, lower = floatier)
+const DAMPING = 0.92
+// How aggressively video.currentTime chases the target (0→1, lower = silkier lag)
+const FOLLOW  = 0.12
+
 export default function IntroScreen({
   onLogoLanded,
   onComplete,
@@ -16,24 +25,24 @@ export default function IntroScreen({
 }) {
   const [phase,    setPhase]    = useState<Phase>('video')
   const [navRect,  setNavRect]  = useState<Rect | null>(null)
-  const [progress, setProgress] = useState(0) // 0-1 for the scroll hint bar
+  const [progress, setProgress] = useState(0)
 
-  const videoRef   = useRef<HTMLVideoElement>(null)
-  const triggered  = useRef(false)
-  const scrollAcc  = useRef(0)           // accumulated raw scroll delta
-  const rafId      = useRef<number>(0)
-  const velocity   = useRef(0)           // smooth velocity for butter feel
-  const lastRaf    = useRef<number>(0)
+  const videoRef  = useRef<HTMLVideoElement>(null)
+  const triggered = useRef(false)
+  const rafId     = useRef<number>(0)
+
+  // Physics state — all in plain refs so rAF never re-renders
+  const vel       = useRef(0)   // velocity in seconds/frame
+  const target    = useRef(0)   // where we WANT video.currentTime to be
+  const displayed = useRef(0)   // where video.currentTime actually is (chasing target)
+  const prevNow   = useRef(0)
 
   // ── trigger the logo sequence once video is "done" ──────────────────────
   function triggerLogoReveal() {
     if (triggered.current) return
     triggered.current = true
-
-    // Re-enable native scroll immediately so the site doesn't feel frozen
     document.documentElement.style.overflow = ''
     document.body.style.overflow = ''
-
     setPhase('logo-reveal')
 
     setTimeout(() => {
@@ -50,56 +59,57 @@ export default function IntroScreen({
     setTimeout(() => setPhase('done'), 3200)
   }
 
-  // ── scroll-scrub logic ───────────────────────────────────────────────────
+  // ── main scrub loop ──────────────────────────────────────────────────────
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
-    // Lock native scroll while intro is active
     document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
 
-    // Target currentTime, updated smoothly via rAF
-    let targetTime = 0
-
-    const SENSITIVITY = 0.006   // pixels-of-delta → seconds scrubbed
-    const LERP        = 0.10    // interpolation factor (lower = smoother)
-
+    // ── rAF tick ────────────────────────────────────────────────────────
     function tick(now: number) {
       const video = videoRef.current
       if (!video || triggered.current) return
 
-      const dt = lastRaf.current ? Math.min((now - lastRaf.current) / 1000, 0.1) : 0
-      lastRaf.current = now
+      // Real elapsed time (seconds), clamped to avoid spiral of death
+      const dt = prevNow.current ? Math.min((now - prevNow.current) / 1000, 0.05) : 0.016
+      prevNow.current = now
 
-      // Apply momentum decay
-      velocity.current *= Math.pow(0.88, dt * 60)
-
-      // Absorb accumulated raw scroll into velocity
-      if (scrollAcc.current !== 0) {
-        velocity.current += scrollAcc.current * SENSITIVITY
-        scrollAcc.current = 0
-      }
-
-      // Advance target time
       const dur = video.duration || 1
-      targetTime = Math.min(Math.max(targetTime + velocity.current, 0), dur)
 
-      // Smoothly interpolate video.currentTime toward target
-      const current = video.currentTime
-      const next    = current + (targetTime - current) * LERP
+      // 1. Apply damping to velocity (frame-rate independent via dt)
+      const dampPerFrame = Math.pow(DAMPING, dt * 60)
+      vel.current *= dampPerFrame
 
-      // Only write when change is meaningful (avoids seek thrashing)
-      if (Math.abs(next - current) > 0.001) {
-        video.currentTime = next
+      // 2. Advance the TARGET (where we want to be) by velocity
+      target.current = Math.max(0, Math.min(dur, target.current + vel.current))
+
+      // 3. Smoothly FOLLOW target with a lerp (makes each frame feel silky)
+      const followPerFrame = 1 - Math.pow(1 - FOLLOW, dt * 60)
+      const nextTime = displayed.current + (target.current - displayed.current) * followPerFrame
+      displayed.current = nextTime
+
+      // 4. Write to video — use fastSeek() when available (less decode lag)
+      const gap = Math.abs(nextTime - video.currentTime)
+      if (gap > 0.005) {
+        if (typeof (video as any).fastSeek === 'function') {
+          ;(video as any).fastSeek(nextTime)
+        } else {
+          video.currentTime = nextTime
+        }
       }
 
-      // Update progress bar
-      setProgress(targetTime / dur)
+      // 5. Drive progress bar from target (feels more responsive than displayed)
+      setProgress(target.current / dur)
 
-      // Check completion
-      if (targetTime >= dur - 0.05) {
-        video.currentTime = dur
+      // 6. Completion check
+      if (target.current >= dur - 0.04) {
+        if (typeof (video as any).fastSeek === 'function') {
+          ;(video as any).fastSeek(dur)
+        } else {
+          video.currentTime = dur
+        }
         triggerLogoReveal()
         return
       }
@@ -107,31 +117,33 @@ export default function IntroScreen({
       rafId.current = requestAnimationFrame(tick)
     }
 
-    // Wheel handler — accumulate raw delta
+    // ── Wheel ────────────────────────────────────────────────────────────
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
-      scrollAcc.current += e.deltaY + e.deltaX
+      // Normalize delta — trackpads fire many small events, mice fire fewer large ones
+      const raw = e.deltaY + e.deltaX
+      // pixelMode = 0 (pixel), 1 (line), 2 (page)
+      const normalised = e.deltaMode === 1 ? raw * 16 : e.deltaMode === 2 ? raw * 100 : raw
+      // Convert pixels → seconds and add directly to velocity
+      vel.current += normalised * SECONDS_PER_100PX * 0.01
     }
 
-    // Touch handler
-    let touchStartY = 0
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY
-    }
-    const onTouchMove = (e: TouchEvent) => {
+    // ── Touch ────────────────────────────────────────────────────────────
+    let touchY = 0
+    const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY }
+    const onTouchMove  = (e: TouchEvent) => {
       e.preventDefault()
-      const dy = touchStartY - e.touches[0].clientY
-      scrollAcc.current += dy * 2
-      touchStartY = e.touches[0].clientY
+      const dy = touchY - e.touches[0].clientY
+      vel.current += dy * SECONDS_PER_100PX * 0.01 * 3
+      touchY = e.touches[0].clientY
     }
 
-    window.addEventListener('wheel', onWheel, { passive: false })
-    window.addEventListener('touchstart', onTouchStart, { passive: true })
-    window.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('wheel',      onWheel,      { passive: false })
+    window.addEventListener('touchstart', onTouchStart, { passive: true  })
+    window.addEventListener('touchmove',  onTouchMove,  { passive: false })
 
-    // Start the rAF loop once video metadata is ready
     const startLoop = () => {
-      lastRaf.current = 0
+      prevNow.current = 0
       rafId.current = requestAnimationFrame(tick)
     }
 
@@ -143,9 +155,9 @@ export default function IntroScreen({
 
     return () => {
       cancelAnimationFrame(rafId.current)
-      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('wheel',      onWheel)
       window.removeEventListener('touchstart', onTouchStart)
-      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchmove',  onTouchMove)
       document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
     }
@@ -176,6 +188,7 @@ export default function IntroScreen({
         playsInline
         preload="auto"
         draggable={false}
+        style={{ willChange: 'auto' }}
       />
 
       {/* vignette */}
@@ -201,7 +214,6 @@ export default function IntroScreen({
           >
             Scroll to explore
           </span>
-          {/* Animated chevron */}
           <svg width="16" height="24" viewBox="0 0 16 24" fill="none" style={{ animation: 'scrollBounce 1.6s ease-in-out infinite' }}>
             <path d="M1 8l7 7 7-7" stroke="rgba(255,255,255,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M1 14l7 7 7-7" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -220,7 +232,7 @@ export default function IntroScreen({
               height: '100%',
               width: `${progress * 100}%`,
               background: 'linear-gradient(90deg, rgba(184,134,69,0.7), rgba(217,160,91,1))',
-              transition: 'width 0.05s linear',
+              transition: 'width 0.08s linear',
               boxShadow: '0 0 8px rgba(217,160,91,0.6)',
             }}
           />
@@ -260,7 +272,6 @@ export default function IntroScreen({
         </div>
       </div>
 
-      {/* bounce keyframe injected inline */}
       <style>{`
         @keyframes scrollBounce {
           0%, 100% { transform: translateY(0); opacity: 0.6; }
