@@ -51,8 +51,8 @@ export default function BespokeSection() {
               </motion.p>
             </div>
 
-            {/* Minimalist Spec List (Replaces verbose paragraphs) */}
-            <div className="space-y-4 md:space-y-6 pt-2 md:pt-4 max-w-sm">
+            {/* Minimalist Spec List - Desktop Only */}
+            <div className="hidden lg:block space-y-4 md:space-y-6 pt-2 md:pt-4 max-w-sm">
               {[
                 { label: 'Custom Proportions', value: 'Up to 18×24 ft' },
                 { label: 'Material Library', value: 'Silk, Wool, Bamboo' },
@@ -73,6 +73,28 @@ export default function BespokeSection() {
                   <span className="font-body text-[8px] md:text-[9px] tracking-[0.15em] md:tracking-[0.2em] text-navy/40 uppercase font-semibold">
                     {item.value}
                   </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Luxury Spec Grid - Mobile Only */}
+            <div className="grid lg:hidden grid-cols-2 gap-x-6 gap-y-4 pt-2">
+              {[
+                { label: 'Custom Proportions', value: 'Up to 18×24 ft' },
+                { label: 'Material Library', value: 'Silk, Wool, Bamboo' },
+                { label: 'Color Matching', value: 'Organic Pigments' },
+                { label: 'Motif Translation', value: 'Bespoke Patterns' },
+              ].map((item, idx) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.1 + (idx * 0.08) }}
+                  className="border-l border-gold/40 pl-3 py-1 cursor-default"
+                >
+                  <p className="font-body text-[8px] tracking-[0.15em] uppercase text-navy/40 mb-1 font-semibold">{item.label}</p>
+                  <p className="font-display text-[14px] text-navy font-semibold leading-tight">{item.value}</p>
                 </motion.div>
               ))}
             </div>
@@ -102,55 +124,53 @@ export default function BespokeSection() {
           <div className="w-full lg:w-[50%] relative order-1 lg:order-2 flex lg:justify-end justify-center">
 
             {/* ── MOBILE IMAGE BLOCK ── */}
-            <div className="block lg:hidden w-full relative">
-
-              {/* Gold frame border — decorative inset */}
+            <div className="block lg:hidden w-full relative mb-4">
               <motion.div
-                initial={{ opacity: 0, scale: 0.92 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.4, ease: [0.2, 0.8, 0.2, 1] }}
-                className="relative mx-auto w-[72%] aspect-[2/3]"
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full aspect-[1.3] z-10"
               >
                 {/* Corner ornament lines */}
-                <span className="absolute top-3 left-3 w-6 h-6 border-t border-l border-gold/60 z-20 pointer-events-none" />
-                <span className="absolute top-3 right-3 w-6 h-6 border-t border-r border-gold/60 z-20 pointer-events-none" />
-                <span className="absolute bottom-3 left-3 w-6 h-6 border-b border-l border-gold/60 z-20 pointer-events-none" />
-                <span className="absolute bottom-3 right-3 w-6 h-6 border-b border-r border-gold/60 z-20 pointer-events-none" />
+                <span className="absolute top-2.5 left-2.5 w-4 h-4 border-t border-l border-gold/60 z-20 pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-4 h-4 border-t border-r border-gold/60 z-20 pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-4 h-4 border-b border-l border-gold/60 z-20 pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-4 h-4 border-b border-r border-gold/60 z-20 pointer-events-none" />
 
                 {/* Arch image */}
-                <div className="w-full h-full overflow-hidden rounded-t-[1000px] rounded-b-[14px] shadow-[0_16px_48px_rgba(14,27,45,0.14)] border border-gold/10">
+                <div className="w-full h-full overflow-hidden rounded-[20px] shadow-[0_12px_36px_rgba(14,27,45,0.08)] border border-gold/10">
                   <Image
                     src="/images/luxury_bespoke_carpet_main.png"
                     alt="Bespoke luxury carpet"
                     fill
-                    sizes="80vw"
+                    sizes="100vw"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/20 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/30 pointer-events-none" />
                 </div>
 
                 {/* Floating gold stat badge */}
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: 0.5 }}
-                  className="absolute -right-5 top-[28%] bg-linen/95 backdrop-blur-sm border border-gold/25 rounded-[10px] px-3.5 py-2.5 shadow-[0_8px_24px_rgba(14,27,45,0.12)] z-30"
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="absolute -right-2 top-4 bg-linen/95 border border-gold/25 rounded-[8px] px-3 py-2 shadow-lg z-30"
                 >
-                  <p className="font-display text-[20px] leading-none text-navy">30<span className="text-gold text-[13px]">+</span></p>
-                  <p className="font-body text-[7px] tracking-[0.2em] uppercase text-navy/50 mt-1">Yrs Craft</p>
+                  <p className="font-display text-[18px] leading-none text-navy">30<span className="text-gold text-[12px]">+</span></p>
+                  <p className="font-body text-[6.5px] tracking-[0.2em] uppercase text-navy/50 mt-0.5 font-semibold">Yrs Craft</p>
                 </motion.div>
 
                 {/* Floating label bottom */}
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: 0.7 }}
-                  className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-navy text-linen px-5 py-2 rounded-full shadow-lg z-30 whitespace-nowrap"
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="absolute -bottom-3 left-6 bg-navy text-linen px-4 py-1.5 rounded-full shadow-md z-30 whitespace-nowrap"
                 >
-                  <span className="font-body text-[7.5px] tracking-[0.25em] uppercase font-semibold">Master Artisans · Agra</span>
+                  <span className="font-body text-[7px] tracking-[0.25em] uppercase font-semibold">Master Artisans · Agra</span>
                 </motion.div>
               </motion.div>
             </div>
