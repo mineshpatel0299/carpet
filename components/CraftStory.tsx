@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 const moments = [
   {
@@ -33,8 +33,79 @@ const moments = [
   },
 ]
 
+function CatalogPage({
+  moment,
+  index,
+}: {
+  moment: (typeof moments)[0]
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0.6, scale: 0.94, rotateY: 8 }}
+      whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+      viewport={{ once: false, amount: 0.5 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="flex-none w-[80vw] max-w-[310px] snap-start bg-parchment border-4 border-double border-gold/30 rounded-[8px] p-5 shadow-lg flex flex-col justify-between"
+    >
+      <div>
+        {/* Image frame */}
+        <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[4px] border border-navy/5 mb-4 shadow-sm">
+          <Image
+            src={moment.image}
+            alt={moment.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+          />
+        </div>
+
+        {/* Chapter label */}
+        <div className="text-center font-display italic text-gold text-[13px] tracking-widest mb-1.5">
+          — Chapter {moment.chapter} —
+        </div>
+
+        {/* Title */}
+        <h3 className="text-center font-display font-medium text-[17px] leading-snug text-navy mb-3">
+          {moment.title}
+        </h3>
+
+        {/* Small center divider */}
+        <div className="w-8 h-[1px] bg-gold/40 mx-auto mb-3" />
+
+        {/* Body text */}
+        <p className="text-center font-body text-[11px] leading-relaxed text-navy/70 font-light px-1 mb-4">
+          {moment.body}
+        </p>
+      </div>
+
+      {/* Stat block */}
+      <div className="mt-auto border-t border-navy/10 pt-3 flex flex-col items-center">
+        <span className="font-display text-[22px] text-gold leading-none font-medium mb-1">
+          {moment.stat.figure}
+        </span>
+        <span className="font-body text-[8px] tracking-[0.2em] uppercase text-navy/50 font-semibold">
+          {moment.stat.label}
+        </span>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function CraftStory() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      const maxScroll = scrollWidth - clientWidth
+      if (maxScroll > 0) {
+        setScrollProgress(scrollLeft / maxScroll)
+      }
+    }
+  }
 
   return (
     <section id="heritage" ref={containerRef} className="bg-ivory py-24 md:py-36 overflow-hidden relative">
@@ -43,7 +114,7 @@ export default function CraftStory() {
       <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-20 relative z-10">
 
         {/* Section Intro */}
-        <div className="text-center max-w-2xl mx-auto mb-20 md:mb-32">
+        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-32">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,8 +140,41 @@ export default function CraftStory() {
           </motion.h2>
         </div>
 
-        {/* Broken Grid Sequence */}
-        <div className="flex flex-col gap-24 md:gap-40 lg:gap-48 relative">
+        {/* Mobile-only Catalog Page Flip */}
+        <div className="block md:hidden w-full relative z-20 overflow-visible mb-12">
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-5 px-6 pb-6 -mx-6 scroll-pl-6"
+            style={{
+              perspective: '1000px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {moments.map((moment, idx) => (
+              <CatalogPage key={moment.chapter} moment={moment} index={idx} />
+            ))}
+            {/* Peeking alignment spacer */}
+            <div className="flex-none w-2 shrink-0" />
+          </div>
+
+          {/* Elegant Page Flip Progress Indicator */}
+          <div className="mt-8 flex justify-center items-center">
+            <div className="w-24 h-[1.5px] bg-navy/10 relative rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 bottom-0 left-0 bg-gold rounded-full transition-transform duration-75 ease-out"
+                style={{
+                  width: '33.33%',
+                  transform: `translateX(${scrollProgress * 200}%)`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop-only Broken Grid Sequence */}
+        <div className="hidden md:flex flex-col gap-24 md:gap-40 lg:gap-48 relative">
           {moments.map((moment, idx) => {
             const isReverse = moment.reverse;
             
