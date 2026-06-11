@@ -38,11 +38,11 @@ export default function IntroScreen({
         setNavRect({ top: r.top, left: r.left, width: r.width, height: r.height })
       }
       setPhase('logo-transit')
-    }, 2500)
+    }, 3800)
 
-    setTimeout(() => onLogoLanded?.(), 3350)
-    setTimeout(() => { setPhase('fading'); onComplete() }, 3800)
-    setTimeout(() => setPhase('done'), 4450)
+    setTimeout(() => onLogoLanded?.(), 4650)
+    setTimeout(() => { setPhase('fading'); onComplete() }, 5100)
+    setTimeout(() => setPhase('done'), 5750)
   }
 
   // ── autoplay + onEnded ───────────────────────────────────────────────────
