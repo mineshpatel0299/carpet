@@ -9,7 +9,7 @@ const moments = [
     label: 'The Foundation',
     title: 'Vertical looms standing eight feet tall',
     body: 'Each carpet begins on a hand-built wooden loom strung with warp threads. Our weavers learn to read the pattern map as fluently as a musician reads sheet music.',
-    image: '/images/collections/handloom.png',
+    image: '/images/collections/handloom_new.png',
     stat: { figure: '6', label: 'Months per carpet' },
     reverse: false
   },
@@ -18,7 +18,7 @@ const moments = [
     label: 'The Technique',
     title: 'A million knots, tied individually by hand',
     body: 'The Persian knot — tied, cut, and compacted row by row. A master weaver works with rhythmic precision. A 9×12 carpet represents six months of a single life.',
-    image: '/images/benefits/sensory.png',
+    image: '/images/collections/bamboo_new.png',
     stat: { figure: '10k', label: 'Knots tied per day' },
     reverse: true
   },

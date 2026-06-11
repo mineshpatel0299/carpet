@@ -41,7 +41,7 @@ const collections = [
   {
     name: 'Handloom products',
     desc: 'Woven with care, crafted by artisans, made for modern living.',
-    image: '/images/collections/handloom.png',
+    image: '/images/collections/handloom_new.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
@@ -53,7 +53,7 @@ const collections = [
   {
     name: 'Bamboo products',
     desc: 'Sustainable. Stylish. Sourced from nature, made to last.',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+    image: '/images/collections/bamboo_new.png',
     icon: (
       <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
         <circle cx="20" cy="20" r="19" fill="none" stroke="#B88645" strokeWidth="1.5" />
