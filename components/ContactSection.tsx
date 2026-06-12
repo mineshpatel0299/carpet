@@ -74,7 +74,7 @@ export default function ContactSection() {
 
         <motion.p
           variants={fadeUp}
-          className="font-body font-light text-[15px] md:text-[16px] leading-[2.1] text-navy/70 max-w-lg"
+          className="font-body font-medium text-[17px] md:text-[18px] leading-[2.1] text-navy/85 max-w-lg"
         >
           Whether you're furnishing a villa, specifying for a hotel, or sourcing for your boutique — our atelier is ready to bring your vision to life.
         </motion.p>
@@ -82,10 +82,10 @@ export default function ContactSection() {
         <motion.div variants={stagger} className="mt-16 flex flex-col gap-6">
           {details.map((d) => (
             <motion.div key={d.label} variants={fadeUp} className="flex items-center gap-8 group">
-              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-gold/60 w-20 shrink-0">
+              <span className="font-body font-bold text-[10px] tracking-[0.35em] uppercase text-gold w-20 shrink-0">
                 {d.label}
               </span>
-              <a href={d.href} className="font-body font-light text-[15px] text-navy/70 group-hover:text-gold transition-colors duration-300">
+              <a href={d.href} className="font-body font-semibold text-[17px] text-navy/85 group-hover:text-gold transition-colors duration-300">
                 {d.value}
               </a>
             </motion.div>
@@ -93,7 +93,7 @@ export default function ContactSection() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-16 pt-12 border-t border-navy/10 max-w-sm">
-          <p className="font-body font-light text-[13px] leading-[2.1] text-navy/50">
+          <p className="font-body font-medium text-[15px] leading-[2.1] text-navy/70">
             Creaticabud Exports Pvt. Ltd.<br />
             Carpet Nagar, Fatehabad Road<br />
             Agra, Uttar Pradesh — 282 001, India
@@ -116,22 +116,22 @@ export default function ContactSection() {
         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <label className="flex flex-col gap-3">
-              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Full Name</span>
+              <span className="font-body font-black text-[13px] tracking-ultra uppercase text-navy pl-2">Full Name</span>
               <input type="text" placeholder="Your name" className={inputCls} />
             </label>
             <label className="flex flex-col gap-3">
-              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Email</span>
+              <span className="font-body font-black text-[13px] tracking-ultra uppercase text-navy pl-2">Email</span>
               <input type="email" placeholder="you@example.com" className={inputCls} />
             </label>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <label className="flex flex-col gap-3">
-              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Country</span>
+              <span className="font-body font-black text-[13px] tracking-ultra uppercase text-navy pl-2">Country</span>
               <input type="text" placeholder="Country of delivery" className={inputCls} />
             </label>
             <label className="flex flex-col gap-3">
-              <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Enquiry Type</span>
+              <span className="font-body font-black text-[13px] tracking-ultra uppercase text-navy pl-2">Enquiry Type</span>
               <select
                 defaultValue=""
                 className={`${inputCls} cursor-pointer appearance-none text-navy/80`}
@@ -145,7 +145,7 @@ export default function ContactSection() {
           </div>
 
           <label className="flex flex-col gap-3">
-            <span className="font-body font-semibold text-[9px] tracking-[0.35em] uppercase text-navy/60 pl-2">Message</span>
+            <span className="font-body font-black text-[13px] tracking-ultra uppercase text-navy pl-2">Message</span>
             <textarea
               rows={4}
               placeholder="Tell us about your project, dimensions, quantities, and timeline…"
@@ -156,7 +156,7 @@ export default function ContactSection() {
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full bg-navy text-linen rounded-full font-body font-normal text-[12px] tracking-[0.3em] uppercase py-6 hover:bg-gold hover:text-navy transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-1"
+              className="w-full bg-navy text-linen rounded-full font-body font-normal text-[12px] tracking-ultra uppercase py-6 hover:bg-gold hover:text-navy transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-1"
             >
               Submit Request
             </button>

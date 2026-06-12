@@ -141,7 +141,7 @@ export default function BespokeSection() {
                 {/* Arch image */}
                 <div className="w-full h-full overflow-hidden rounded-[20px] shadow-[0_12px_36px_rgba(14,27,45,0.08)] border border-gold/10">
                   <Image
-                    src="/images/luxury_bespoke_carpet_main.png"
+                    src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781251228/Gemini_Generated_Image_w3z2eiw3z2eiw3z2_bsxtos.png"
                     alt="Bespoke luxury carpet"
                     fill
                     sizes="100vw"
@@ -187,7 +187,7 @@ export default function BespokeSection() {
                 className="w-[85%] aspect-[2/3] relative overflow-hidden rounded-t-[1000px] rounded-b-[24px] shadow-[0_20px_60px_rgba(14,27,45,0.08)] ml-auto"
               >
                 <Image
-                  src="/images/luxury_bespoke_carpet_main.png"
+                  src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781251228/Gemini_Generated_Image_w3z2eiw3z2eiw3z2_bsxtos.png"
                   alt="Bespoke luxury carpet"
                   fill
                   sizes="50vw"

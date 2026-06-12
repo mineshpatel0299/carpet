@@ -15,7 +15,7 @@ type TestimonialDetails = {
 };
 
 const testimonialData = {
-  ids: ["t1", "t2", "t3", "t4", "t5"],
+  ids: ["t1", "t2", "t3"],
   details: {
     "t1": {
       id: "t1",
@@ -38,20 +38,8 @@ const testimonialData = {
       designation: "Head of Procurement, Nordisk Interiors",
       profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=85",
     },
-    "t4": {
-      id: "t4",
-      description: "The attention to detail in the weaving process is second to none. We visited the Agra atelier and were blown away by the dedication to ethical production and natural dyeing techniques.",
-      name: "Eleanor Vance",
-      designation: "Founder, Heritage Textures NY",
-      profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=85",
-    },
-    "t5": {
-      id: "t5",
-      description: "Our boutique hotel required 120 custom rugs with a very specific modernist motif. Creaticabud delivered exactly on time, and the quality of the New Zealand wool is extraordinary.",
-      name: "Marcus Chen",
-      designation: "Architect, Horizon Hospitality",
-      profileImage: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=85",
-    },
+   
+   
   },
 } as const;
 
