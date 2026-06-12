@@ -149,9 +149,11 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top right;
-  opacity: 0.8;
-  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
-  mask-image: radial-gradient(ellipse at 100% 0%, black, transparent 75%);
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(to left, black 0%, transparent 88%), linear-gradient(to bottom, black 0%, transparent 88%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to left, black 0%, transparent 88%), linear-gradient(to bottom, black 0%, transparent 88%);
+  mask-composite: intersect;
 }
 
 .carpet-texture::after {
@@ -167,9 +169,11 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom left;
-  opacity: 0.8;
-  -webkit-mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
-  mask-image: radial-gradient(ellipse at 0% 100%, black, transparent 75%);
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(to right, black 0%, transparent 88%), linear-gradient(to top, black 0%, transparent 88%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, black 0%, transparent 88%), linear-gradient(to top, black 0%, transparent 88%);
+  mask-composite: intersect;
 }
 
 /* ─── Dark Carpet Texture Background ─── */
