@@ -1,16 +1,19 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const links = [
-  { label: 'Collections', href: '#collections' },
-  { label: 'Heritage',    href: '#heritage' },
-  { label: 'Benefits',    href: '#benefits' },
-  { label: 'Materials',   href: '#materials' },
-  { label: 'Process',     href: '#process' },
+  { label: 'Home',       href: '/' },
+  { label: 'About Us',   href: '/about' },
+  { label: 'Contact Us', href: '/contact' },
 ]
 
 export default function Navbar({ assembling = false }: { assembling?: boolean }) {
-  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
+  const [scrolled, setScrolled] = useState(!isHome)
   const [open, setOpen]         = useState(false)
 
   // Once assembling fires, latch it — elements never go back to invisible
@@ -19,10 +22,11 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
   const show = latched.current
 
   useEffect(() => {
+    if (!isHome) return
     const h = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', h, { passive: true })
     return () => window.removeEventListener('scroll', h)
-  }, [])
+  }, [isHome])
 
   return (
     <header
@@ -52,22 +56,25 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
 
         {/* ── Centre nav — staggered slide-up ── */}
         <nav className="hidden md:flex items-center gap-10" aria-label="Primary">
-          {links.map(({ label, href }, i) => (
-            <a
-              key={label}
-              href={href}
-              className="relative font-body text-[10px] tracking-[0.2em] uppercase text-navy/70 hover:text-navy transition-colors duration-300 group/link font-semibold"
-              style={{
-                opacity:       show ? 1 : 0,
-                transform:     show ? 'translateY(0)' : 'translateY(12px)',
-                transition:    `opacity 0.55s ease ${100 + i * 85}ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${100 + i * 85}ms`,
-                pointerEvents: show ? 'auto' : 'none',
-              }}
-            >
-              {label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover/link:w-full transition-all duration-450 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-            </a>
-          ))}
+          {links.map(({ label, href }, i) => {
+            const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
+            return (
+              <Link
+                key={label}
+                href={href}
+                className="relative font-body text-[10px] tracking-[0.2em] uppercase text-navy/70 hover:text-navy transition-colors duration-300 group/link font-semibold"
+                style={{
+                  opacity:       show ? 1 : 0,
+                  transform:     show ? 'translateY(0)' : 'translateY(12px)',
+                  transition:    `opacity 0.55s ease ${100 + i * 85}ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${100 + i * 85}ms`,
+                  pointerEvents: show ? 'auto' : 'none',
+                }}
+              >
+                {label}
+                <span className={`absolute -bottom-1 left-0 h-px bg-gold transition-all duration-450 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? 'w-full' : 'w-0 group-hover/link:w-full'}`} />
+              </Link>
+            )
+          })}
         </nav>
 
         {/* ── Right actions — fade in last ── */}
@@ -92,13 +99,13 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
 
           <div className="w-px h-4 bg-navy/20" />
 
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="relative font-body text-[10px] tracking-[0.25em] uppercase text-navy font-semibold hover:text-gold transition-colors duration-300 group/enquire"
           >
             Enquire
             <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover/enquire:w-full transition-all duration-450 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-          </a>
+          </Link>
         </div>
 
         {/* ── Mobile hamburger ── */}
@@ -122,23 +129,19 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
       {/* ── Mobile drawer ── */}
       {open && (
         <div className="md:hidden bg-linen/98 backdrop-blur-md border-b border-navy/10 px-6 pt-4 pb-8 flex flex-col gap-6 shadow-md">
-          {links.map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              onClick={() => setOpen(false)}
-              className="font-body text-[12px] tracking-[0.2em] uppercase text-navy/80 font-semibold hover:text-gold transition-colors"
-            >
-              {label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="font-body text-[12px] tracking-[0.2em] uppercase text-gold font-semibold mt-2"
-          >
-            Enquire
-          </a>
+          {links.map(({ label, href }) => {
+            const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
+            return (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`font-body text-[12px] tracking-[0.2em] uppercase font-semibold transition-colors ${isActive ? 'text-gold' : 'text-navy/80 hover:text-gold'}`}
+              >
+                {label}
+              </Link>
+            )
+          })}
         </div>
       )}
     </header>

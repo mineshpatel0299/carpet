@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import Link from 'next/link'
 
 const collections  = ['Handmade Carpets & Rugs', 'Custom Tufted & Knotted', 'Silk Carpets', 'Handloom Products', 'Bamboo Products']
 const company      = ['Our Heritage', 'The Artisans', 'Sustainability', 'Quality Standards', 'Press & Media']
@@ -104,14 +105,17 @@ export default function Footer() {
           © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.
         </span>
         <div className="flex items-center gap-6">
-          {['Privacy Policy', 'Terms of Use', 'Export Policy'].map((item) => (
-            <a
-              key={item}
-              href="#"
+          {[
+            { label: 'Privacy Policy', href: '/privacy-policy' },
+            
+          ].map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
               className="font-body font-semibold text-[11px] text-navy/40 hover:text-navy/80 transition-colors"
             >
-              {item}
-            </a>
+              {label}
+            </Link>
           ))}
         </div>
       </div>

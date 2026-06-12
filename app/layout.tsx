@@ -21,11 +21,11 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: 'Creaticabud Carpets — India\'s Finest Hand-Knotted Carpets',
   description:
-    'Manufacturer & exporter of handmade carpets, silk rugs, and handloom textiles since 1998. Supplying to 48 countries with ethical, artisan craftsmanship.',
+    'Manufacturer & exporter of handmade carpets, silk rugs, and handloom textiles since 2010. Supplying to 48 countries with ethical, artisan craftsmanship.',
   openGraph: {
     title: 'Creaticabud Carpets — India\'s Finest Hand-Knotted Carpets',
     description:
-      'Manufacturer & exporter of handmade carpets, silk rugs, and handloom textiles since 1998.',
+      'Manufacturer & exporter of handmade carpets, silk rugs, and handloom textiles since 2010.',
     type: 'website',
   },
 }
