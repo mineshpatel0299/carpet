@@ -16,7 +16,7 @@ function Column({ title, links }: { title: string; links: string[] }) {
           <li key={l}>
             <a
               href="#"
-              className="font-body text-[13px] text-navy/70 hover:text-gold transition-colors duration-200"
+              className="font-body font-semibold text-[13px] text-navy/70 hover:text-gold transition-colors duration-200"
             >
               {l}
             </a>
@@ -52,7 +52,7 @@ export default function Footer() {
               className="w-20 h-20 object-contain rounded-full" 
             />
           </div>
-          <p className="font-body font-light text-[14px] leading-relaxed text-navy/70 max-w-[280px] mb-8">
+          <p className="font-body font-semibold text-[14px] leading-relaxed text-navy/70 max-w-70 mb-8">
             Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.
           </p>
           <div className="flex gap-6">
@@ -60,7 +60,7 @@ export default function Footer() {
               <a
                 key={s}
                 href="#"
-                className="font-body text-[10px] tracking-[0.15em] uppercase text-navy/50 hover:text-gold transition-colors duration-200"
+                className="font-body font-semibold text-[10px] tracking-[0.15em] uppercase text-navy/50 hover:text-gold transition-colors duration-200"
               >
                 {s}
               </a>
@@ -100,7 +100,7 @@ export default function Footer() {
 
       {/* ── Bottom bar ── */}
       <div className="bg-parchment border-t border-navy/10 px-6 sm:px-8 md:px-20 py-5 flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
-        <span className="font-body font-light text-[11px] text-navy/40">
+        <span className="font-body font-semibold text-[11px] text-navy/40">
           © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.
         </span>
         <div className="flex items-center gap-6">
@@ -108,7 +108,7 @@ export default function Footer() {
             <a
               key={item}
               href="#"
-              className="font-body font-light text-[11px] text-navy/40 hover:text-navy/80 transition-colors"
+              className="font-body font-semibold text-[11px] text-navy/40 hover:text-navy/80 transition-colors"
             >
               {item}
             </a>
