@@ -4,8 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { stagger, fadeUp } from '@/lib/animations'
 
 const details = [
-  { label: 'Email',     value: 'export@creaticabud.com', href: 'mailto:export@creaticabud.com' },
-  { label: 'WhatsApp', value: '+91 98765 43210',          href: 'tel:+919876543210' },
+  { label: 'Email',     value: 'Creaticabudcarpets@gmail.com', href: 'Creaticabudcarpets@gmail.com' },
+  { label: 'WhatsApp', value: '+919810525135',          href: 'tel:+919810525135' },
   { label: 'Web',      value: 'www.creaticabud.com',      href: '#' },
 ]
 
