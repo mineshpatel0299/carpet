@@ -10,10 +10,8 @@ import BespokeSection from '@/components/BespokeSection'
 import CollectionsGrid from '@/components/CollectionsGrid'
 import FeaturesBar from '@/components/FeaturesBar'
 import ProcessSteps from '@/components/ProcessSteps'
-import BenefitsSection from '@/components/BenefitsSection'
 import MaterialsSection from '@/components/MaterialsSection'
 // import RugGuideSection  from '@/components/RugGuideSection'
-import Testimonial from '@/components/Testimonial'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
@@ -49,10 +47,8 @@ export default function HomeWrapper() {
         <CollectionsGrid />
         <FeaturesBar />
         <ProcessSteps />
-        <BenefitsSection />
         <MaterialsSection />
         {/* <RugGuideSection /> */}
-        <Testimonial />
         <ContactSection />
         <Footer />
       </main>

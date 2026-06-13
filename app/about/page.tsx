@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar'
 import AboutHero from '@/components/AboutHero'
 import FoundingStory from '@/components/FoundingStory'
 import WhyUs from '@/components/WhyUs'
+import BenefitsSection from '@/components/BenefitsSection'
 // import GlobalPresence from '@/components/GlobalPresence'
 import CraftStory from '@/components/CraftStory'
 import BrandManifesto from '@/components/BrandManifesto'
@@ -22,6 +23,7 @@ export default function AboutPage() {
         <AboutHero />
         <FoundingStory />
         <WhyUs />
+        <BenefitsSection />
         {/* <GlobalPresence /> */}
         <CraftStory />
         <BrandManifesto />
