@@ -170,7 +170,7 @@ export default function BespokeSection() {
                   transition={{ duration: 0.8, delay: 0.5 }}
                   className="absolute -bottom-3 left-6 bg-navy text-linen px-4 py-1.5 rounded-full shadow-md z-30 whitespace-nowrap"
                 >
-                  <span className="font-body text-[7px] tracking-[0.25em] uppercase font-semibold">Master Artisans · Agra</span>
+                  <span className="font-body text-[7px] tracking-[0.25em] uppercase font-semibold">Master Artisans · Delhi</span>
                 </motion.div>
               </motion.div>
             </div>
