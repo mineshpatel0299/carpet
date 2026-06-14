@@ -79,7 +79,7 @@ export default function WhyUs() {
             variants={fadeUp}
             className="font-body text-[14px] leading-[2] text-navy/70 max-w-96 mb-14"
           >
-            A family-owned manufacturer based in Agra, India. For over 25 years we have supplied
+            A family-owned manufacturer based in Delhi, India. For over 25 years we have supplied
             handmade rugs and carpets to hotels, designers, and collectors who refuse to compromise
             on quality or conscience.
           </motion.p>
