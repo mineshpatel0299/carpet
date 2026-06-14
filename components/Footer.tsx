@@ -39,11 +39,13 @@ export default function Footer() {
         <div className="mb-10 md:mb-0 md:grid md:grid-cols-[2fr_1fr_1fr] md:gap-16 md:items-start">
           <div>
             <div className="mb-5">
-              <img
-                src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png"
-                alt="Creaticabud Logo"
-                className="w-14 h-14 object-contain rounded-full"
-              />
+              <Link href="/">
+                <img
+                  src="https://res.cloudinary.com/djicxkd9u/image/upload/v1781000444/hh_bkwaij.png"
+                  alt="Creaticabud Logo"
+                  className="w-14 h-14 object-contain rounded-full"
+                />
+              </Link>
             </div>
             <p className="font-body font-light text-[13px] leading-relaxed text-navy/55 max-w-xs mb-7">
               Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.
@@ -133,7 +135,7 @@ export default function Footer() {
               <li>
                 <p className="font-body text-[8px] tracking-[0.22em] uppercase text-navy/30 font-semibold mb-0.5">Address</p>
                 <p className="font-body text-[12px] text-navy/55 leading-relaxed">
-                  Agra, UP<br />282 001, India
+                  U-112,Vidhata House,Vikas Marg,<br />Delhi-110092(INDIA)
                 </p>
               </li>
             </ul>
