@@ -47,7 +47,7 @@ export default function BespokeSection() {
                 transition={{ duration: 1.2, delay: 0.2 }}
                 className="font-body font-light text-[13px] sm:text-[15px] leading-[1.9] sm:leading-[2.1] text-navy/70 mt-5 sm:mt-8 max-w-md"
               >
-                True luxury is defined by absolute choice. From the hand-carded Himalayan wool to the exact dimensions of your space, every element is curated by you and woven by our master artisans in Agra.
+                True luxury is defined by absolute choice. From the hand-carded Himalayan wool to the exact dimensions of your space, every element is curated by you and woven by our master artisans in Badohi.
               </motion.p>
             </div>
 

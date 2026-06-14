@@ -11,11 +11,7 @@ const contactDetails = [
   { label: 'WhatsApp', value: '+91 98105 25135',              href: 'tel:+919810525135'                   },
 ]
 
-const socials = [
-  { label: 'Instagram', href: '#' },
-  { label: 'LinkedIn',  href: '#' },
-  { label: 'Pinterest', href: '#' },
-]
+
 
 function DiamondMark() {
   return (
@@ -50,17 +46,7 @@ export default function Footer() {
             <p className="font-body font-light text-[13px] leading-relaxed text-navy/55 max-w-xs mb-7">
               Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.
             </p>
-            <div className="flex gap-5">
-              {socials.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="font-body font-semibold text-[9px] tracking-[0.2em] uppercase text-navy/35 hover:text-gold transition-colors duration-200"
-                >
-                  {label}
-                </a>
-              ))}
-            </div>
+            
           </div>
 
           {/* Navigate + Contact — hidden on mobile, shown inside grid on desktop */}

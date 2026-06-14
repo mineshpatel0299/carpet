@@ -26,7 +26,7 @@ const moments = [
     chapter: '03',
     label: 'The Refinement',
     title: 'Washed, stretched and perfected',
-    body: 'After weaving: a 47-point inspection, hand-washing in mountain water, and stretching over wooden frames under the Agra sun. The carpet breathes before it ever enters your home.',
+    body: 'After weaving: a 47-point inspection, hand-washing in mountain water, and stretching over wooden frames under the Jaipur sun. The carpet breathes before it ever enters your home.',
     image: '/images/collections/silk.png',
     stat: { figure: '47', label: 'Quality checkpoints' },
     reverse: false
