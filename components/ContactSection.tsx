@@ -94,8 +94,8 @@ export default function ContactSection() {
 
         <motion.div variants={fadeUp} className="mt-16 pt-12 border-t border-navy/10 max-w-sm">
           <p className="font-body font-medium text-[15px] leading-[2.1] text-navy/70">
-            Creaticabud Exports Pvt. Ltd.<br />
-            Bhadohi · Mirzapur · Delhi, India
+            Creaticabud Carpets.<br />
+            Delhi • Badohi • Jaipur • Mirzapur, INDIA
           </p>
         </motion.div>
       </motion.div>

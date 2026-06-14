@@ -93,7 +93,7 @@ export default function Footer() {
               <li className="pt-1">
                 <p className="font-body text-[8px] tracking-[0.25em] uppercase text-navy/30 font-semibold mb-0.5">Address</p>
                 <p className="font-body text-[13px] text-navy/55 leading-relaxed">
-                  Carpet Nagar, Fatehabad Road<br />Agra, UP — 282 001, India
+                  U-112,Vidhata House,Vikas Marg,<br />Delhi-110092(INDIA)
                 </p>
               </li>
             </ul>

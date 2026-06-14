@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Creaticabud Carpets',
-  description: 'How Creaticabud Exports Pvt. Ltd. collects, uses, and protects your personal information.',
+  description: 'How Creaticabud Carpets collects, uses, and protects your personal information.',
 }
 
 const sections = [
@@ -50,7 +50,7 @@ For users in the European Economic Area, you may also have rights under the GDPR
   },
   {
     title: 'Contact',
-    body: `If you have any questions about this Privacy Policy or how we handle your personal information, please contact:\n\nCreaticabud Exports Pvt. Ltd.\nBhadohi · Mirzapur · Delhi, India\nEmail: Creaticabudcarpets@gmail.com\nWhatsApp: +91 98105 25135`,
+    body: `If you have any questions about this Privacy Policy or how we handle your personal information, please contact:\n\nCreaticabud Carpets.\nBhadohi · Mirzapur · Delhi, India\nEmail: Creaticabudcarpets@gmail.com\nWhatsApp: +91 98105 25135`,
   },
 ]
 
@@ -94,7 +94,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Intro */}
             <p className="font-body text-[15px] md:text-[16px] leading-[2] text-navy/70 font-light mb-16 border-l-2 border-gold/30 pl-8">
-              Creaticabud Exports Pvt. Ltd. ("Creaticabud", "we", "our", or "us") is committed
+              Creaticabud Carpets. ("Creaticabud", "we", "our", or "us") is committed
               to protecting the privacy of our clients, partners, and website visitors. This
               Privacy Policy explains how we collect, use, and safeguard your personal information
               in connection with our website and business activities.
