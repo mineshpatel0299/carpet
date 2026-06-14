@@ -68,8 +68,8 @@ export default function ContactSection() {
           variants={fadeUp}
           className="font-display font-normal text-[42px] md:text-[64px] lg:text-[72px] leading-[1.05] text-navy mb-8"
         >
-          Let's create <br />
-          <span className="text-gold">something <br className="hidden lg:block"/> remarkable.</span>
+          Start a <br />
+          <span className="text-gold">conversation.</span>
         </motion.h2>
 
         <motion.p

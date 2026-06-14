@@ -37,8 +37,8 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
       <div className="h-22.5 md:h-25 flex items-center justify-between px-6 md:px-14 lg:px-20">
 
         {/* ── Logo — crossfades with the intro logo ── */}
-        <a
-          href="#"
+        <Link
+          href="/"
           className="flex items-center gap-3.5 group"
           style={{
             opacity:       show ? 1 : 0,
@@ -52,7 +52,7 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
             data-nav-logo
             className="w-20 h-20 md:w-24 md:h-24 object-contain rounded-full transition-transform duration-500 group-hover:scale-105"
           />
-        </a>
+        </Link>
 
         {/* ── Centre nav — staggered slide-up ── */}
         <nav className="hidden md:flex items-center gap-10" aria-label="Primary">
