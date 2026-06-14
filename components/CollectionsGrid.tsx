@@ -161,23 +161,7 @@ export default function CollectionsGrid() {
       </div>
 
       {/* Decorative view all button at bottom */}
-      <div className="flex justify-center mt-10 md:mt-20">
-        <motion.a
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          href="#process"
-          className="group/btn inline-flex items-center gap-3 md:gap-4 border border-gold/30 rounded-full px-6 py-3 md:px-8 md:py-3.5 hover:bg-gold hover:border-gold transition-all duration-500"
-        >
-          <span className="font-body text-[8px] md:text-[9.5px] tracking-[0.25em] md:tracking-[0.3em] uppercase text-navy font-semibold transition-colors duration-500 group-hover/btn:text-linen">
-            View All Archives
-          </span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-gold group-hover/btn:text-linen transition-colors duration-500">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.a>
-      </div>
+     
 
     </section>
   )
