@@ -54,20 +54,38 @@ export default function IntroScreen({
     document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
 
-    // Kick off playback (must be muted for autoplay policy on mobile)
-    const playPromise = video.play()
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay blocked (very rare since we are muted) — skip straight to logo
-        triggerLogoReveal()
-      })
+    const onEnded = () => triggerLogoReveal()
+    const onError = () => triggerLogoReveal()
+
+    const attemptPlay = () => {
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch((err: DOMException) => {
+          // Only skip to logo on genuine autoplay block — not on AbortError
+          // (AbortError fires when play() is called before the video is ready,
+          // e.g. on a hard reload; we handle that by waiting for canplay instead)
+          if (err?.name === 'NotAllowedError') {
+            triggerLogoReveal()
+          }
+        })
+      }
     }
 
-    const onEnded = () => triggerLogoReveal()
     video.addEventListener('ended', onEnded)
+    video.addEventListener('error', onError)
+
+    // If video data is already buffered (e.g. cached), play immediately;
+    // otherwise wait until the browser has enough data (avoids AbortError on reload)
+    if (video.readyState >= 3) {
+      attemptPlay()
+    } else {
+      video.addEventListener('canplay', attemptPlay, { once: true })
+    }
 
     return () => {
       video.removeEventListener('ended', onEnded)
+      video.removeEventListener('error', onError)
+      video.removeEventListener('canplay', attemptPlay)
       document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
     }
