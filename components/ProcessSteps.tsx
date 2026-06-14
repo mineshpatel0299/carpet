@@ -34,7 +34,7 @@ const featured = [
     origin: 'Agra, India',
     sizes: ['3×10 ft', '3×14 ft', 'Custom'],
     swatches: ['#1C1C1C', '#8C7C6C', '#F5E8D2', '#C98E38'],
-    image: '/images/benefits/architecture.png',
+    image: '/hero-living-room.png',
   },
 ]
 

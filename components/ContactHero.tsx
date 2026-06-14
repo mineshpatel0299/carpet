@@ -30,7 +30,7 @@ export default function ContactHero() {
           transition={{ duration: 2.2, ease: 'easeOut' }}
         >
           <Image
-            src="/hero-living-room.png"
+            src="/contact_hero_room.png"
             alt="Luxury interior furnished with a Creaticabud carpet"
             fill
             priority
