@@ -57,17 +57,33 @@ export default function IntroScreen({
     const onEnded = () => triggerLogoReveal()
     const onError = () => triggerLogoReveal()
 
+    // Safety net: if video hasn't started playing within 8s (slow network, mobile
+    // stall, etc.), skip straight to the logo sequence so the intro never hangs.
+    let safetyTimer: ReturnType<typeof setTimeout> | null = setTimeout(
+      () => triggerLogoReveal(),
+      8000,
+    )
+    const clearSafety = () => {
+      if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null }
+    }
+
     const attemptPlay = () => {
       const playPromise = video.play()
       if (playPromise !== undefined) {
-        playPromise.catch((err: DOMException) => {
-          // Only skip to logo on genuine autoplay block — not on AbortError
-          // (AbortError fires when play() is called before the video is ready,
-          // e.g. on a hard reload; we handle that by waiting for canplay instead)
-          if (err?.name === 'NotAllowedError') {
-            triggerLogoReveal()
-          }
-        })
+        playPromise
+          .then(clearSafety) // video is actually playing — disarm the safety timer
+          .catch((err: DOMException) => {
+            if (err?.name === 'NotAllowedError') {
+              // Autoplay policy blocked us — skip video, go straight to logo
+              triggerLogoReveal()
+            } else if (err?.name === 'AbortError') {
+              // Mobile browsers often throw AbortError when play() races with
+              // page load or network slowness. Retry once after a short pause.
+              setTimeout(() => {
+                video.play().then(clearSafety).catch(() => triggerLogoReveal())
+              }, 500)
+            }
+          })
       }
     }
 
@@ -75,7 +91,7 @@ export default function IntroScreen({
     video.addEventListener('error', onError)
 
     // If video data is already buffered (e.g. cached), play immediately;
-    // otherwise wait until the browser has enough data (avoids AbortError on reload)
+    // otherwise wait until the browser has enough data.
     if (video.readyState >= 3) {
       attemptPlay()
     } else {
@@ -83,6 +99,7 @@ export default function IntroScreen({
     }
 
     return () => {
+      clearSafety()
       video.removeEventListener('ended', onEnded)
       video.removeEventListener('error', onError)
       video.removeEventListener('canplay', attemptPlay)
