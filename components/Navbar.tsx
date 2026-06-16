@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
-  { label: 'Home',       href: '/' },
-  { label: 'About Us',   href: '/about' },
-  { label: 'Products',   href: '/products' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Available Stocks', href: '/available Stocks' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
@@ -15,7 +15,7 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
   const isHome = pathname === '/'
 
   const [scrolled, setScrolled] = useState(!isHome)
-  const [open, setOpen]         = useState(false)
+  const [open, setOpen] = useState(false)
 
   // Once assembling fires (or if not on home), latch it — elements never go back to invisible
   const latched = useRef(!isHome)
@@ -31,9 +31,8 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
-        scrolled ? 'bg-linen/95 backdrop-blur-md border-b border-navy/10 shadow-sm' : 'bg-transparent'
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${scrolled ? 'bg-linen/95 backdrop-blur-md border-b border-navy/10 shadow-sm' : 'bg-transparent'
+        }`}
     >
       <div className="h-22.5 md:h-25 flex items-center justify-between px-6 md:px-14 lg:px-20">
 
@@ -42,8 +41,8 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
           href="/"
           className="flex items-center gap-3.5 group"
           style={{
-            opacity:       show ? 1 : 0,
-            transition:    'opacity 0.45s ease',
+            opacity: show ? 1 : 0,
+            transition: 'opacity 0.45s ease',
             pointerEvents: show ? 'auto' : 'none',
           }}
         >
@@ -65,9 +64,9 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
                 href={href}
                 className="relative font-body text-[10px] tracking-[0.2em] uppercase text-navy/70 hover:text-navy transition-colors duration-300 group/link font-semibold"
                 style={{
-                  opacity:       show ? 1 : 0,
-                  transform:     show ? 'translateY(0)' : 'translateY(12px)',
-                  transition:    `opacity 0.55s ease ${100 + i * 85}ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${100 + i * 85}ms`,
+                  opacity: show ? 1 : 0,
+                  transform: show ? 'translateY(0)' : 'translateY(12px)',
+                  transition: `opacity 0.55s ease ${100 + i * 85}ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${100 + i * 85}ms`,
                   pointerEvents: show ? 'auto' : 'none',
                 }}
               >
@@ -82,9 +81,9 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
         <div
           className="hidden md:flex items-center gap-7"
           style={{
-            opacity:       show ? 1 : 0,
-            transform:     show ? 'translateY(0)' : 'translateY(12px)',
-            transition:    'opacity 0.55s ease 460ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) 460ms',
+            opacity: show ? 1 : 0,
+            transform: show ? 'translateY(0)' : 'translateY(12px)',
+            transition: 'opacity 0.55s ease 460ms, transform 0.55s cubic-bezier(0.22,1,0.36,1) 460ms',
             pointerEvents: show ? 'auto' : 'none',
           }}
         >
@@ -115,8 +114,8 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           style={{
-            opacity:       show ? 1 : 0,
-            transition:    'opacity 0.5s ease 300ms',
+            opacity: show ? 1 : 0,
+            transition: 'opacity 0.5s ease 300ms',
             pointerEvents: show ? 'auto' : 'none',
           }}
         >

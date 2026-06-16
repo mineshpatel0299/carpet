@@ -194,7 +194,7 @@ function FeaturedGallery({ images, catName, onEnquire }: FeaturedGalleryProps) {
       </div>
 
       {/* ── Thumbnail grid ── */}
-      <div 
+      <div
         className="w-full lg:w-[32%] overflow-y-auto custom-scrollbar pr-2"
         style={{ maxHeight: '70vh' }}
         data-lenis-prevent
@@ -205,8 +205,8 @@ function FeaturedGallery({ images, catName, onEnquire }: FeaturedGalleryProps) {
               key={i}
               onClick={() => setActive(i)}
               className={`relative aspect-square overflow-hidden transition-all duration-300 focus:outline-none ${active === i
-                  ? 'ring-1 ring-gold ring-offset-2 ring-offset-parchment'
-                  : 'opacity-55 hover:opacity-85'
+                ? 'ring-1 ring-gold ring-offset-2 ring-offset-parchment'
+                : 'opacity-55 hover:opacity-85'
                 }`}
             >
               <Image
@@ -298,17 +298,10 @@ function CategorySection({ cat, index, onEnquire }: CatSectionProps) {
               className="font-display font-normal"
               style={{ fontSize: 'clamp(48px, 6.5vw, 88px)', lineHeight: 1.0, color: '#0E1B2D' }}
             >
-              {cat.name.split('/')[0].trim()}
-            </motion.h2>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
-              className="font-display italic"
-              style={{ fontSize: 'clamp(48px, 6.5vw, 88px)', lineHeight: 1.0, color: '#0E1B2D' }}
-            >
-              {cat.name.includes('/') ? `/ ${cat.name.split('/')[1].trim()}` : cat.subtitle}
+              {cat.name.split('/')[0].trim()}{' '}
+              <span className="italic">
+                {cat.name.includes('/') ? `/ ${cat.name.split('/')[1].trim()}` : cat.subtitle}
+              </span>
             </motion.h2>
           </motion.div>
 
@@ -362,26 +355,29 @@ function ProductsHero() {
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-screen bg-parchment flex flex-col lg:flex-row overflow-hidden">
+    <section ref={sectionRef} className="relative w-full min-h-[85vh] bg-parchment flex flex-col items-center justify-center overflow-hidden">
       <div className="carpet-texture opacity-40" />
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 40% 60%, rgba(184,134,69,0.05) 0%, transparent 60%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(184,134,69,0.06) 0%, transparent 70%)' }}
       />
 
-      {/* ── LEFT: Editorial text ── */}
-      <div className="relative z-20 w-full lg:w-[48%] flex flex-col justify-center px-8 sm:px-14 lg:px-20 xl:px-28 pt-44 pb-16 lg:py-0">
-        <motion.div style={{ y: textY }}>
+      <div className="relative z-20 w-full max-w-4xl flex flex-col items-center justify-center text-center px-8 sm:px-14 pt-32 pb-24">
+        <motion.div style={{ y: textY }} className="flex flex-col items-center">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3 }}
-            className="flex items-center gap-4 mb-10"
+            className="flex items-center gap-4 mb-8"
           >
+            <motion.div
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="origin-right w-10 h-px bg-gold/50"
+            />
             <span className="font-body text-[8px] tracking-[0.55em] uppercase text-gold font-semibold">The Atelier</span>
             <motion.div
               initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
@@ -390,51 +386,27 @@ function ProductsHero() {
             />
           </motion.div>
 
-          <div className="overflow-hidden mb-1">
+          <div className="overflow-hidden mb-2">
             <motion.h1
               initial={{ y: '108%' }} animate={{ y: 0 }}
               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
               className="font-display font-normal text-navy"
-              style={{ fontSize: 'clamp(42px, 6.5vw, 92px)', lineHeight: 1.0 }}
+              style={{ fontSize: 'clamp(52px, 8vw, 110px)', lineHeight: 1.0 }}
             >Material</motion.h1>
           </div>
-          <div className="overflow-hidden mb-1">
+          <div className="overflow-hidden mb-6">
             <motion.h1
               initial={{ y: '108%' }} animate={{ y: 0 }}
               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
               className="font-display italic text-gold"
-              style={{ fontSize: 'clamp(42px, 6.5vw, 92px)', lineHeight: 1.0 }}
+              style={{ fontSize: 'clamp(52px, 8vw, 110px)', lineHeight: 1.0 }}
             >Collections.</motion.h1>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.01, delay: 0.98 }}
-            className="flex items-center gap-3 my-10"
-          >
-            <motion.div
-              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-              transition={{ duration: 0.9, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-              className="origin-left w-10 h-px bg-gold/30"
-            />
-            <motion.svg
-              initial={{ opacity: 0, scale: 0.3 }} animate={{ opacity: 0.65, scale: 1 }}
-              transition={{ duration: 0.4, delay: 1.28 }}
-              width="7" height="7" viewBox="0 0 7 7" fill="none"
-            >
-              <path d="M3.5 0L7 3.5L3.5 7L0 3.5Z" fill="#B88645" />
-            </motion.svg>
-            <motion.div
-              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 1.04, ease: [0.22, 1, 0.36, 1] }}
-              className="origin-left w-6 h-px bg-gold/20"
-            />
-          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.85 }}
-            className="font-body font-light text-[14px] text-navy/55 leading-[2.1] max-w-sm mb-14"
+            className="font-body font-light text-[15px] text-navy/60 leading-[2.1] max-w-lg mb-14"
           >
             Three distinct material expressions — each woven by hand in the carpet ateliers of Bhadohi, Mirzapur, and Delhi.
           </motion.p>
@@ -442,10 +414,10 @@ function ProductsHero() {
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.05 }}
-            className="flex flex-col gap-3"
+            className="flex flex-wrap justify-center gap-8"
           >
             {categories.map((cat) => (
-              <a key={cat.id} href={`#${cat.id}`} className="group flex items-center gap-4 w-fit">
+              <a key={cat.id} href={`#${cat.id}`} className="group flex flex-col items-center gap-2">
                 <span className="font-body text-[8px] tracking-[0.4em] text-gold/60 tabular-nums font-semibold group-hover:text-gold transition-colors duration-300">{cat.num}</span>
                 <span className="font-body text-[11px] tracking-[0.2em] uppercase text-navy/50 group-hover:text-navy transition-colors duration-300 font-semibold">{cat.name}</span>
                 <span className="block w-0 h-px bg-gold group-hover:w-8 transition-all duration-400" />
@@ -455,43 +427,12 @@ function ProductsHero() {
         </motion.div>
       </div>
 
-      {/* ── RIGHT: Full-height image ── */}
-      <div className="relative z-10 w-full lg:w-[52%] h-[65vw] min-h-[500px] lg:h-auto overflow-hidden">
-        <motion.div style={{ y: imageY }} className="absolute inset-0">
-          <Image
-            src="/contact_hero_room.png"
-            alt="Luxury living room with Creaticabud carpet"
-            fill priority
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 52vw"
-          />
-          <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-parchment via-parchment/20 to-transparent pointer-events-none" />
-        </motion.div>
-        <motion.div
-          initial={{ y: 0 }} animate={{ y: '100%' }}
-          transition={{ duration: 1.1, delay: 0.05, ease: [0.76, 0, 0.24, 1] }}
-          className="absolute inset-0 z-30 bg-parchment pointer-events-none"
-        >
-          <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
-        </motion.div>
-      </div>
-
       <motion.div
         initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
         transition={{ duration: 1.4, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute bottom-0 left-0 right-0 h-px bg-gold/20 origin-left z-20"
+        className="absolute bottom-0 left-0 right-0 h-px bg-gold/20 origin-center z-20"
       />
-      <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.8 }}
-        className="absolute bottom-8 left-8 hidden lg:flex items-center gap-3 pointer-events-none z-20"
-      >
-        <div className="w-px h-10 bg-navy/15" />
-        <span
-          className="font-body text-[7px] tracking-[0.45em] uppercase text-navy/30 font-semibold"
-          style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
-        >Scroll to Explore</span>
-      </motion.div>
+
     </section>
   );
 }
@@ -534,7 +475,7 @@ export default function ProductsPage() {
             className="group relative overflow-hidden shrink-0 inline-flex items-center gap-5 bg-navy text-linen font-body text-[9px] tracking-[0.35em] uppercase font-semibold px-12 py-5"
           >
             <div className="absolute inset-0 bg-gold translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-            <span className="relative z-10 group-hover:text-navy transition-colors duration-300">Begin a Commission</span>
+            <span className="relative z-10 group-hover:text-navy transition-colors duration-300">Let's Connect</span>
             <motion.span
               className="relative z-10"
               animate={{ x: [0, 4, 0] }}
