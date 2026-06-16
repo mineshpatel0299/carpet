@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 const links = [
   { label: 'Home',       href: '/' },
   { label: 'About Us',   href: '/about' },
+  { label: 'Products',   href: '/products' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
@@ -16,8 +17,8 @@ export default function Navbar({ assembling = false }: { assembling?: boolean })
   const [scrolled, setScrolled] = useState(!isHome)
   const [open, setOpen]         = useState(false)
 
-  // Once assembling fires, latch it — elements never go back to invisible
-  const latched = useRef(false)
+  // Once assembling fires (or if not on home), latch it — elements never go back to invisible
+  const latched = useRef(!isHome)
   if (assembling) latched.current = true
   const show = latched.current
 
