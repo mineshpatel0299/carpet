@@ -1,15 +1,15 @@
 import Link from 'next/link'
 
 const navLinks = [
-  { label: 'Home',       href: '/'        },
-  { label: 'About Us',   href: '/about'   },
-  { label: 'Products',   href: '/products'},
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Products', href: '/products' },
   { label: 'Contact Us', href: '/contact' },
 ]
 
 const contactDetails = [
-  { label: 'Email',    value: 'Creaticabudcarpets@gmail.com', href: 'mailto:Creaticabudcarpets@gmail.com' },
-  { label: 'WhatsApp', value: '+91 98105 25135',              href: 'tel:+919810525135'                   },
+  { label: 'Email', value: 'Creaticabudcarpets@gmail.com', href: 'mailto:Creaticabudcarpets@gmail.com' },
+  { label: 'WhatsApp', value: '+91 98105 25135', href: 'tel:+919810525135' },
 ]
 
 
@@ -47,7 +47,7 @@ export default function Footer() {
             <p className="font-body font-light text-[13px] leading-relaxed text-navy/55 max-w-xs mb-7">
               Bringing heritage to modern homes with handcrafted carpets, rugs and sustainable handloom products made to last.
             </p>
-            
+
           </div>
 
           {/* Navigate + Contact — hidden on mobile, shown inside grid on desktop */}
@@ -158,7 +158,7 @@ export default function Footer() {
       {/* ── Bottom bar ── */}
       <div className="bg-parchment border-t border-navy/10 px-6 sm:px-8 md:px-20 py-4 flex flex-col md:flex-row items-center justify-between gap-3 relative z-10">
         <span className="font-body text-[11px] text-navy/35">
-          © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.Developed by Edigitify
+          © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.
         </span>
         <Link
           href="/privacy-policy"
