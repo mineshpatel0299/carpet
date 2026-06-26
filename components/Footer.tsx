@@ -158,7 +158,7 @@ export default function Footer() {
       {/* ── Bottom bar ── */}
       <div className="bg-parchment border-t border-navy/10 px-6 sm:px-8 md:px-20 py-4 flex flex-col md:flex-row items-center justify-between gap-3 relative z-10">
         <span className="font-body text-[11px] text-navy/35">
-          © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved.
+          © {new Date().getFullYear()} Creaticabud Carpets. All rights reserved. Developed By Edigitify. 
         </span>
         <Link
           href="/privacy-policy"
