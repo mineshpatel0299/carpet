@@ -3,8 +3,10 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Creaticabud Carpets',
-  description: 'How Creaticabud Carpets collects, uses, and protects your personal information.',
+  title: 'Privacy Policy',
+  description: 'How Creaticabud Carpets collects, uses, and protects your personal information in connection with our website and trade activities.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://www.creaticabudcarpets.com/privacy-policy' },
 }
 
 const sections = [
